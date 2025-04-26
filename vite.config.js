@@ -4,6 +4,7 @@ import path from "path"
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/React_Survanta_Frontend/', // 👈 ye line add karo
   plugins: [react()],
   resolve: {
     alias: {
