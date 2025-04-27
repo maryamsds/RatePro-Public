@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, useLocation } from "react-router-dom"
+import { useEffect } from "react"
 import Layout from "./components/Layout"
 import Home from "./pages/Home"
 import ProductReviews from "./pages/ProductReviews"
@@ -10,6 +11,13 @@ import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 
 function App() {
+  const location = useLocation()
+
+  // Scroll to top when route changes
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location.pathname])
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

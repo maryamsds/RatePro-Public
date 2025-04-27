@@ -5,19 +5,19 @@ import CTASection from "../components/CTASection"
 const testimonials = [
   {
     content:
-      "Survanta has transformed how we understand and act on customer feedback. The insights we've gained have directly contributed to a 25% increase in customer satisfaction and a 15% boost in revenue.",
+      "Rater Pro has transformed how we understand and act on customer feedback. The insights we've gained have directly contributed to a 25% increase in customer satisfaction and a 15% boost in revenue.",
     author: "Jennifer Martinez",
     role: "Chief Customer Officer, Retail",
   },
   {
     content:
-      "With Survanta, we've been able to create a culture of continuous feedback that has improved employee engagement scores by 30% and reduced turnover by 20% in key departments.",
+      "With Rater Pro, we've been able to create a culture of continuous feedback that has improved employee engagement scores by 30% and reduced turnover by 20% in key departments.",
     author: "Robert Johnson",
     role: "VP of HR, Technology",
   },
   {
     content:
-      "The product research capabilities in Survanta have helped us reduce failed product launches by 40% by incorporating customer feedback at every stage of development.",
+      "The product research capabilities in Rater Pro have helped us reduce failed product launches by 40% by incorporating customer feedback at every stage of development.",
     author: "Sarah Chen",
     role: "Director of Product, Consumer Goods",
   },
@@ -43,15 +43,15 @@ const ProductReviews = () => {
 
       <section className="features-section">
         <div className="container">
-          <h2 className="text-center mb-5">Powerful Product Research Capabilities</h2>
-          <div className="row">
+          <h2 className="text-center mb-5 py-5 bg-light">Powerful Product Research Capabilities</h2>
+          <div className="row g-4">
             <div className="col-md-4">
-              <div className="feature-card">
+              <div className="feature-card h-100 p-4 shadow-sm rounded">
                 <div className="feature-icon">
                   <i className="fas fa-lightbulb"></i>
                 </div>
                 <h3>Concept Testing</h3>
-                <p>
+                <p className="mb-0">
                   Validate product ideas and features before development to ensure market fit and potential success.
                 </p>
               </div>
@@ -105,12 +105,12 @@ const ProductReviews = () => {
         </div>
       </section>
 
-      <section className="use-cases-section">
+      <section className="use-cases-section py-5 bg-light">
         <div className="container">
           <h2 className="text-center mb-5">Product Research Use Cases</h2>
-          <div className="row">
+          <div className="row g-4"> {/* Added g-4 for gap between columns */}          
             <div className="col-md-6">
-              <div className="use-case-card">
+              <div className="use-case-card h-100 p-4 bg-white shadow-sm rounded">
                 <h3>New Product Development</h3>
                 <p>From ideation to launch, gather customer insights that inform every stage of product development:</p>
                 <ul>
@@ -123,7 +123,7 @@ const ProductReviews = () => {
               </div>
             </div>
             <div className="col-md-6">
-              <div className="use-case-card">
+              <div className="use-case-card h-100 p-4 bg-white shadow-sm rounded">
                 <h3>Product Improvement</h3>
                 <p>Continuously enhance existing products based on customer feedback and usage data:</p>
                 <ul>
@@ -136,7 +136,7 @@ const ProductReviews = () => {
               </div>
             </div>
             <div className="col-md-6">
-              <div className="use-case-card">
+              <div className="use-case-card h-100 p-4 bg-white shadow-sm rounded">
                 <h3>Portfolio Optimization</h3>
                 <p>Make strategic decisions about your product lineup and offerings:</p>
                 <ul>
@@ -149,7 +149,7 @@ const ProductReviews = () => {
               </div>
             </div>
             <div className="col-md-6">
-              <div className="use-case-card">
+              <div className="use-case-card h-100 p-4 bg-white shadow-sm rounded">
                 <h3>Go-to-Market Strategy</h3>
                 <p>Ensure successful product launches with customer-informed strategies:</p>
                 <ul>
@@ -167,7 +167,7 @@ const ProductReviews = () => {
 
       <section className="research-process">
         <div className="container">
-          <h2 className="text-center mb-5">The Survanta Product Research Process</h2>
+          <h2 className="text-center mb-5">The Rater Pro Product Research Process</h2>
           <div className="row justify-content-center">
             <div className="col-lg-8">
               <div className="process-step">
@@ -229,7 +229,7 @@ const ProductReviews = () => {
 
       <CTASection
         title="Ready to build better products with customer insights?"
-        description="Discover how Survanta Product Research can transform your development process and deliver products customers love."
+        description="Discover how Rater Pro Product Research can transform your development process and deliver products customers love."
         primaryButtonText="Get Started"
         secondaryButtonText="Request Demo"
       />

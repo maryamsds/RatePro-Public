@@ -1,23 +1,28 @@
 import Hero from "../components/Hero"
 import TestimonialsSection from "../components/TestimonialsSection"
 import CTASection from "../components/CTASection"
+import microsoftLogo from "../assets/images/mcrosoft.png"
+import adobeLogo from "../assets/images/adbe.png"
+import uberLogo from "../assets/images/ubr.png"
+import airbnbLogo from "../assets/images/airbnb.png"
+import starbucksLogo from "../assets/images/strbucks.png"
 
 const testimonials = [
   {
     content:
-      "Survanta has transformed how we understand and act on customer feedback. The insights we've gained have directly contributed to a 25% increase in customer satisfaction and a 15% boost in revenue.",
+      "Rater Pro has transformed how we understand and act on customer feedback. The insights we've gained have directly contributed to a 25% increase in customer satisfaction and a 15% boost in revenue.",
     author: "Jennifer Martinez",
     role: "Chief Customer Officer, Retail",
   },
   {
     content:
-      "With survanta, we've been able to create a culture of continuous feedback that has improved employee engagement scores by 30% and reduced turnover by 20% in key departments.",
+      "With Rater Pro, we've been able to create a culture of continuous feedback that has improved employee engagement scores by 30% and reduced turnover by 20% in key departments.",
     author: "Robert Johnson",
     role: "VP of HR, Technology",
   },
   {
     content:
-      "The product research capabilities in survanta have helped us reduce failed product launches by 40% by incorporating customer feedback at every stage of development.",
+      "The product research capabilities in Rater Pro have helped us reduce failed product launches by 40% by incorporating customer feedback at every stage of development.",
     author: "Sarah Chen",
     role: "Director of Product, Consumer Goods",
   },
@@ -28,7 +33,7 @@ const Home = () => {
     <>
       <Hero
         title="Experience Management Starts Here"
-        description="survanta helps organizations design and improve the experiences that define their brands, products, and culture."
+        description="Rater Pro helps organizations design and improve the experiences that define their brands, products, and culture."
       >
         <div className="d-flex justify-content-center gap-3">
           <a href="#" className="btn btn-primary btn-lg px-4 py-2">
@@ -49,35 +54,35 @@ const Home = () => {
             <div className="logo-slider-track">
               {/* First Set */}
               <div className="logo-slide">
-                <img src="src/assets/images/mcrosoft.png" alt="Microsoft" className="partner-logo" />
+              <img src={microsoftLogo|| "/placeholder.svg"} alt="Microsoft" className="partner-logo" />
               </div>
               <div className="logo-slide">
-                <img src="src/assets/images/adbe.png" alt="Adobe" className="partner-logo" />
+              <img src={adobeLogo|| "/placeholder.svg"} alt="Adobe" className="partner-logo" />
               </div>
               <div className="logo-slide">
-                <img src="src/assets/images/ubr.png" alt="Uber" className="partner-logo" />
+              <img src={uberLogo || "/placeholder.svg"} alt="Uber" className="partner-logo" />
               </div>
               <div className="logo-slide">
-                <img src="src/assets/images/airbnb.png" alt="Airbnb" className="partner-logo" />
+              <img src={airbnbLogo || "/placeholder.svg"} alt="Airbnb" className="partner-logo" />
               </div>
               <div className="logo-slide">
-                <img src="src/assets/images/strbucks.png" alt="Starbucks" className="partner-logo" />
+                <img src={starbucksLogo || "/placeholder.svg"} alt="Starbucks" className="partner-logo" />
               </div>
               {/* Duplicate Set for Infinite Loop */}
               <div className="logo-slide">
-                <img src="src/assets/images/mcrosoft.png" alt="Microsoft" className="partner-logo" />
+              <img src={microsoftLogo|| "/placeholder.svg"} alt="Microsoft" className="partner-logo" />
               </div>
               <div className="logo-slide">
-                <img src="src/assets/images/adbe.png" alt="Adobe" className="partner-logo" />
+              <img src={adobeLogo|| "/placeholder.svg"} alt="Adobe" className="partner-logo" />
               </div>
               <div className="logo-slide">
-                <img src="src/assets/images/ubr.png" alt="Uber" className="partner-logo" />
+              <img src={uberLogo || "/placeholder.svg"} alt="Uber" className="partner-logo" />
               </div>
               <div className="logo-slide">
-                <img src="src/assets/images/airbnb.png" alt="Airbnb" className="partner-logo" />
+              <img src={airbnbLogo || "/placeholder.svg"} alt="Airbnb" className="partner-logo" />
               </div>
               <div className="logo-slide">
-                <img src="src/assets/images/strbucks.png" alt="Starbucks" className="partner-logo" />
+              <img src={starbucksLogo || "/placeholder.svg"} alt="Starbucks" className="partner-logo" />
               </div>
             </div>
           </div>
@@ -180,14 +185,14 @@ const Home = () => {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6">
-              <h2 className="mb-4">The survanta XM Platform</h2>
+              <h2 className="mb-4">The Rater Pro XM Platform</h2>
               <p className="lead">
                 One platform to manage all four core experiences of your business—customer, employee, product, and
                 brand.
               </p>
               <p>
-                Survanta XM is the only platform that helps organizations design and improve the experiences that
-                define their brands, products, and culture. With survanta, you can listen, understand, and take action
+              Rater Pro XM is the only platform that helps organizations design and improve the experiences that
+                define their brands, products, and culture. With Rater Pro, you can listen, understand, and take action
                 on experience data (X-data™) alongside operational data (O-data) to drive meaningful business outcomes.
               </p>
               <a href="#" className="btn btn-primary mb-3">

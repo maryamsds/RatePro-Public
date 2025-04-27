@@ -1,17 +1,19 @@
 import Hero from "../components/Hero"
 import TestimonialsSection from "../components/TestimonialsSection"
 import CTASection from "../components/CTASection"
+import benefitsofsurvanta from "../assets/images/intbenft.png"
+
 
 const testimonials = [
   {
     content:
-      "Survanta has transformed how we understand and act on customer feedback. The insights we've gained have directly contributed to a 25% increase in customer satisfaction and a 15% boost in revenue.",
+      "Rater Pro has transformed how we understand and act on customer feedback. The insights we've gained have directly contributed to a 25% increase in customer satisfaction and a 15% boost in revenue.",
     author: "Jennifer Martinez",
     role: "Chief Customer Officer, Retail",
   },
   {
     content:
-      "With survanta, we've been able to create a culture of continuous feedback that has improved employee engagement scores by 30% and reduced turnover by 20% in key departments.",
+      "With Rater Pro, we've been able to create a culture of continuous feedback that has improved employee engagement scores by 30% and reduced turnover by 20% in key departments.",
     author: "Robert Johnson",
     role: "VP of HR, Technology",
   },
@@ -28,7 +30,7 @@ const Features = () => {
     <>
       <Hero
         title="Powerful Features for Your Review Platform"
-        description="survanta provides all the tools you need to collect, manage, and display customer reviews effectively."
+        description="Rater Pro provides all the tools you need to collect, manage, and display customer reviews effectively."
       >
         <div className="d-flex justify-content-center gap-3">
           <a href="#" className="btn btn-primary btn-lg px-4 py-2">
@@ -140,45 +142,64 @@ const Features = () => {
       </section>
 
       <section className="benefits-section py-5 bg-light">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-lg-6">
-              <h2 className="mb-4">Why Choose survanta for Reviews?</h2>
-              <div className="benefit-item mb-4">
-                <h4>
-                  <i className="fas fa-check-circle text-primary me-2"></i> Increase Conversion Rates
-                </h4>
-                <p>Displaying authentic reviews can boost conversion rates by up to 270%.</p>
-              </div>
-              <div className="benefit-item mb-4">
-                <h4>
-                  <i className="fas fa-check-circle text-primary me-2"></i> Improve SEO Rankings
-                </h4>
-                <p>Fresh review content helps improve your search engine rankings and visibility.</p>
-              </div>
-              <div className="benefit-item mb-4">
-                <h4>
-                  <i className="fas fa-check-circle text-primary me-2"></i> Build Customer Trust
-                </h4>
-                <p>92% of consumers read online reviews before making a purchase decision.</p>
-              </div>
-              <div className="benefit-item">
-                <h4>
-                  <i className="fas fa-check-circle text-primary me-2"></i> Gain Valuable Insights
-                </h4>
-                <p>Understand what customers love (and don't love) about your products.</p>
-              </div>
-            </div>
-            <div className="col-lg-6">
-              <img
-                src="src/assets/images/intbenft.png"
-                alt="Benefits of Survanta"
-                className="img-fluid rounded shadow"
-              />
-            </div>
+  <div className="container">
+    <div className="row align-items-center">
+      {/* Text Content Column */}
+      <div className="col-lg-6 order-lg-1 order-2"> {/* Changed order for mobile */}
+        <h2 className="mb-4 text-center text-lg-start text-primary">Why Choose Rater Pro for Reviews?</h2>
+        
+        <div className="benefit-item mb-4 d-flex align-items-start">
+          <div className="me-3">
+            <i className="fas fa-check-circle text-primary mt-1"></i>
+          </div>
+          <div>
+            <h4 className="mb-2">Increase Conversion Rates</h4>
+            <p className="mb-0">Displaying authentic reviews can boost conversion rates by up to 270%.</p>
           </div>
         </div>
-      </section>
+        
+        <div className="benefit-item mb-4 d-flex align-items-start">
+          <div className="me-3">
+            <i className="fas fa-check-circle text-primary mt-1"></i>
+          </div>
+          <div>
+            <h4 className="mb-2">Improve SEO Rankings</h4>
+            <p className="mb-0">Fresh review content helps improve your search engine rankings and visibility.</p>
+          </div>
+        </div>
+        
+        <div className="benefit-item mb-4 d-flex align-items-start">
+          <div className="me-3">
+            <i className="fas fa-check-circle text-primary mt-1"></i>
+          </div>
+          <div>
+            <h4 className="mb-2">Build Customer Trust</h4>
+            <p className="mb-0">92% of consumers read online reviews before making a purchase decision.</p>
+          </div>
+        </div>
+        
+        <div className="benefit-item d-flex align-items-start">
+          <div className="me-3">
+            <i className="fas fa-check-circle text-primary mt-1"></i>
+          </div>
+          <div>
+            <h4 className="mb-2">Gain Valuable Insights</h4>
+            <p className="mb-0">Understand what customers love (and don't love) about your products.</p>
+          </div>
+        </div>
+      </div>
+      
+      {/* Image Column */}
+      <div className="col-lg-6 order-lg-2 order-1 mb-4 mb-lg-0"> {/* Changed order and added margin */}
+        <img
+          src={benefitsofsurvanta || "/placeholder.svg"}
+          alt="Benefits of Rater Pro"
+          className="img-fluid rounded shadow w-100"
+        />
+      </div>
+    </div>
+  </div>
+</section>
 
       <TestimonialsSection testimonials={testimonials} />
 

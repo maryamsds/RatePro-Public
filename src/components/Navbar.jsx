@@ -17,7 +17,7 @@ const Navbar = () => {
         <Link className="navbar-brand" to="/">
           <div className="d-flex align-items-center">
             <img src={logo || "/placeholder.svg"} alt="Rater Pro" height="40" className="me-2" />
-            <div className="survanta">Survanta</div>
+            <div className="survanta">Rater Pro</div>
           </div>
         </Link>
         <button
@@ -63,16 +63,17 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-          <div className="d-flex">
+          <div  className={`d-flex collapse  navbar-collapse ${isOpen ? "show" : ""}`} id="navbarNavDropdown">
             <a href="#" className="btn btn-outline-primary me-2">
               Contact Sales
             </a>
-            <Link to="/login" className="btn btn-primary">
+            <Link to="/login" className="btn btn-primary"   onClick={() => setIsOpen(false)}>
               Sign In
             </Link>
           </div>
         </div>
       </div>
+      
     </nav>
   )
 }

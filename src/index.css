@@ -136,6 +136,30 @@ body {
     transform: translateX(calc(-250px * 5));
   }
 }
+/* Override Bootstrap's text-primary with your theme color */
+.text-primary {
+  color: var(--rater-pro-purple) !important;
+}
+
+/* Benefits Section */
+.benefit-item h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--rater-pro-dark);
+}
+
+.benefit-item p {
+  color: var(--rater-pro-gray);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 992px) {
+  .benefits-section .row {
+    gap: 2rem;
+  }
+}
+
+
 
 /* Card Styles */
 .solution-card,

@@ -403,8 +403,8 @@ const Pricing = () => {
       </section>
 
       <CTASection
-        title="Ready to get started with Survanta?"
-        description="Join thousands of organizations that trust Survanta for their experience management needs."
+        title="Ready to get started with Rater Pro?"
+        description="Join thousands of organizations that trust Rater Pro for their experience management needs."
         primaryButtonText="Start Free Trial"
         secondaryButtonText="Contact Sales"
       />

@@ -11,7 +11,7 @@ const Footer = () => {
             <div className="footer-logo">
               <div className="d-flex align-items-center">
                 <img src={logo || "/placeholder.svg"} alt="Rater Pro" height="40" className="me-2" />
-                <div className="survanta">Survanta</div>
+                <div className="survanta">Rater Pro</div>
               </div>
             </div>
             <div className="social-icons">
@@ -106,7 +106,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="copyright text-center">
-          <p>© 2025 Survanta. All rights reserved.</p>
+          <p>© 2025 Rater Pro. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -3,6 +3,14 @@
 import Hero from "../components/Hero"
 import CTASection from "../components/CTASection"
 import TestimonialsSection from "../components/TestimonialsSection"
+import productWidgetImg from "../assets/images/productwdgt.png"
+import floatingWidgetImg from "../assets/images/flyngwdgt.png"
+import dedicatedPagesImg from "../assets/images/Dedicated Review Pages.png"
+import widgetCustomizationImg from "../assets/images/wdgtcstm.png"
+import starRatingImg from "../assets/images/strratng.png"
+import reviewCarouselImg from "../assets/images/reviewcarousel.png"
+import reviewGridImg from "../assets/images/line-grid-png-9.png"
+import floatingBadgeImg from "../assets/images/fltngbdg.png"
 
 const Widgets = () => {
   return (
@@ -29,7 +37,7 @@ const Widgets = () => {
               <div className="widget-card h-100 shadow-sm rounded overflow-hidden">
                 <div className="widget-img" style={{ height: "220px", overflow: "hidden" }}>
                   <img
-                    src="src/assets/images/productwdgt.png"
+                    src={productWidgetImg|| "/placeholder.svg"}
                     alt="Product Page Widgets"
                     className="img-fluid w-100 h-100 object-fit-cover"
                   />
@@ -39,16 +47,16 @@ const Widgets = () => {
                   <p>Display product-specific reviews directly on your product pages to boost conversion rates.</p>
                   <ul className="widget-features">
                     <li>
-                      <i className="fas fa-check text-primary me-2"></i> Star ratings summary
+                      <i className="fas fa-check  me-2"></i> Star ratings summary
                     </li>
                     <li>
-                      <i className="fas fa-check text-primary me-2"></i> Verified buyer badges
+                      <i className="fas fa-check  me-2"></i> Verified buyer badges
                     </li>
                     <li>
-                      <i className="fas fa-check text-primary me-2"></i> Photo and video reviews
+                      <i className="fas fa-check  me-2"></i> Photo and video reviews
                     </li>
                     <li>
-                      <i className="fas fa-check text-primary me-2"></i> Q&A integration
+                      <i className="fas fa-check  me-2"></i> Q&A integration
                     </li>
                   </ul>
                   <a href="#" className="btn btn-outline-primary mt-3">
@@ -61,7 +69,7 @@ const Widgets = () => {
               <div className="widget-card h-100 shadow-sm rounded overflow-hidden">
                 <div className="widget-img" style={{ height: "220px", overflow: "hidden" }}>
                   <img
-                    src="src/assets/images/flyngwdgt.png"
+                    src={floatingWidgetImg || "/placeholder.svg"}
                     alt="Floating Widgets"
                     className="img-fluid w-100 h-100 object-fit-cover"
                   />
@@ -71,16 +79,16 @@ const Widgets = () => {
                   <p>Showcase your best reviews with eye-catching floating widgets that appear on any page.</p>
                   <ul className="widget-features">
                     <li>
-                      <i className="fas fa-check text-primary me-2"></i> Customizable positioning
+                      <i className="fas fa-check  me-2"></i> Customizable positioning
                     </li>
                     <li>
-                      <i className="fas fa-check text-primary me-2"></i> Mobile-responsive design
+                      <i className="fas fa-check  me-2"></i> Mobile-responsive design
                     </li>
                     <li>
-                      <i className="fas fa-check text-primary me-2"></i> Review carousel format
+                      <i className="fas fa-check  me-2"></i> Review carousel format
                     </li>
                     <li>
-                      <i className="fas fa-check text-primary me-2"></i> Targeted display rules
+                      <i className="fas fa-check  me-2"></i> Targeted display rules
                     </li>
                   </ul>
                   <a href="#" className="btn btn-outline-primary mt-3">
@@ -93,7 +101,7 @@ const Widgets = () => {
               <div className="widget-card h-100 shadow-sm rounded overflow-hidden">
                 <div className="widget-img" style={{ height: "220px", overflow: "hidden" }}>
                   <img
-                    src="src/assets/images/Dedicated Review Pages.png"
+                    src={dedicatedPagesImg  || "/placeholder.svg"}
                     alt="Dedicated Review Pages"
                     className="img-fluid w-100 h-100 object-fit-cover"
                   />
@@ -103,16 +111,16 @@ const Widgets = () => {
                   <p>Create SEO-friendly review pages that showcase all your customer feedback in one place.</p>
                   <ul className="widget-features">
                     <li>
-                      <i className="fas fa-check text-primary me-2"></i> Advanced filtering options
+                      <i className="fas fa-check  me-2"></i> Advanced filtering options
                     </li>
                     <li>
-                      <i className="fas fa-check text-primary me-2"></i> Rich snippet markup
+                      <i className="fas fa-check  me-2"></i> Rich snippet markup
                     </li>
                     <li>
-                      <i className="fas fa-check text-primary me-2"></i> Custom URL structure
+                      <i className="fas fa-check  me-2"></i> Custom URL structure
                     </li>
                     <li>
-                      <i className="fas fa-check text-primary me-2"></i> Pagination support
+                      <i className="fas fa-check  me-2"></i> Pagination support
                     </li>
                   </ul>
                   <a href="#" className="btn btn-outline-primary mt-3">
@@ -135,7 +143,7 @@ const Widgets = () => {
               </p>
               <div className="customization-feature d-flex mb-3">
                 <div className="feature-icon me-3">
-                  <i className="fas fa-palette text-primary"></i>
+                  <i className="fas fa-palette "></i>
                 </div>
                 <div>
                   <h4>Brand Colors & Fonts</h4>
@@ -146,7 +154,7 @@ const Widgets = () => {
               </div>
               <div className="customization-feature d-flex mb-3">
                 <div className="feature-icon me-3">
-                  <i className="fas fa-th-large text-primary"></i>
+                  <i className="fas fa-th-large"></i>
                 </div>
                 <div>
                   <h4>Layout Options</h4>
@@ -155,7 +163,7 @@ const Widgets = () => {
               </div>
               <div className="customization-feature d-flex mb-3">
                 <div className="feature-icon me-3">
-                  <i className="fas fa-mobile-alt text-primary"></i>
+                  <i className="fas fa-mobile-alt"></i>
                 </div>
                 <div>
                   <h4>Responsive Design</h4>
@@ -166,7 +174,7 @@ const Widgets = () => {
             <div className="col-lg-6">
               <div style={{ height: "400px", overflow: "hidden" }}>
                 <img
-                  src="src/assets/images/wdgtcstm.png"
+                  src={widgetCustomizationImg  || "/placeholder.svg"}
                   alt="Widget Customization"
                   className="img-fluid rounded shadow w-100 h-100 object-fit-cover"
                 />
@@ -184,7 +192,7 @@ const Widgets = () => {
               <div className="gallery-item shadow-sm rounded overflow-hidden h-100">
                 <div style={{ height: "180px", overflow: "hidden" }}>
                   <img
-                    src="src/assets/images/strratng.png"
+                    src={starRatingImg  || "/placeholder.svg"}
                     alt="Star Rating Widget"
                     className="img-fluid w-100 h-100 object-fit-cover"
                   />
@@ -199,7 +207,7 @@ const Widgets = () => {
               <div className="gallery-item shadow-sm rounded overflow-hidden h-100">
                 <div style={{ height: "180px", overflow: "hidden" }}>
                   <img
-                    src="src/assets/images/reviewcarousel.png"
+                    src={reviewCarouselImg  || "/placeholder.svg"}
                     alt="Review Carousel"
                     className="img-fluid w-100 h-100 object-fit-cover"
                   />
@@ -214,7 +222,7 @@ const Widgets = () => {
               <div className="gallery-item shadow-sm rounded overflow-hidden h-100">
                 <div style={{ height: "180px", overflow: "hidden" }}>
                   <img
-                    src="src/assets/images/line-grid-png-9.png"
+                    src={reviewGridImg  || "/placeholder.svg"}
                     alt="Review Grid"
                     className="img-fluid w-100 h-100 object-fit-cover"
                   />
@@ -229,7 +237,7 @@ const Widgets = () => {
               <div className="gallery-item shadow-sm rounded overflow-hidden h-100">
                 <div style={{ height: "180px", overflow: "hidden" }}>
                   <img
-                    src="src/assets/images/fltngbdg.png"
+                    src={floatingBadgeImg || "/placeholder.svg"}
                     alt="Floating Badge"
                     className="img-fluid w-100 h-100 object-fit-cover"
                   />
@@ -257,7 +265,7 @@ const Widgets = () => {
               <h3 className="mb-4">Add Reviews to Your Site in Minutes</h3>
               <div className="implementation-step d-flex mb-4">
                 <div className="step-number me-3">
-                  <span className="badge bg-primary rounded-circle p-3">1</span>
+                  <span className="badge bg rounded-circle p-3">1</span>
                 </div>
                 <div>
                   <h4>Choose Your Widget</h4>
@@ -266,7 +274,7 @@ const Widgets = () => {
               </div>
               <div className="implementation-step d-flex mb-4">
                 <div className="step-number me-3">
-                  <span className="badge bg-primary rounded-circle p-3">2</span>
+                  <span className="badge bg rounded-circle p-3">2</span>
                 </div>
                 <div>
                   <h4>Customize Appearance</h4>
@@ -275,7 +283,7 @@ const Widgets = () => {
               </div>
               <div className="implementation-step d-flex mb-4">
                 <div className="step-number me-3">
-                  <span className="badge bg-primary rounded-circle p-3">3</span>
+                  <span className="badge bg rounded-circle p-3">3</span>
                 </div>
                 <div>
                   <h4>Copy & Paste Code</h4>
@@ -286,13 +294,13 @@ const Widgets = () => {
             <div className="col-lg-6 order-lg-1">
               <div className="code-block bg-dark text-light p-4 rounded shadow">
                 <pre className="mb-0">
-                  <code>{`<!-- Survanta Review Widget -->
-<div id="survanta-reviews" 
+                  <code>{`<!-- Rater Pro Review Widget -->
+<div id="Rater-Pro-reviews" 
   data-product-id="12345"
   data-widget-type="carousel"
   data-theme="light">
 </div>
-<script src="https://cdn.survanta.com/widgets.js"></script>`}</code>
+<script src="https://cdn.Rater Pro.com/widgets.js"></script>`}</code>
                 </pre>
               </div>
             </div>
@@ -304,7 +312,7 @@ const Widgets = () => {
         testimonials={[
           {
             content:
-              "After implementing Survanta review widgets on our product pages, we saw a 28% increase in conversion rates. The customization options allowed us to perfectly match our brand aesthetic.",
+              "After implementing Rater Pro review widgets on our product pages, we saw a 28% increase in conversion rates. The customization options allowed us to perfectly match our brand aesthetic.",
             author: "Michael Thompson",
             role: "E-commerce Director, Fashion Retailer",
           },

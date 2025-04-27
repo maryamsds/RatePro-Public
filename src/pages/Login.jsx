@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa"
 import logo from "../assets/images/rater_pro.png"
+import googleLogo from "../assets/images/google.png"
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -29,8 +30,8 @@ const Login = () => {
             <div className="login-card">
               <div className="text-center mb-4">
                 <div className="d-flex justify-content-center align-items-center mb-3">
-                  <img src={logo || "/placeholder.svg"} alt="Survanta" height="50" className="me-2" />
-                  <div className="survanta">Survanta</div>
+                  <img src={logo || "/placeholder.svg"} alt="Rater Pro" height="50" className="me-2" />
+                  <div className="survanta">Rater Pro</div>
                 </div>
                 <h2 className="mt-3">Welcome back</h2>
                 <p className="text-muted">Sign in to your account to continue</p>
@@ -103,7 +104,7 @@ const Login = () => {
                   type="button"
                   className="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center"
                 >
-                  <img src="src/assets/images/google.png" alt="Google" height="20" className="me-2" />
+                  <img src={googleLogo} alt="Google" height="20" className="me-2" />
                   Sign in with Google
                 </button>
               </form>
