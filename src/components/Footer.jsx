@@ -10,7 +10,9 @@ const Footer = () => {
           <div className="col-lg-3 mb-4">
             <div className="footer-logo">
               <div className="d-flex align-items-center">
-                <div className="survanta">                <img src={logo || "/placeholder.svg"} alt="Rater Pro" style={{ height: "100px", width: "150" }} className="me-2" />                </div>
+                <div className="survanta">                
+                  <img src={logo || "/placeholder.svg"} alt="Rater Pro" style={{ height: "140px", width: "170" }} className="me-2" />                
+                </div>
               </div>
             </div>
             <div className="social-icons">
