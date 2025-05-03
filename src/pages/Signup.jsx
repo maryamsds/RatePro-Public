@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa"
-import logo from "../assets/images/rater_pro.png"
+import logo from "../assets/images/RATEPRO.png"
 import googleLogo from "../assets/images/google.png"
 
 const Signup = () => {
@@ -37,7 +37,7 @@ const Signup = () => {
               <div className="text-center mb-4">
                 <div className="d-flex justify-content-center align-items-center mb-3">
                   <img src={logo || "/placeholder.svg"} alt="Rater Pro" height="50" className="me-2" />
-                  <div className="survanta">Rater Pro</div>
+                  <div className="survanta">Rate Pro</div>
                 </div>
                 <h2 className="mt-3">Welcome</h2>
                 <p className="text-muted">Sign Up to your account to continue</p>

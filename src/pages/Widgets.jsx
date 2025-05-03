@@ -294,13 +294,13 @@ const Widgets = () => {
             <div className="col-lg-6 order-lg-1">
               <div className="code-block bg-dark text-light p-4 rounded shadow">
                 <pre className="mb-0">
-                  <code>{`<!-- Rater Pro Review Widget -->
-<div id="Rater-Pro-reviews" 
+                  <code>{`<!-- Rate Pro Review Widget -->
+<div id="Rate-Pro-reviews" 
   data-product-id="12345"
   data-widget-type="carousel"
   data-theme="light">
 </div>
-<script src="https://cdn.Rater Pro.com/widgets.js"></script>`}</code>
+<script src="https://cdn.Rate Pro.com/widgets.js"></script>`}</code>
                 </pre>
               </div>
             </div>
@@ -312,7 +312,7 @@ const Widgets = () => {
         testimonials={[
           {
             content:
-              "After implementing Rater Pro review widgets on our product pages, we saw a 28% increase in conversion rates. The customization options allowed us to perfectly match our brand aesthetic.",
+              "After implementing Rate Pro review widgets on our product pages, we saw a 28% increase in conversion rates. The customization options allowed us to perfectly match our brand aesthetic.",
             author: "Michael Thompson",
             role: "E-commerce Director, Fashion Retailer",
           },

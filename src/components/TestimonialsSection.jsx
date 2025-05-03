@@ -17,7 +17,7 @@ const TestimonialsSection = ({ testimonials }) => {
     <section className="testimonials-section py-5" style={{ backgroundColor: "#f8f9fa" }}>
       <div className="container">
         <h2 className="text-center mb-5" style={{ color: "var(--rater-pro-purple)", fontWeight: 700 }}>
-          Why Customers Love Rater Pro
+          Why Customers Love Rate Pro
         </h2>
         <div id="testimonialCarousel" className="carousel slide">
           <div className="carousel-inner">

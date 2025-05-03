@@ -20,7 +20,7 @@ const Integrations = () => {
     <>
       <Hero
         title="Connect Your Experience Ecosystem"
-        description="Integrate Rater Pro with your favorite platforms to streamline workflows and maximize the value of your experience data."
+        description="Integrate Rate Pro with your favorite platforms to streamline workflows and maximize the value of your experience data."
       >
         <div className="d-flex justify-content-center gap-3">
           <a href="#" className="btn btn-primary btn-lg">
@@ -192,7 +192,7 @@ const Integrations = () => {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6">
-              <h2 className="mb-4 text-primary">Why Integrate with Rater Pro?</h2>
+              <h2 className="mb-4 text-primary">Why Integrate with Rate Pro?</h2>
               <div className="benefit-item d-flex mb-4">
                 <div className="benefit-icon me-3">
                   <i className="fas fa-bolt text-primary fa-2x"></i>
@@ -242,7 +242,7 @@ const Integrations = () => {
                   <i className="fas fa-code text-primary fa-3x "></i>
                 </div>
                 <h3 className="text-center">API Documentation</h3>
-                <p>Comprehensive guides and reference materials for the Rater Pro API.</p>
+                <p>Comprehensive guides and reference materials for the Rate Pro API.</p>
                 <div className="text-center mt-3">
                   <a href="#" className="btn btn-outline-primary">
                     View Documentation
@@ -283,7 +283,7 @@ const Integrations = () => {
       </section>
 
       <CTASection
-        title="Ready to integrate Rater Pro with your tech stack?"
+        title="Ready to integrate Rate Pro with your tech stack?"
         description="Our team of integration experts is ready to help you get started."
         primaryButtonText="Explore Integrations"
         secondaryButtonText="Contact Support"

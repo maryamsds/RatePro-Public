@@ -5,19 +5,19 @@ import CTASection from "../components/CTASection"
 const testimonials = [
   {
     content:
-      "Rater Pro has transformed how we understand and act on customer feedback. The insights we've gained have directly contributed to a 25% increase in customer satisfaction and a 15% boost in revenue.",
+      "Rate Pro has transformed how we understand and act on customer feedback. The insights we've gained have directly contributed to a 25% increase in customer satisfaction and a 15% boost in revenue.",
     author: "Jennifer Martinez",
     role: "Chief Customer Officer, Retail",
   },
   {
     content:
-      "With Rater Pro, we've been able to create a culture of continuous feedback that has improved employee engagement scores by 30% and reduced turnover by 20% in key departments.",
+      "With Rate Pro, we've been able to create a culture of continuous feedback that has improved employee engagement scores by 30% and reduced turnover by 20% in key departments.",
     author: "Robert Johnson",
     role: "VP of HR, Technology",
   },
   {
     content:
-      "The product research capabilities in Rater Pro have helped us reduce failed product launches by 40% by incorporating customer feedback at every stage of development.",
+      "The product research capabilities in Rate Pro have helped us reduce failed product launches by 40% by incorporating customer feedback at every stage of development.",
     author: "Sarah Chen",
     role: "Director of Product, Consumer Goods",
   },
@@ -167,7 +167,7 @@ const ProductReviews = () => {
 
       <section className="research-process">
         <div className="container">
-          <h2 className="text-center mb-5">The Rater Pro Product Research Process</h2>
+          <h2 className="text-center mb-5">The Rate Pro Product Research Process</h2>
           <div className="row justify-content-center">
             <div className="col-lg-8">
               <div className="process-step">
@@ -229,7 +229,7 @@ const ProductReviews = () => {
 
       <CTASection
         title="Ready to build better products with customer insights?"
-        description="Discover how Rater Pro Product Research can transform your development process and deliver products customers love."
+        description="Discover how Rate Pro Product Research can transform your development process and deliver products customers love."
         primaryButtonText="Get Started"
         secondaryButtonText="Request Demo"
       />

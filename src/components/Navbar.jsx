@@ -2,7 +2,7 @@
 
 import { Link } from "react-router-dom"
 import { useState } from "react"
-import logo from "../assets/images/rater_pro.png"
+import logo from "../assets/images/RATEPRO_.png"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -16,8 +16,8 @@ const Navbar = () => {
       <div className="container">
         <Link className="navbar-brand" to="/">
           <div className="d-flex align-items-center">
-            <img src={logo || "/placeholder.svg"} alt="Rater Pro" height="40" className="me-2" />
-            <div className="survanta">Rater Pro</div>
+            
+            <div className="survanta"><img src={logo || "/placeholder.svg"} alt="Rater Pro"  style={{ height: "70px", width:"150" }} className="me-2" /></div>
           </div>
         </Link>
         <button

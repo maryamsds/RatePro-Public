@@ -7,19 +7,19 @@ import benefitsofsurvanta from "../assets/images/intbenft.png"
 const testimonials = [
   {
     content:
-      "Rater Pro has transformed how we understand and act on customer feedback. The insights we've gained have directly contributed to a 25% increase in customer satisfaction and a 15% boost in revenue.",
+      "Rate Pro has transformed how we understand and act on customer feedback. The insights we've gained have directly contributed to a 25% increase in customer satisfaction and a 15% boost in revenue.",
     author: "Jennifer Martinez",
     role: "Chief Customer Officer, Retail",
   },
   {
     content:
-      "With Rater Pro, we've been able to create a culture of continuous feedback that has improved employee engagement scores by 30% and reduced turnover by 20% in key departments.",
+      "With Rate Pro, we've been able to create a culture of continuous feedback that has improved employee engagement scores by 30% and reduced turnover by 20% in key departments.",
     author: "Robert Johnson",
     role: "VP of HR, Technology",
   },
   {
     content:
-      "The product research capabilities in Rater Pro have helped us reduce failed product launches by 40% by incorporating customer feedback at every stage of development.",
+      "The product research capabilities in Rate Pro have helped us reduce failed product launches by 40% by incorporating customer feedback at every stage of development.",
     author: "Sarah Chen",
     role: "Director of Product, Consumer Goods",
   },
@@ -30,7 +30,7 @@ const Features = () => {
     <>
       <Hero
         title="Powerful Features for Your Review Platform"
-        description="Rater Pro provides all the tools you need to collect, manage, and display customer reviews effectively."
+        description="Rate Pro provides all the tools you need to collect, manage, and display customer reviews effectively."
       >
         <div className="d-flex justify-content-center gap-3">
           <a href="#" className="btn btn-primary btn-lg px-4 py-2">
@@ -146,7 +146,7 @@ const Features = () => {
     <div className="row align-items-center">
       {/* Text Content Column */}
       <div className="col-lg-6 order-lg-1 order-2"> {/* Changed order for mobile */}
-        <h2 className="mb-4 text-center text-lg-start text-primary">Why Choose Rater Pro for Reviews?</h2>
+        <h2 className="mb-4 text-center text-lg-start text-primary">Why Choose Rate Pro for Reviews?</h2>
         
         <div className="benefit-item mb-4 d-flex align-items-start">
           <div className="me-3">
@@ -193,7 +193,7 @@ const Features = () => {
       <div className="col-lg-6 order-lg-2 order-1 mb-4 mb-lg-0"> {/* Changed order and added margin */}
         <img
           src={benefitsofsurvanta || "/placeholder.svg"}
-          alt="Benefits of Rater Pro"
+          alt="Benefits of Rate Pro"
           className="img-fluid rounded shadow w-100"
         />
       </div>
