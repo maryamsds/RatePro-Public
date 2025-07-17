@@ -18,7 +18,7 @@ export const registerUser = ({ name, email, password }) =>
     name,
     email,
     password,
-    role: "user",
+    role, // ✅ Now uses the correct role from the form
     source: "public",
   })
 

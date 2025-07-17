@@ -48,8 +48,8 @@ const Signup = () => {
         role,
         source: "public"
       });
-      
-      
+
+
       Swal.fire({
         icon: 'success',
         title: 'Registration Successful',
@@ -63,7 +63,7 @@ const Signup = () => {
       setEmail("");
       setPassword("");
       setConfirmPassword("");
-      
+
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -72,7 +72,6 @@ const Signup = () => {
       });
       console.error("Register Error:", error.response?.data || error.message);
     }
-    console.log("User saved with role:", res);
   };
 
   return (
@@ -137,9 +136,12 @@ const Signup = () => {
                       id="role"
                       name="role"
                       value={role}
-                      onChange={(e) => setRole(e.target.value)}
                       required
                       className="block w-100 px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                      onChange={(e) => {
+                        console.log("Selected:", e.target.value);
+                        setRole(e.target.value);
+                      }}
                     >
                       <option value="" disabled hidden>Select Role</option>
                       <option value="company">Company</option>
