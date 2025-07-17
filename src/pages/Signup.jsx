@@ -1,18 +1,23 @@
 "use client"
 
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa"
 import logo from "../assets/images/RATEPRO.png"
 import googleLogo from "../assets/images/google.png"
+import { registerUser } from "../api/auth"
+import Swal from 'sweetalert2'
+
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [fullName, setFullName] = useState("")
   const [email, setEmail] = useState("")
+  const [role, setRole] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
+  const navigate = useNavigate()
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
@@ -22,11 +27,50 @@ const Signup = () => {
     setShowConfirmPassword(!showConfirmPassword)
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Handle signup logic here
-    console.log({ fullName, email, password, confirmPassword })
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Password Mismatch',
+        text: 'Passwords do not match. Please re-enter.',
+      });
+      return;
+    }
+
+    try {
+      const res = await registerUser({
+        name: fullName,
+        email,
+        password,
+        role,
+        source: "public"
+      });
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Registration Successful',
+        text: 'A verification email has been sent to your inbox. Please verify to log in.',
+      }).then(() => {
+        navigate("/login");
+      });;
+
+      // Optional: reset form
+      setFullName("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Registration Failed',
+        text: error.response?.data?.error || 'Something went wrong. Please try again.',
+      });
+      console.error("Register Error:", error.response?.data || error.message);
+    }
+  };
 
   return (
     <section className="login-section">
@@ -79,6 +123,25 @@ const Signup = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       required
                     />
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="role" className="form-label">
+                    Role
+                  </label>
+                  <div className="input-group">
+                    <select
+                      id="role"
+                      name="role"
+                      value={role}
+                      onChange={(e) => setRole(e.target.value)}
+                      required
+                      className="block w-100 px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                    >
+                      <option value="" disabled>Select Role</option>
+                      <option value="company">Company</option>
+                      <option value="user">User</option>
+                    </select>
                   </div>
                 </div>
                 <div className="mb-3">

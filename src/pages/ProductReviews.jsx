@@ -108,7 +108,7 @@ const ProductReviews = () => {
       <section className="use-cases-section py-5 bg-light">
         <div className="container">
           <h2 className="text-center mb-5">Product Research Use Cases</h2>
-          <div className="row g-4"> {/* Added g-4 for gap between columns */}          
+          <div className="row g-4"> {/* Added g-4 for gap between columns */}
             <div className="col-md-6">
               <div className="use-case-card h-100 p-4 bg-white shadow-sm rounded">
                 <h3>New Product Development</h3>
@@ -165,7 +165,7 @@ const ProductReviews = () => {
         </div>
       </section>
 
-      <section className="research-process">
+      {/* <section className="py-5 research-process">
         <div className="container">
           <h2 className="text-center mb-5">The Rate Pro Product Research Process</h2>
           <div className="row justify-content-center">
@@ -220,6 +220,60 @@ const ProductReviews = () => {
                   </p>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section> */}
+
+      <section className="py-5 bg-white">
+        <div className="container">
+          <h2 className="text-center mb-5">The Rate Pro Product Research Process</h2>
+          <div className="row justify-content-center">
+            <div className="col-lg-8">
+              {[1, 2, 3, 4, 5].map((step, index) => {
+                const steps = [
+                  {
+                    title: "Define Research Objectives",
+                    description:
+                      "Clearly articulate what you need to learn and how the insights will inform product decisions. Our team helps refine your questions to yield actionable results.",
+                  },
+                  {
+                    title: "Design Study Methodology",
+                    description:
+                      "Select the right research approach (surveys, interviews, usability tests, etc.) and design instruments that yield reliable, valid data.",
+                  },
+                  {
+                    title: "Recruit Targeted Participants",
+                    description:
+                      "Access our global panel or use your own customers to gather feedback from the right audience for your product.",
+                  },
+                  {
+                    title: "Collect & Analyze Data",
+                    description:
+                      "Leverage our platform to field studies and apply advanced analytics to uncover patterns, preferences, and insights.",
+                  },
+                  {
+                    title: "Deliver Actionable Insights",
+                    description:
+                      "Receive clear, data-driven recommendations to guide product strategy, design, and development decisions.",
+                  },
+                ];
+
+                return (
+                  <div key={index} className="d-flex mb-4">
+                    <div
+                      className="flex-shrink-0 bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-4"
+                      style={{ width: "40px", height: "40px" }}
+                    >
+                      {step}
+                    </div>
+                    <div>
+                      <h5>{steps[index].title}</h5>
+                      <p className="mb-0">{steps[index].description}</p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

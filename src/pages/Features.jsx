@@ -142,64 +142,64 @@ const Features = () => {
       </section>
 
       <section className="benefits-section py-5 bg-light">
-  <div className="container">
-    <div className="row align-items-center">
-      {/* Text Content Column */}
-      <div className="col-lg-6 order-lg-1 order-2"> {/* Changed order for mobile */}
-        <h2 className="mb-4 text-center text-lg-start text-primary">Why Choose Rate Pro for Reviews?</h2>
-        
-        <div className="benefit-item mb-4 d-flex align-items-start">
-          <div className="me-3">
-            <i className="fas fa-check-circle text-primary mt-1"></i>
-          </div>
-          <div>
-            <h4 className="mb-2">Increase Conversion Rates</h4>
-            <p className="mb-0">Displaying authentic reviews can boost conversion rates by up to 270%.</p>
+        <div className="container">
+          <div className="row align-items-center">
+            {/* Text Content Column */}
+            <div className="col-lg-6 order-lg-1 order-2"> {/* Changed order for mobile */}
+              <h2 className="mb-4 text-center text-lg-start text-primary">Why Choose Rate Pro for Reviews?</h2>
+
+              <div className="benefit-item mb-4 d-flex align-items-start">
+                <div className="me-3">
+                  <i className="fas fa-check-circle text-primary mt-1"></i>
+                </div>
+                <div>
+                  <h4 className="mb-2">Increase Conversion Rates</h4>
+                  <p className="mb-0">Displaying authentic reviews can boost conversion rates by up to 270%.</p>
+                </div>
+              </div>
+
+              <div className="benefit-item mb-4 d-flex align-items-start">
+                <div className="me-3">
+                  <i className="fas fa-check-circle text-primary mt-1"></i>
+                </div>
+                <div>
+                  <h4 className="mb-2">Improve SEO Rankings</h4>
+                  <p className="mb-0">Fresh review content helps improve your search engine rankings and visibility.</p>
+                </div>
+              </div>
+
+              <div className="benefit-item mb-4 d-flex align-items-start">
+                <div className="me-3">
+                  <i className="fas fa-check-circle text-primary mt-1"></i>
+                </div>
+                <div>
+                  <h4 className="mb-2">Build Customer Trust</h4>
+                  <p className="mb-0">92% of consumers read online reviews before making a purchase decision.</p>
+                </div>
+              </div>
+
+              <div className="benefit-item d-flex align-items-start">
+                <div className="me-3">
+                  <i className="fas fa-check-circle text-primary mt-1"></i>
+                </div>
+                <div>
+                  <h4 className="mb-2">Gain Valuable Insights</h4>
+                  <p className="mb-0">Understand what customers love (and don't love) about your products.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Image Column */}
+            <div className="col-lg-6 order-lg-2 order-1 mb-4 mb-lg-0"> {/* Changed order and added margin */}
+              <img
+                src={benefitsofsurvanta || "/placeholder.svg"}
+                alt="Benefits of Rate Pro"
+                className="img-fluid rounded shadow w-100"
+              />
+            </div>
           </div>
         </div>
-        
-        <div className="benefit-item mb-4 d-flex align-items-start">
-          <div className="me-3">
-            <i className="fas fa-check-circle text-primary mt-1"></i>
-          </div>
-          <div>
-            <h4 className="mb-2">Improve SEO Rankings</h4>
-            <p className="mb-0">Fresh review content helps improve your search engine rankings and visibility.</p>
-          </div>
-        </div>
-        
-        <div className="benefit-item mb-4 d-flex align-items-start">
-          <div className="me-3">
-            <i className="fas fa-check-circle text-primary mt-1"></i>
-          </div>
-          <div>
-            <h4 className="mb-2">Build Customer Trust</h4>
-            <p className="mb-0">92% of consumers read online reviews before making a purchase decision.</p>
-          </div>
-        </div>
-        
-        <div className="benefit-item d-flex align-items-start">
-          <div className="me-3">
-            <i className="fas fa-check-circle text-primary mt-1"></i>
-          </div>
-          <div>
-            <h4 className="mb-2">Gain Valuable Insights</h4>
-            <p className="mb-0">Understand what customers love (and don't love) about your products.</p>
-          </div>
-        </div>
-      </div>
-      
-      {/* Image Column */}
-      <div className="col-lg-6 order-lg-2 order-1 mb-4 mb-lg-0"> {/* Changed order and added margin */}
-        <img
-          src={benefitsofsurvanta || "/placeholder.svg"}
-          alt="Benefits of Rate Pro"
-          className="img-fluid rounded shadow w-100"
-        />
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
       <TestimonialsSection testimonials={testimonials} />
 

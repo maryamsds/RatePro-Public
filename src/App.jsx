@@ -8,7 +8,11 @@ import Features from "./pages/Features"
 import Widgets from "./pages/Widgets"
 import Pricing from "./pages/Pricing"
 import Login from "./pages/Login"
+import VerifyEmail from "./pages/VerifyEmail"
 import Signup from "./pages/Signup"
+import ForgotPasswordFlow from "./pages/ForgotPasswordFlow"
+import Profile from "./pages/Profile"
+import EnterOTP from "./pages/EnterOTP"
 
 function App() {
   const location = useLocation()
@@ -29,6 +33,15 @@ function App() {
         <Route path="pricing" element={<Pricing />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/verify-code" element={<EnterOTP />} />
+
+
+
+
+        <Route path="/forgot-password" element={<ForgotPasswordFlow />} />
+
       </Route>
     </Routes>
   )

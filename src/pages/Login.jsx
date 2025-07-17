@@ -5,21 +5,53 @@ import { Link } from "react-router-dom"
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa"
 import logo from "../assets/images/RATEPRO.png"
 import googleLogo from "../assets/images/google.png"
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 const Login = () => {
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState("")
   const [rememberMe, setRememberMe] = useState(false)
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Handle login logic here
-    console.log({ email, password, rememberMe })
+    setError("")
+    setLoading(true)
+
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/login", {
+        email,
+        password,
+        source: "public"
+      }, {
+        withCredentials: true // for cookies
+      })
+
+      const { accessToken, user } = res.data
+
+      // Save accessToken in localStorage/sessionStorage
+      localStorage.setItem("accessToken", accessToken)
+      localStorage.setItem("user", JSON.stringify(user))
+
+      // Redirect to home
+      navigate("/")
+    } catch (err) {
+      if (err.response?.status === 401 && err.response.data.message?.includes("Email not verified")) {
+        navigate(`/verify-email?email=${email}`)
+      } else {
+        setError(err.response?.data?.message || "Login failed")
+      }
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -93,7 +125,7 @@ const Login = () => {
                       Remember me
                     </label>
                   </div>
-                  <a href="#" className="text-decoration-none">
+                  <a href="/forgot-password" className="text-decoration-none">
                     Forgot password?
                   </a>
                 </div>
