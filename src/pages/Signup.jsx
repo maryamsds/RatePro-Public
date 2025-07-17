@@ -39,6 +39,8 @@ const Signup = () => {
       return;
     }
 
+    console.log("Submitted Role:", role);
+
     try {
       const res = await registerUser({
         name: fullName,
@@ -47,6 +49,8 @@ const Signup = () => {
         role,
         source: "public"
       });
+      console.log("User saved with role:", res);
+
 
       Swal.fire({
         icon: 'success',
@@ -138,7 +142,7 @@ const Signup = () => {
                       required
                       className="block w-100 px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                     >
-                      <option value="" disabled>Select Role</option>
+                      <option value="" disabled hidden>Select Role</option>
                       <option value="company">Company</option>
                       <option value="user">User</option>
                     </select>
