@@ -211,7 +211,7 @@ const Navbar = () => {
           <img
             src={logo || "/placeholder.svg"}
             alt="Rate Pro"
-            style={{ height: "70px", width: "150px" }}
+            style={{ height: "auto", width: "120px", aspectRatio : "16/9" }}
             className="me-2"
           />
         </Link>
