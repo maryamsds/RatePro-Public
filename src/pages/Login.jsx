@@ -207,8 +207,11 @@ const Login = () => {
       login(user)
       localStorage.setItem("accessToken", accessToken)
 
-      // ✅ Redirect to homepage
-      navigate("/")
+      if (user.role === "admin" || user.role === "company") {
+        navigate("https://rate-pro-admin.vercel.app/dashboard");
+      } else {
+        navigate("/");
+      }
     } catch (err) {
       if (err.response?.status === 401 && err.response.data.message?.includes("Email not verified")) {
         navigate(`/verify-email?email=${email}`)
