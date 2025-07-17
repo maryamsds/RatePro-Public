@@ -12,13 +12,13 @@ export const getCurrentUser = () => API.get("/auth/me")
 export const updateProfile = (data) =>
   API.put("/users/me", data, { withCredentials: true });
 
-
+  const selectedRole = e.target.value
 export const registerUser = ({ name, email, password }) =>
   API.post("/auth/register", {
     name,
     email,
     password,
-    role, // ✅ Now uses the correct role from the form
+    role: selectedRole,
     source: "public",
   })
 
