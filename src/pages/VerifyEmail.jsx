@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useSearchParams, useNavigate } from "react-router-dom"
 import Swal from "sweetalert2"
+import logo from "../assets/images/RATEPRO.png"
 import { verifyEmail } from "../api/auth"
 
 const VerifyEmail = () => {
