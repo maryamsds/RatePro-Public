@@ -18,7 +18,6 @@ const Profile = () => {
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
-        email: "",
         phone: "",
         department: "",
         role: "",
@@ -60,7 +59,6 @@ const Profile = () => {
                 setFormData({
                     firstName,
                     lastName,
-                    email: user.email || "",
                     phone: user.phone || "",
                     department: user.department || "",
                     role: user.role || "",

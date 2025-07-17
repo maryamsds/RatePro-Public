@@ -184,6 +184,8 @@ const EnterOTP = ({ email: propEmail, onVerified }) => {
     setLoading(true);
 
     try {
+      console.log("Verifying with:", { email, code: otp });
+
       const res = await verifyResetCode({ email, code: otp });
 
       Swal.fire("✅ Verified", res.data.message, "success");
