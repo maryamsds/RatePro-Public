@@ -12,13 +12,13 @@ export const getCurrentUser = () => API.get("/auth/me")
 export const updateProfile = (data) =>
   API.put("/users/me", data, { withCredentials: true });
 
-  const selectedRole = e.target.value
-export const registerUser = ({ name, email, password }) =>
+
+export const registerUser = ({ name, email, password, role }) =>
   API.post("/auth/register", {
     name,
     email,
     password,
-    role: selectedRole,
+    role,
     source: "public",
   })
 
