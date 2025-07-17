@@ -1,5 +1,5 @@
-import { useEffect } from "react"
-import { useSearchParams, useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useSearchParams, useNavigate, useLocation } from "react-router-dom"
 import Swal from "sweetalert2"
 import logo from "../assets/images/RATEPRO.png"
 import { verifyEmail } from "../api/auth"
@@ -9,6 +9,8 @@ const VerifyEmail = () => {
   const code = searchParams.get("code") // fix: it was `token` earlier, but you’re sending `code`
   const email = searchParams.get("email")
   const navigate = useNavigate()
+  const location = useLocation()
+  const [verifying, setVerifying] = useState(true)
 
   useEffect(() => {
     const verify = async () => {
