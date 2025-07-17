@@ -7,6 +7,7 @@ import logo from "../assets/images/RATEPRO.png"
 import googleLogo from "../assets/images/google.png"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { loginUser } from "../api/auth"
 
 const Login = () => {
   const navigate = useNavigate()
