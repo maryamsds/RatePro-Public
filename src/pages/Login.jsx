@@ -27,13 +27,15 @@ const Login = () => {
     setLoading(true)
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
-        email,
-        password,
-        source: "public"
-      }, {
-        withCredentials: true // for cookies
-      })
+      // const res = await axios.post("http://localhost:5000/api/auth/login", {
+      //   email,
+      //   password,
+      //   source: "public"
+      // }, {
+      //   withCredentials: true // for cookies
+      // })
+
+      const res = await loginUser({ email, password });
 
       const { accessToken, user } = res.data
 
