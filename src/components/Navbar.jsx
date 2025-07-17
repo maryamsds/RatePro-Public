@@ -253,9 +253,9 @@ const Navbar = () => {
           </ul>
 
           <div className="d-flex align-items-center">
-            <a href="#" className="btn btn-outline-primary me-2">
-              Contact Sales
-            </a>
+            <Link to="/take-survey" className="btn btn-outline-primary me-2">
+              Take Survey
+            </Link>
 
             {!user ? (
               <Link
@@ -285,9 +285,8 @@ const Navbar = () => {
                 </button>
 
                 <ul
-                  className={`dropdown-menu dropdown-menu-end mt-2 ${
-                    dropdownOpen ? "show" : ""
-                  }`}
+                  className={`dropdown-menu dropdown-menu-end mt-2 ${dropdownOpen ? "show" : ""
+                    }`}
                 >
                   <li className="px-3 py-2 border-bottom">
                     <h6 className="mb-0 text-capitalize">

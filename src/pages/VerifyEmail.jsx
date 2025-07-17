@@ -13,7 +13,7 @@ const VerifyEmail = () => {
     const verify = async () => {
       try {
         const res = await verifyEmail({ email, code });
-    
+
         Swal.fire({
           icon: "success",
           title: "✅ Verified!",
@@ -22,7 +22,7 @@ const VerifyEmail = () => {
         }).then(() => {
           navigate("/login");
         });
-    
+
       } catch (error) {
         Swal.fire({
           icon: "error",
@@ -36,9 +36,24 @@ const VerifyEmail = () => {
   }, [code, email, navigate])
 
   return (
-    <div className="text-center mt-5">
-      <h2>Verifying your email...</h2>
-    </div>
+    <section className="login-section">
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-md-6 col-lg-5">
+            <div className="login-card text-center">
+              <div className="d-flex justify-content-center align-items-center mb-3">
+                <img src={logo || "/placeholder.svg"} alt="Rater Pro" height="50" className="me-2" />
+                <div className="survanta">Rate Pro</div>
+              </div>
+              <h2 className="mt-3 mb-3">{verifying ? "Verifying your email..." : "Redirecting..."}</h2>
+              <p className="text-muted">
+                {verifying ? "Please wait while we verify your email." : "You'll be redirected shortly."}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
