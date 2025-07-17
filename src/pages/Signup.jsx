@@ -39,9 +39,8 @@ const Signup = () => {
       return;
     }
 
-    console.log("Submitted Role:", role);
-
     try {
+      console.log("Submitted Role:", role);
       const res = await registerUser({
         name: fullName,
         email,
@@ -49,9 +48,8 @@ const Signup = () => {
         role,
         source: "public"
       });
-      console.log("User saved with role:", res);
-
-
+      
+      
       Swal.fire({
         icon: 'success',
         title: 'Registration Successful',
@@ -65,7 +63,7 @@ const Signup = () => {
       setEmail("");
       setPassword("");
       setConfirmPassword("");
-
+      
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -74,6 +72,7 @@ const Signup = () => {
       });
       console.error("Register Error:", error.response?.data || error.message);
     }
+    console.log("User saved with role:", res);
   };
 
   return (
