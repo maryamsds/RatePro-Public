@@ -158,9 +158,9 @@
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { MdVpnKey } from "react-icons/md";
-import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "../assets/images/RATEPRO.png";
+import { verifyResetCode } from "../api/auth";
 
 const EnterOTP = ({ email: propEmail, onVerified }) => {
   const [otp, setOtp] = useState("");
@@ -184,10 +184,7 @@ const EnterOTP = ({ email: propEmail, onVerified }) => {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/verify-reset-code", {
-        email,
-        code: otp,
-      });
+      const res = await verifyResetCode({ email, code: otp });
 
       Swal.fire("✅ Verified", res.data.message, "success");
 

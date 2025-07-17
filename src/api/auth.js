@@ -30,3 +30,15 @@ export const loginUser = ({ email, password }) =>
   })
 
 export const logoutUser = () => API.post("/auth/logout")
+
+export const forgotPassword = ({ email }) =>
+  API.post("/auth/forgot-password", { email });
+
+export const verifyResetCode = ({ email, code }) =>
+  API.post("/auth/verify-reset-code", { email, code });
+
+export const resetPassword = ({ email, code, newPassword }) =>
+  API.post("/auth/reset-password", { email, code, newPassword });
+
+export const verifyEmail = ({ email, code }) =>
+  API.post("/auth/verify-email", { email, code });

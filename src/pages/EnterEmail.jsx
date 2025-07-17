@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { FaEnvelope } from "react-icons/fa"
 import Swal from "sweetalert2"
-import axios from "axios"
 import logo from "../assets/images/RATEPRO.png"
+import { forgotPassword } from "../api/auth"
 
 const EnterEmail = ({ onOTPSent }) => {
   const [email, setEmail] = useState("")
@@ -10,7 +10,7 @@ const EnterEmail = ({ onOTPSent }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/forgot-password", { email })
+      const res = await forgotPassword({ email });
       Swal.fire("✅ OTP Sent", res.data.message || "Check your email", "success")
       onOTPSent(email)
     } catch (err) {

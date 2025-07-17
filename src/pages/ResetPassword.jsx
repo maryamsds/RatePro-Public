@@ -1,8 +1,8 @@
 import { useState } from "react"
 import Swal from "sweetalert2"
-import axios from "axios"
 import { FaLock, FaEye, FaEyeSlash } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
+import { resetPassword } from "../api/auth"
 
 const ResetPassword = ({ email, otp }) => {
   const [password, setPassword] = useState("")
@@ -21,9 +21,7 @@ const ResetPassword = ({ email, otp }) => {
     console.log("🚀 Sending Reset Request", { email, otp, newPassword: password })
 
     try {
-      await axios.post("http://localhost:5000/api/auth/reset-password", {
-        email,  code: otp, newPassword: password
-      })
+      const res = await resetPassword({ email, code: otp, newPassword: password });
       Swal.fire("✅ Success", "Your password has been reset", "success")
       navigate("/login");
     } catch (err) {
