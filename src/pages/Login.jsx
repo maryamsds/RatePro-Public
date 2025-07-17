@@ -208,7 +208,7 @@ const Login = () => {
       localStorage.setItem("accessToken", accessToken)
 
       if (user.role === "admin" || user.role === "company") {
-        navigate("https://rate-pro-admin.vercel.app/dashboard");
+        window.location.href = "https://rate-pro-admin.vercel.app/dashboard";
       } else {
         navigate("/");
       }
