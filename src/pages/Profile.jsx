@@ -316,6 +316,7 @@ import {
 } from "react-icons/md"
 import { getCurrentUser, updateProfile } from "../api/auth"
 import { useNavigate } from "react-router-dom"
+import Swal from "sweetalert2";
 
 const Profile = () => {
     const navigate = useNavigate()
@@ -340,6 +341,18 @@ const Profile = () => {
         newPassword: "",
         confirmPassword: "",
     })
+
+    const [passwordErrors, setPasswordErrors] = useState({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+    });
+
+    const [formErrors, setFormErrors] = useState({
+        firstName: "",
+        lastName: "",
+        phone: "",
+    });
 
     const [notifications, setNotifications] = useState({
         emailNotifications: true,
@@ -384,54 +397,204 @@ const Profile = () => {
         setNotifications((prev) => ({ ...prev, [name]: checked }))
     }
 
+    // const handleSave = async () => {
+    //     try {
+    //         const updatedName = `${formData.firstName} ${formData.lastName}`
+
+    //         const payload = {
+    //             name: updatedName,
+    //             phone: formData.phone,
+    //             department: formData.department,
+    //             role: formData.role,
+    //             bio: formData.bio,
+    //             timezone: formData.timezone,
+    //             language: formData.language,
+    //         }
+
+    //         await updateProfile(payload)
+
+    //         setIsEditing(false)
+    //         setShowAlert(true)
+    //         setTimeout(() => setShowAlert(false), 3000)
+    //     } catch (err) {
+    //         console.error("Failed to save profile:", err)
+    //     }
+    // }
     const handleSave = async () => {
-        try {
-            const updatedName = `${formData.firstName} ${formData.lastName}`
-
-            const payload = {
-                name: updatedName,
-                phone: formData.phone,
-                department: formData.department,
-                role: formData.role,
-                bio: formData.bio,
-                timezone: formData.timezone,
-                language: formData.language,
-            }
-
-            await updateProfile(payload)
-
-            setIsEditing(false)
-            setShowAlert(true)
-            setTimeout(() => setShowAlert(false), 3000)
-        } catch (err) {
-            console.error("Failed to save profile:", err)
+        const updatedName = `${formData.firstName} ${formData.lastName}`.trim();
+        const errors = { firstName: "", lastName: "", phone: "" };
+    
+        // 🔍 Validate First Name
+        if (!formData.firstName.trim()) {
+            errors.firstName = "First name is required";
+        } else if (!/^[A-Za-z]+$/.test(formData.firstName)) {
+            errors.firstName = "Only alphabets allowed";
         }
-    }
+    
+        // 🔍 Validate Last Name (optional)
+        if (formData.lastName && !/^[A-Za-z]+$/.test(formData.lastName)) {
+            errors.lastName = "Only alphabets allowed";
+        }
+    
+        // 🔍 Validate Phone
+        if (formData.phone && !/^\+?\d+$/.test(formData.phone)) {
+            errors.phone = "Only digits or + allowed";
+        }
+    
+        setFormErrors(errors);
+        if (Object.values(errors).some((e) => e)) return;
+    
+        try {
+            // 🔄 Show loading Swal
+            Swal.fire({
+                title: "Saving...",
+                text: "Please wait while we update your profile.",
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                },
+            });
+    
+            // 💾 Update profile
+            await updateProfile({ name: updatedName });
+    
+            // ✅ Success Swal
+            Swal.fire({
+                icon: "success",
+                title: "Profile Updated",
+                text: "Your changes have been saved successfully.",
+                timer: 2000,
+                showConfirmButton: false,
+            });
+    
+            setIsEditing(false);
+            setShowAlert(true);
+            setTimeout(() => setShowAlert(false), 3000);
+        } catch (err) {
+            Swal.close(); // Close loader before showing error
+    
+            // ❌ Error Swal
+            Swal.fire({
+                icon: "error",
+                title: "Failed to Save",
+                text: err?.response?.data?.message || "An error occurred while saving your profile.",
+            });
+        }
+    };
+
 
     const handleCancel = () => {
         setIsEditing(false)
     }
 
-    const handlePasswordRequestOTP = async () => {
+    // const handlePasswordRequest = async () => {
+    //     const { currentPassword, newPassword, confirmPassword } = passwordData;
+    //     const errors = { currentPassword: "", newPassword: "", confirmPassword: "" };
+
+    //     // 🔐 Frontend validations
+    //     if (!currentPassword) errors.currentPassword = "Current password is required";
+    //     if (!newPassword) errors.newPassword = "New password is required";
+    //     if (newPassword !== confirmPassword)
+    //         errors.confirmPassword = "Passwords do not match";
+
+    //     setPasswordErrors(errors);
+
+    //     if (Object.values(errors).some((e) => e)) return;
+
+    //     try {
+    //         await axios.put(
+    //             "/api/users/update-profile",
+    //             { currentPassword, newPassword },
+    //             { withCredentials: true }
+    //         );
+
+    //         // ✅ Success popup
+    //         Swal.fire({
+    //             icon: "success",
+    //             title: "Password Updated",
+    //             text: "Your password has been changed successfully!",
+    //             timer: 2000,
+    //             showConfirmButton: false,
+    //         });
+
+    //         setPasswordData({ currentPassword: "", newPassword: "", confirmPassword: "" });
+    //         setPasswordErrors({ currentPassword: "", newPassword: "", confirmPassword: "" });
+    //     } catch (err) {
+    //         const msg = err.response?.data?.message || "Something went wrong";
+
+    //         if (msg.toLowerCase().includes("current password")) {
+    //             setPasswordErrors((prev) => ({ ...prev, currentPassword: msg }));
+    //         } else {
+    //             // ❌ Error popup
+    //             Swal.fire({
+    //                 icon: "error",
+    //                 title: "Update Failed",
+    //                 text: msg,
+    //             });
+    //         }
+    //     }
+    // };
+
+    const handlePasswordRequest = async () => {
+        const { currentPassword, newPassword, confirmPassword } = passwordData;
+        const errors = { currentPassword: "", newPassword: "", confirmPassword: "" };
+
+        // 🔐 Frontend validations
+        if (!currentPassword) errors.currentPassword = "Current password is required";
+        if (!newPassword) errors.newPassword = "New password is required";
+        if (newPassword !== confirmPassword)
+            errors.confirmPassword = "Passwords do not match";
+
+        setPasswordErrors(errors);
+
+        if (Object.values(errors).some((e) => e)) return;
+
         try {
-            const { currentPassword, newPassword, confirmPassword } = passwordData
-            if (newPassword !== confirmPassword)
-                return alert("New passwords do not match")
-
-            await axios.post(
-                "/api/auth/request-password-update",
-                {
-                    currentPassword,
-                    newPassword,
+            // 🔄 Show loading indicator
+            Swal.fire({
+                title: "Updating Password...",
+                text: "Please wait",
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
                 },
-                { withCredentials: true }
-            )
+            });
 
-            navigate("/enter-otp?email=" + formData.email + "&purpose=reset")
+            // 🛠️ Send update request
+            await axios.put(
+                "/api/users/update-profile",
+                { currentPassword, newPassword },
+                { withCredentials: true }
+            );
+
+            // ✅ Success popup
+            Swal.fire({
+                icon: "success",
+                title: "Password Updated",
+                text: "Your password has been changed successfully!",
+                timer: 2000,
+                showConfirmButton: false,
+            });
+
+            setPasswordData({ currentPassword: "", newPassword: "", confirmPassword: "" });
+            setPasswordErrors({ currentPassword: "", newPassword: "", confirmPassword: "" });
         } catch (err) {
-            console.error("OTP Request Failed:", err)
+            const msg = err.response?.data?.message || "Something went wrong";
+
+            Swal.close(); // ⛔ close loading before showing error
+
+            if (msg.toLowerCase().includes("current password")) {
+                setPasswordErrors((prev) => ({ ...prev, currentPassword: msg }));
+            } else {
+                // ❌ Error popup
+                Swal.fire({
+                    icon: "error",
+                    title: "Update Failed",
+                    text: msg,
+                });
+            }
         }
-    }
+    };
 
     const tabClass = (tab) => `nav-link ${activeTab === tab ? "active" : ""}`
     const inputClass = "form-control"
@@ -544,6 +707,10 @@ const Profile = () => {
                                                 disabled={!isEditing}
                                                 className={inputClass}
                                             />
+                                            {/* Show error only for validated fields */}
+                                            {["firstName", "lastName", "phone"].includes(name) && formErrors[name] && (
+                                                <small className="text-danger">{formErrors[name]}</small>
+                                            )}
                                         </div>
                                     ))}
 
@@ -590,39 +757,51 @@ const Profile = () => {
                                         <input
                                             type="password"
                                             placeholder="Current password"
-                                            onChange={(e) =>
-                                                setPasswordData({ ...passwordData, currentPassword: e.target.value })
-                                            }
+                                            onChange={(e) => {
+                                                setPasswordData({ ...passwordData, currentPassword: e.target.value });
+                                                setPasswordErrors((prev) => ({ ...prev, currentPassword: "" }));
+                                            }}
                                             className={inputClass}
                                         />
+                                        {passwordErrors.currentPassword && (
+                                            <small className="text-danger">{passwordErrors.currentPassword}</small>
+                                        )}
                                     </div>
                                     <div className="col-md-12">
                                         <label className="form-label">New Password</label>
                                         <input
                                             type="password"
                                             placeholder="New password"
-                                            onChange={(e) =>
-                                                setPasswordData({ ...passwordData, newPassword: e.target.value })
-                                            }
+                                            onChange={(e) => {
+                                                setPasswordData({ ...passwordData, newPassword: e.target.value });
+                                                setPasswordErrors((prev) => ({ ...prev, newPassword: "" }));
+                                            }}
                                             className={inputClass}
                                         />
+                                        {passwordErrors.newPassword && (
+                                            <small className="text-danger">{passwordErrors.newPassword}</small>
+                                        )}
                                     </div>
                                     <div className="col-md-12">
                                         <label className="form-label">Confirm Password</label>
                                         <input
                                             type="password"
                                             placeholder="Confirm password"
-                                            onChange={(e) =>
-                                                setPasswordData({ ...passwordData, confirmPassword: e.target.value })
-                                            }
+                                            onChange={(e) => {
+                                                setPasswordData({ ...passwordData, confirmPassword: e.target.value });
+                                                setPasswordErrors((prev) => ({ ...prev, confirmPassword: "" }));
+                                            }}
                                             className={inputClass}
                                         />
+                                        {passwordErrors.confirmPassword && (
+                                            <small className="text-danger">{passwordErrors.confirmPassword}</small>
+                                        )}
                                     </div>
                                     <div className="col-12">
                                         <button
                                             type="button"
                                             className="btn btn-primary"
-                                            onClick={handlePasswordRequestOTP}
+                                            onClick={handlePasswordRequest}
                                         >
                                             Update Password
                                         </button>
