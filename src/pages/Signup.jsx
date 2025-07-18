@@ -40,7 +40,6 @@ const Signup = () => {
     }
 
     try {
-      console.log("Submitted Role:", role);
       const res = await registerUser({
         name: fullName,
         email,

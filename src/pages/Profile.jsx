@@ -446,7 +446,7 @@ const Profile = () => {
                     </p>
                 </div>
                 <div className="d-flex gap-2">
-                    {isEditing ? (
+                    {/* {isEditing ? (
                         <>
                             <button onClick={handleCancel} className="btn btn-outline-secondary btn-sm">
                                 <MdCancel className="me-1" /> Cancel
@@ -459,6 +459,22 @@ const Profile = () => {
                         <button onClick={() => setIsEditing(true)} className="btn btn-primary btn-sm">
                             <MdEdit className="me-1" /> Edit Profile
                         </button>
+                    )} */}
+                    {activeTab === "profile" && (
+                        isEditing ? (
+                            <>
+                                <button onClick={handleCancel} className="btn btn-outline-secondary btn-sm">
+                                    <MdCancel className="me-1" /> Cancel
+                                </button>
+                                <button onClick={handleSave} className="btn btn-primary btn-sm">
+                                    <MdSave className="me-1" /> Save
+                                </button>
+                            </>
+                        ) : (
+                            <button onClick={() => setIsEditing(true)} className="btn btn-primary btn-sm">
+                                <MdEdit className="me-1" /> Edit Profile
+                            </button>
+                        )
                     )}
                 </div>
             </div>
