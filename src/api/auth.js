@@ -45,3 +45,13 @@ export const resetPassword = ({ email, code, newPassword }) =>
 
 export const verifyEmail = ({ email, code }) =>
   API.post("/auth/verify-email", { email, code });
+
+  // ✅ NEW: Update profile (with optional avatar upload)
+export const updateUserProfile = (formData) =>
+API.put("/update-profile", formData, {
+  withCredentials: true,
+  headers: {
+    "Content-Type": "multipart/form-data", // Required if avatar is included
+  },
+});
+

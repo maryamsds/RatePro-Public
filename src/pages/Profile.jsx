@@ -427,12 +427,12 @@ const Profile = () => {
         // 🔍 Validate First Name
         if (!formData.firstName.trim()) {
             errors.firstName = "First name is required";
-        } else if (!/^[A-Za-z]+$/.test(formData.firstName)) {
+        } else if (!/^[A-Za-z]+(?: [A-Za-z]+)*$/.test(formData.firstName)) {
             errors.firstName = "Only alphabets allowed";
         }
     
         // 🔍 Validate Last Name (optional)
-        if (formData.lastName && !/^[A-Za-z]+$/.test(formData.lastName)) {
+        if (formData.lastName && !/^[A-Za-z]+(?: [A-Za-z]+)*$/.test(formData.lastName)) {
             errors.lastName = "Only alphabets allowed";
         }
     
