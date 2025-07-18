@@ -1,4 +1,4 @@
-import logo from "../assets/mobily-logo.png"; // replace with your local image path
+// import logo from "../assets/images/"; // replace with your local image path
 
 const Step1Contact = ({ onNext }) => {
     const handleSubmit = (e) => {
@@ -8,7 +8,7 @@ const Step1Contact = ({ onNext }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "space-between", minHeight: 250,  }}>
             <h5 className="mb-3">
                 <span className="text-danger">*</span> What is your mobile number?
             </h5>
@@ -30,7 +30,7 @@ const Step1Contact = ({ onNext }) => {
                 />
             </div>
 
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between btn btn-primary mb-0 mt-auto">
                 <button type="button" className="btn btn-secondary" disabled>
                     Prev
                 </button>

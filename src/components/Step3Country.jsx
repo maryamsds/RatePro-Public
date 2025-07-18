@@ -6,7 +6,7 @@ const Step3Country = ({ onNext }) => {
     };
   
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", minHeight: 250,  }}>
         <h4>Select the Country where you had the experience</h4>
         <select name="country" className="form-select my-3" required>
           <option value="">-- Select Country --</option>
@@ -18,7 +18,7 @@ const Step3Country = ({ onNext }) => {
           <option value="Canada">Canada</option>
           <option value="Other">Other</option>
         </select>
-        <button type="submit" className="btn btn-primary">Next</button>
+        <button type="submit" className="btn btn-primary mb-0 mt-auto">Next</button>
       </form>
     );
   };

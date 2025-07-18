@@ -24,11 +24,11 @@ const SurveyForm = () => {
   const renderStep = () => {
     switch (step) {
       case 1:
-        return <Step1Contact onNext={handleNext} />;
-      case 2:
-        return <Step2Experience onNext={handleNext} />;
-      case 3:
-        return <Step3Country onNext={handleNext} />;
+          return <Step3Country onNext={handleNext} />;
+          case 2:
+          return <Step1Contact onNext={handleNext} />;
+          case 3:
+          return <Step2Experience onNext={handleNext} />;
       case 4:
         return <Step4Subscription onNext={handleNext} />;
       case 5:
@@ -48,16 +48,11 @@ const SurveyForm = () => {
       </div>
 
       {/* Centered Form Box */}
-      <div className="flex-grow-1 d-flex justify-content-center align-items-center">
-        <div className="card shadow p-4 w-100" style={{ maxWidth: 500 }}>
+      <div className="flex-grow-1 h-100 d-flex justify-content-center align-items-center">
+        <div className="card shadow p-4 w-100" style={{ maxWidth: 500, minHeight: 300 }}>
           {renderStep()}
         </div>
       </div>
-
-      {/* Sticky Footer */}
-      <footer className="text-center text-muted py-2 small">
-        az2.xebo.ai
-      </footer>
     </div>
   );
 };
