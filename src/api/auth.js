@@ -48,10 +48,11 @@ export const verifyEmail = ({ email, code }) =>
 
   // ✅ NEW: Update profile (with optional avatar upload)
 export const updateUserProfile = (formData) =>
-API.put("/update-profile", formData, {
+API.put("/auth/update-profile", formData, {
   withCredentials: true,
   headers: {
-    "Content-Type": "multipart/form-data", // Required if avatar is included
+    // "Content-Type": "multipart/form-data", // Required if avatar is included
+    "Content-Type": "application/json",
   },
 });
 

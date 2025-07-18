@@ -314,7 +314,7 @@ import {
     MdSave,
     MdCancel,
 } from "react-icons/md"
-import { getCurrentUser, updateProfile } from "../api/auth"
+import { getCurrentUser, updateProfile, updateUserProfile } from "../api/auth"
 import { useNavigate } from "react-router-dom"
 import Swal from "sweetalert2";
 
@@ -561,11 +561,7 @@ const Profile = () => {
             });
 
             // 🛠️ Send update request
-            await axios.put(
-                "/api/users/update-profile",
-                { currentPassword, newPassword },
-                { withCredentials: true }
-            );
+            await updateUserProfile({ currentPassword, newPassword });
 
             // ✅ Success popup
             Swal.fire({
