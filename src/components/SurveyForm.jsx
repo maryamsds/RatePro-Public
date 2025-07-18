@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Step1Country from "./Step1Country"
 import Step2Contact from "./Step2Contact"
 import Step3Operator from "./Step3Operator"
@@ -7,8 +7,8 @@ import Step5Experience from "./Step5Experience"
 import Step6ThankYou from "./Step6ThankYou"
 
 
-const SurveyForm = () => {
-  const [step, setStep] = useState(1);
+const SurveyForm = ({ onClose, currentStep = 1, setCurrentStep }) => {
+  const [step, setStep] = useState(currentStep);
   const [formData, setFormData] = useState({
     contact: "",
     experience: "",
@@ -16,6 +16,10 @@ const SurveyForm = () => {
     subscribed: "",
     operator: "",
   });
+
+  useEffect(() => {
+    setStep(currentStep);
+  }, [currentStep]);  
 
   const handleNext = (data) => {
     setFormData({ ...formData, ...data });
@@ -37,7 +41,7 @@ const SurveyForm = () => {
       case 4:
         return <Step4Subscription onNext={handleNext} onPrev={handlePrevious} />;
       case 5:
-        return <Step5Experience onNext={handleNext} onPrev={handlePrevious} />;
+        return <Step5Experience onNext={handleNext} onPrev={handlePrevious} formData={formData} setShowModal={onClose} />;
       case 6:
         return <Step6ThankYou />;
       default:

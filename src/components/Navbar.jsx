@@ -177,6 +177,7 @@ import {
 } from "react-icons/md"
 import { useAuth } from "../context/AuthContext"
 import SurveyModal from "./SurveyModal"
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { user, logout } = useAuth()
@@ -185,6 +186,7 @@ const Navbar = () => {
   const dropdownRef = useRef(null)
   const navigate = useNavigate()
   const [showSurvey, setShowSurvey] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1); // ⬅️ Add this line
 
   const toggleNavbar = () => setIsOpen(!isOpen)
   const capitalize = (str) => str?.charAt(0).toUpperCase() + str.slice(1)
@@ -205,6 +207,38 @@ const Navbar = () => {
     logout()
     navigate("/login")
   }
+
+  const handleTakeSurvey = () => {
+    const alreadySubmitted = localStorage.getItem("surveyHandled");
+  
+    if (alreadySubmitted) {
+      Swal.fire({
+        icon: "info",
+        title: "Survey Already Submitted",
+        text: "You have already submitted the survey. Thank you!",
+      });
+    } else {
+      setCurrentStep(1); // 👈 Make sure your survey starts at step 1
+      setShowSurvey(true);
+    }
+  };
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    const pendingSurvey = localStorage.getItem("pendingSurvey");
+    const surveyHandled = localStorage.getItem("surveyHandled");
+
+    // Show ThankYou only if there's a pendingSurvey and it hasn't been handled yet
+    if (user && pendingSurvey && !surveyHandled) {
+      setShowSurvey(true);
+      setCurrentStep(6); // Step6ThankYou
+
+      // Clean up after showing
+      localStorage.removeItem("pendingSurvey");
+      localStorage.setItem("surveyHandled", "true"); // So it doesn’t repeat
+    }
+  }, [window.location.pathname]);
+
 
   return (
     <>
@@ -258,7 +292,7 @@ const Navbar = () => {
             <div className="d-flex align-items-center">
               <button
                 className="btn btn-outline-primary ms-auto me-3"
-                onClick={() => setShowSurvey(true)}
+                onClick={handleTakeSurvey}
               >
                 Take Survey
               </button>
@@ -342,7 +376,12 @@ const Navbar = () => {
         </div>
       </nav>
       {/* Show Modal */}
-      <SurveyModal show={showSurvey} onClose={() => setShowSurvey(false)} />
+      <SurveyModal
+        show={showSurvey}
+        onClose={() => setShowSurvey(false)}
+        currentStep={currentStep}
+        setCurrentStep={setCurrentStep}
+      />
     </>
   )
 }

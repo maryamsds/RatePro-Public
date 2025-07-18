@@ -1,7 +1,38 @@
-const Step5Experience = ({ onNext, onPrev }) => {
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
+const Step5Experience = ({ onNext, onPrev, formData, setShowModal }) => {
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const experience = e.target.experience.value;
+    const dataToSave = { ...formData, experience };
+    const user = localStorage.getItem("user");
+
+    if (!user) {
+      // 1. Save surveyData temporarily
+      localStorage.setItem("pendingSurvey", JSON.stringify(dataToSave));
+      localStorage.removeItem("surveyHandled");
+
+      // 2. Close the modal
+      if (setShowModal) setShowModal(false);
+
+      // 3. Prompt login
+      Swal.fire({
+        icon: "warning",
+        title: "Login Required",
+        text: "Please login to submit your survey.",
+        confirmButtonText: "Go to Login",
+      }).then(() => {
+        navigate("/login");
+      });
+
+      return;
+    }
+
+    // If logged in, go to Thank You
     onNext({ experience });
   };
 

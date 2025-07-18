@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import SurveyForm from "./SurveyForm";
 
-const SurveyModal = ({ show, onClose }) => {
+const SurveyModal = ({ show, onClose, currentStep, setCurrentStep }) => {
   // Disable body scroll when modal is open
   useEffect(() => {
     if (show) {
@@ -33,7 +33,11 @@ const SurveyModal = ({ show, onClose }) => {
             ></button>
           </div>
           <div className="modal-body">
-            <SurveyForm />
+            <SurveyForm
+              onClose={onClose}
+              currentStep={currentStep}
+              setCurrentStep={setCurrentStep}
+            />
           </div>
         </div>
       </div>
