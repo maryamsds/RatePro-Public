@@ -21,14 +21,43 @@ const SurveyForm = () => {
     setStep(step + 1);
   };
 
+  const renderStep = () => {
+    switch (step) {
+      case 1:
+        return <Step1Contact onNext={handleNext} />;
+      case 2:
+        return <Step2Experience onNext={handleNext} />;
+      case 3:
+        return <Step3Country onNext={handleNext} />;
+      case 4:
+        return <Step4Subscription onNext={handleNext} />;
+      case 5:
+        return <Step5Operator onNext={handleNext} />;
+      case 6:
+        return <Step6ThankYou />;
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div className="container mt-5">
-      {step === 1 && <Step1Contact onNext={handleNext} />}
-      {step === 2 && <Step2Experience onNext={handleNext} />}
-      {step === 3 && <Step3Country onNext={handleNext} />}
-      {step === 4 && <Step4Subscription onNext={handleNext} />}
-      {step === 5 && <Step5Operator onNext={handleNext} />}
-      {step === 6 && <Step6ThankYou />}
+    <div className="d-flex flex-column min-vh-100">
+      {/* Top Header (optional, can be removed if not needed globally) */}
+      <div className="bg-primary text-white text-center py-4">
+        <h4 className="mb-0">Roaming Experience SMS Survey</h4>
+      </div>
+
+      {/* Centered Form Box */}
+      <div className="flex-grow-1 d-flex justify-content-center align-items-center">
+        <div className="card shadow p-4 w-100" style={{ maxWidth: 500 }}>
+          {renderStep()}
+        </div>
+      </div>
+
+      {/* Sticky Footer */}
+      <footer className="text-center text-muted py-2 small">
+        az2.xebo.ai
+      </footer>
     </div>
   );
 };
