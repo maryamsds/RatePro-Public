@@ -208,7 +208,15 @@ const Login = () => {
       localStorage.setItem("accessToken", accessToken)
 
       if (user.role === "admin" || user.role === "company") {
-        window.location.href = "https://rate-pro-admin.vercel.app/app";
+        const token = accessToken;
+        const encodedUser = encodeURIComponent(JSON.stringify(user));
+      
+        // 🧹 Clear public localStorage
+        localStorage.removeItem("authUser");
+        localStorage.removeItem("token");
+      
+        // ⏩ Redirect with token & user
+        window.location.href = `https://rate-pro-admin.vercel.app/app?token=${token}&user=${encodedUser}`;
       } else {
         navigate("/");
       }
@@ -290,7 +298,7 @@ const Login = () => {
                       Remember me
                     </label>
                   </div>
-                  <a href="/forgot-password" className="text-decoration-none">Forgot password?</a>
+                  <Link to="/forgot-password" className="text-decoration-none">Forgot password?</Link>
                 </div>
                 <button type="submit" className="btn btn-primary w-100 mb-3" disabled={loading}>
                   {loading ? "Signing In..." : "Sign In"}
