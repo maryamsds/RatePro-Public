@@ -176,20 +176,87 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [generalError, setGeneralError] = useState("");
   const [loading, setLoading] = useState("")
   const [rememberMe, setRememberMe] = useState(false)
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword)
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault()
+  //   setError("")
+  //   setLoading(true)
+
+  //   try {
+  //     const res = await loginUser({ email, password })
+  //     const { accessToken, user } = res.data
+
+  //     if (!user.isEmailVerified) {
+  //       Swal.fire({
+  //         icon: "warning",
+  //         title: "Email Not Verified",
+  //         text: "Please verify your email before logging in.",
+  //         confirmButtonText: "Verify Now",
+  //       }).then(() => {
+  //         navigate(`/verify-email?email=${email}`)
+  //       })
+  //       return
+  //     }
+
+  //     // ✅ Save user in context and localStorage
+  //     login(user)
+  //     localStorage.setItem("accessToken", accessToken)
+
+  //     if (user.role === "admin" || user.role === "company") {
+  //       const token = accessToken;
+  //       const encodedUser = encodeURIComponent(JSON.stringify(user));
+
+  //       // 🧹 Clear public localStorage
+  //       localStorage.removeItem("authUser");
+  //       localStorage.removeItem("token");
+
+  //       // ⏩ Redirect with token & user
+  //       window.location.href = `https://rate-pro-admin.vercel.app/app?token=${token}&user=${encodedUser}`;
+  //     } else {
+  //       navigate("/");
+  //     }
+  //   } catch (err) {
+  //     if (err.response?.status === 401 && err.response.data.message?.includes("Email not verified")) {
+  //       navigate(`/verify-email?email=${email}`)
+  //     } else {
+  //       setError(err.response?.data?.message || "Login failed")
+  //     }
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }
+
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError("")
-    setLoading(true)
+    e.preventDefault();
+
+    setEmailError("");
+    setPasswordError("");
+    setGeneralError("");
+
+    // Empty check
+    if (!email) setEmailError("Email is required.");
+    if (!password) setPasswordError("Password is required.");
+    if (!email || !password) return;
+
+    // Email format check
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailError("Please enter a valid email address.");
+      return;
+    }
+
+    setLoading(true);
 
     try {
-      const res = await loginUser({ email, password })
-      const { accessToken, user } = res.data
+      const res = await loginUser({ email, password });
+      const { accessToken, user } = res.data;
 
       if (!user.isEmailVerified) {
         Swal.fire({
@@ -198,38 +265,45 @@ const Login = () => {
           text: "Please verify your email before logging in.",
           confirmButtonText: "Verify Now",
         }).then(() => {
-          navigate(`/verify-email?email=${email}`)
-        })
-        return
+          navigate(`/verify-email?email=${email}`);
+        });
+        return;
       }
 
-      // ✅ Save user in context and localStorage
-      login(user)
-      localStorage.setItem("accessToken", accessToken)
+      login(user);
+      localStorage.setItem("accessToken", accessToken);
 
       if (user.role === "admin" || user.role === "company") {
         const token = accessToken;
         const encodedUser = encodeURIComponent(JSON.stringify(user));
-      
-        // 🧹 Clear public localStorage
         localStorage.removeItem("authUser");
         localStorage.removeItem("token");
-      
-        // ⏩ Redirect with token & user
+
         window.location.href = `https://rate-pro-admin.vercel.app/app?token=${token}&user=${encodedUser}`;
       } else {
         navigate("/");
       }
+
     } catch (err) {
-      if (err.response?.status === 401 && err.response.data.message?.includes("Email not verified")) {
-        navigate(`/verify-email?email=${email}`)
+      const message = err?.response?.data?.message || "Login failed. Please try again.";
+
+      if (err.response?.status === 401 && message.includes("Email not verified")) {
+        Swal.fire({
+          icon: "warning",
+          title: "Email Not Verified",
+          text: "Please verify your email.",
+          confirmButtonText: "Verify Now",
+        }).then(() => {
+          navigate(`/verify-email?email=${email}`);
+        });
       } else {
-        setError(err.response?.data?.message || "Login failed")
+        setGeneralError(message);
       }
+
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <section className="login-section">
@@ -246,10 +320,9 @@ const Login = () => {
                 <p className="text-muted">Sign in to your account to continue</p>
               </div>
               <form onSubmit={handleSubmit}>
+                {generalError && <div className="text-danger text-center mt-3">{generalError}</div>}
                 <div className="mb-3">
-                  <label htmlFor="email" className="form-label">
-                    Email address
-                  </label>
+                  <label htmlFor="email" className="form-label">Email address</label>
                   <div className="input-group">
                     <span className="input-group-text"><FaEnvelope /></span>
                     <input
@@ -259,14 +332,12 @@ const Login = () => {
                       placeholder="Enter your email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      required
                     />
                   </div>
+                  {emailError && <div className="text-danger mt-2">{emailError}</div>}
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="password" className="form-label">
-                    Password
-                  </label>
+                  <label htmlFor="password" className="form-label">Password</label>
                   <div className="password-field">
                     <div className="input-group">
                       <span className="input-group-text"><FaLock /></span>
@@ -277,12 +348,12 @@ const Login = () => {
                         placeholder="Enter your password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        required
                       />
+                      <button type="button" className="password-toggle" onClick={togglePasswordVisibility}>
+                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                      </button>
                     </div>
-                    <button type="button" className="password-toggle" onClick={togglePasswordVisibility}>
-                      {showPassword ? <FaEyeSlash /> : <FaEye />}
-                    </button>
+                    {passwordError && <div className="text-danger mt-2">{passwordError}</div>}
                   </div>
                 </div>
                 <div className="d-flex justify-content-between mb-4">
