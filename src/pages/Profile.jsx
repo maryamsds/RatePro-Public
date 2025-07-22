@@ -693,7 +693,7 @@ const Profile = () => {
                                 {formData.firstName} {formData.lastName}
                             </h5>
                             <p className="text-muted small">{formData.email}</p>
-                            <span className="badge bg-primary mb-2">{formData.role}</span>
+                            <span className="badge bg-primary mb-2 p-2">{formData.role}</span>
                             <p className="small">{formData.bio}</p>
                         </div>
                     </div>
