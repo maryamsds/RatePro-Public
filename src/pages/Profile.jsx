@@ -323,6 +323,8 @@ const Profile = () => {
     const [activeTab, setActiveTab] = useState("profile")
     const [isEditing, setIsEditing] = useState(false)
     const [showAlert, setShowAlert] = useState(false)
+    const [userData, setUserData] = useState("");
+    const [userId, setUserId] = useState("");
 
     const [formData, setFormData] = useState({
         firstName: "",
@@ -379,6 +381,8 @@ const Profile = () => {
                     timezone: user.timezone || "",
                     language: user.language || "",
                 })
+                setUserId(user._id);
+                setUserData(user);
             } catch (err) {
                 console.error("Failed to fetch profile:", err)
             }
@@ -397,53 +401,30 @@ const Profile = () => {
         setNotifications((prev) => ({ ...prev, [name]: checked }))
     }
 
-    // const handleSave = async () => {
-    //     try {
-    //         const updatedName = `${formData.firstName} ${formData.lastName}`
-
-    //         const payload = {
-    //             name: updatedName,
-    //             phone: formData.phone,
-    //             department: formData.department,
-    //             role: formData.role,
-    //             bio: formData.bio,
-    //             timezone: formData.timezone,
-    //             language: formData.language,
-    //         }
-
-    //         await updateProfile(payload)
-
-    //         setIsEditing(false)
-    //         setShowAlert(true)
-    //         setTimeout(() => setShowAlert(false), 3000)
-    //     } catch (err) {
-    //         console.error("Failed to save profile:", err)
-    //     }
-    // }
     const handleSave = async () => {
         const updatedName = `${formData.firstName} ${formData.lastName}`.trim();
         const errors = { firstName: "", lastName: "", phone: "" };
-    
+
         // 🔍 Validate First Name
         if (!formData.firstName.trim()) {
             errors.firstName = "First name is required";
         } else if (!/^[A-Za-z]+(?: [A-Za-z]+)*$/.test(formData.firstName)) {
             errors.firstName = "Only alphabets allowed";
         }
-    
+
         // 🔍 Validate Last Name (optional)
         if (formData.lastName && !/^[A-Za-z]+(?: [A-Za-z]+)*$/.test(formData.lastName)) {
             errors.lastName = "Only alphabets allowed";
         }
-    
+
         // 🔍 Validate Phone
         if (formData.phone && !/^\+?\d+$/.test(formData.phone)) {
             errors.phone = "Only digits or + allowed";
         }
-    
+
         setFormErrors(errors);
         if (Object.values(errors).some((e) => e)) return;
-    
+
         try {
             // 🔄 Show loading Swal
             Swal.fire({
@@ -454,10 +435,10 @@ const Profile = () => {
                     Swal.showLoading();
                 },
             });
-    
+
             // 💾 Update profile
             await updateProfile({ name: updatedName });
-    
+
             // ✅ Success Swal
             Swal.fire({
                 icon: "success",
@@ -466,13 +447,13 @@ const Profile = () => {
                 timer: 2000,
                 showConfirmButton: false,
             });
-    
+
             setIsEditing(false);
             setShowAlert(true);
             setTimeout(() => setShowAlert(false), 3000);
         } catch (err) {
             Swal.close(); // Close loader before showing error
-    
+
             // ❌ Error Swal
             Swal.fire({
                 icon: "error",
@@ -592,6 +573,26 @@ const Profile = () => {
         }
     };
 
+    const handleAvatarChange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        try {
+            const formData = new FormData();
+            formData.append("avatar", file);
+
+            const res = await axiosInstance.put(`/users/${userId}`, formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+
+            Swal.fire("Success", "Avatar updated!", "success");
+            // Optionally update avatar preview:
+            setUserData(res.data.user);
+        } catch (err) {
+            Swal.fire("Error", err.response?.data?.message || "Upload failed", "error");
+        }
+    };
+
     const tabClass = (tab) => `nav-link ${activeTab === tab ? "active" : ""}`
     const inputClass = "form-control"
 
@@ -605,20 +606,6 @@ const Profile = () => {
                     </p>
                 </div>
                 <div className="d-flex gap-2">
-                    {/* {isEditing ? (
-                        <>
-                            <button onClick={handleCancel} className="btn btn-outline-secondary btn-sm">
-                                <MdCancel className="me-1" /> Cancel
-                            </button>
-                            <button onClick={handleSave} className="btn btn-primary btn-sm">
-                                <MdSave className="me-1" /> Save
-                            </button>
-                        </>
-                    ) : (
-                        <button onClick={() => setIsEditing(true)} className="btn btn-primary btn-sm">
-                            <MdEdit className="me-1" /> Edit Profile
-                        </button>
-                    )} */}
                     {activeTab === "profile" && (
                         isEditing ? (
                             <>
@@ -649,10 +636,58 @@ const Profile = () => {
                     <div className="card text-center">
                         <div className="card-body">
                             <div
-                                className="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mx-auto mb-3"
-                                style={{ width: 100, height: 100, fontSize: 40 }}
+                                className="profile-avatar mx-auto mb-3 rounded-circle d-flex align-items-center justify-content-center position-relative"
+                                style={{
+                                    width: "120px",
+                                    height: "120px",
+                                    backgroundColor: "var(--primary-color)",
+                                    color: "#fff",
+                                    fontSize: "3rem",
+                                    cursor: "pointer",
+                                }}
                             >
-                                <MdPerson />
+                                {/* Avatar image or fallback initial */}
+                                {userData?.avatar?.url ? (
+                                    <img
+                                        src={userData.avatar.url}
+                                        alt="Avatar"
+                                        className="rounded-circle w-100 h-100 object-fit-cover"
+                                    />
+                                ) : (
+                                    <span>{userData?.name?.charAt(0)?.toUpperCase() || <MdPerson />}</span>
+                                )}
+
+                                {/* Hidden file input */}
+                                <input
+                                    className="form-control"
+                                    id="avatarUpload"
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleAvatarChange}
+                                    style={{ display: "none" }}
+                                />
+
+                                {/* Edit icon trigger */}
+                                <label
+                                    htmlFor="avatarUpload"
+                                    style={{
+                                        position: "absolute",
+                                        bottom: "5px",
+                                        left: "5px",
+                                        backgroundColor: "#fff",
+                                        borderRadius: "50%",
+                                        padding: "5px",
+                                        cursor: "pointer",
+                                        height: "26px",
+                                        width: "26px",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+                                    }}
+                                >
+                                    <MdEdit size={16} color="var(--rater-pro-purple)" />
+                                </label>
                             </div>
                             <h5>
                                 {formData.firstName} {formData.lastName}

@@ -210,7 +210,7 @@ const Navbar = () => {
 
   const handleTakeSurvey = () => {
     const alreadySubmitted = localStorage.getItem("surveyHandled");
-  
+
     if (alreadySubmitted) {
       Swal.fire({
         icon: "info",
@@ -320,7 +320,18 @@ const Navbar = () => {
                       className="rounded-circle bg-light d-flex align-items-center justify-content-center me-2"
                       style={{ width: "36px", height: "36px" }}
                     >
-                      <MdPerson className="text-secondary" size={20} />
+                      {user.avatar && user.avatar.url ? (
+                        <img
+                          src={user.avatar.url}
+                          alt="avatar"
+                          className="img-fluid rounded-circle"
+                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        />
+                      ) : (
+                        <span className="text-muted fw-bold">
+                          {user.name ? user.name.charAt(0).toUpperCase() : "?"}
+                        </span>
+                      )}
                     </div>
                     <span className="d-none d-lg-inline">
                       {capitalize(user?.name?.split?.(" ")[0] || "")}
