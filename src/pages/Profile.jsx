@@ -317,6 +317,7 @@ import {
 import { getCurrentUser, updateProfile, updateUserProfile } from "../api/auth"
 import { useNavigate } from "react-router-dom"
 import Swal from "sweetalert2";
+import API from "../api/auth"
 
 const Profile = () => {
     const navigate = useNavigate()
@@ -325,6 +326,7 @@ const Profile = () => {
     const [showAlert, setShowAlert] = useState(false)
     const [userData, setUserData] = useState("");
     const [userId, setUserId] = useState("");
+    const [avatarRefreshKey, setAvatarRefreshKey] = useState(Date.now());
 
     const [formData, setFormData] = useState({
         firstName: "",
@@ -581,11 +583,14 @@ const Profile = () => {
             const formData = new FormData();
             formData.append("avatar", file);
 
-            const res = await axiosInstance.put(`/users/${userId}`, formData, {
+            console.log(file)
+
+            const res = await API.put(`/users/me`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 
             Swal.fire("Success", "Avatar updated!", "success");
+            setAvatarRefreshKey(Date.now());
             // Optionally update avatar preview:
             setUserData(res.data.user);
         } catch (err) {
@@ -649,7 +654,7 @@ const Profile = () => {
                                 {/* Avatar image or fallback initial */}
                                 {userData?.avatar?.url ? (
                                     <img
-                                        src={userData.avatar.url}
+                                        src={`${userData.avatar.url}?t=${avatarRefreshKey}`}
                                         alt="Avatar"
                                         className="rounded-circle w-100 h-100 object-fit-cover"
                                     />

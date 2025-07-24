@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
 
   // ✅ Load user from localStorage on refresh
   useEffect(() => {
-    const storedUser = localStorage.getItem("user")
+    const storedUser = localStorage.getItem("authUser")
     if (storedUser) {
       setUser(JSON.parse(storedUser))
     }
@@ -16,13 +16,13 @@ export const AuthProvider = ({ children }) => {
   // ✅ Login function
   const login = (userData) => {
     setUser(userData)
-    localStorage.setItem("user", JSON.stringify(userData))
+    localStorage.setItem("authUser", JSON.stringify(userData))
   }
 
   // ✅ Logout function
   const logout = () => {
     setUser(null)
-    localStorage.removeItem("user");
+    localStorage.removeItem("authUser");
     localStorage.removeItem("accessToken")
   }
 

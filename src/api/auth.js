@@ -9,6 +9,8 @@ const API = axios.create({
   }
 })
 
+export default API;
+
 // ✅ AUTH ROUTES
 export const getCurrentUser = () => API.get("/auth/me")
 
