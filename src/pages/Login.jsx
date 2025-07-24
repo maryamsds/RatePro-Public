@@ -276,8 +276,6 @@ const Login = () => {
       if (user.role === "admin" || user.role === "company") {
         const token = accessToken;
         const encodedUser = encodeURIComponent(JSON.stringify(user));
-        localStorage.removeItem("authUser");
-        localStorage.removeItem("token");
 
         window.location.href = `https://rate-pro-admin.vercel.app/app?token=${token}&user=${encodedUser}`;
       } else {
