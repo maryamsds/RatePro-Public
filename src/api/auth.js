@@ -34,7 +34,9 @@ export const loginUser = ({ email, password }) =>
     source: "public",
   })
 
-export const logoutUser = () => API.post("/auth/logout")
+  export const logoutUser = () => 
+  API.post("/auth/logout", {}, { withCredentials: true });
+
 
 export const forgotPassword = ({ email }) =>
   API.post("/auth/forgot-password", { email });
