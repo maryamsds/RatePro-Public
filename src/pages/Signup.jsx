@@ -14,7 +14,7 @@ const Signup = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [fullName, setFullName] = useState("")
   const [email, setEmail] = useState("")
-  const [role, setRole] = useState("user")
+  // const [role, setRole] = useState("user")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const navigate = useNavigate()
@@ -44,7 +44,7 @@ const Signup = () => {
         name: fullName,
         email,
         password,
-        role,
+        // role,
         source: "public"
       });
 
@@ -126,25 +126,7 @@ const Signup = () => {
                     />
                   </div>
                 </div>
-                <div className="mb-3">
-                  <label htmlFor="role" className="form-label">
-                    Role
-                  </label>
-                  <div className="input-group">
-                    <select
-                      id="role"
-                      name="role"
-                      value={role}
-                      required
-                      className="block w-100 px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                      onChange={(e) => setRole(e.target.value)}
-                    >
-                      <option value="" disabled hidden>Select Role</option>
-                      <option value="company">Company</option>
-                      <option value="user">User</option>
-                    </select>
-                  </div>
-                </div>
+               
                 <div className="mb-3">
                   <label htmlFor="password" className="form-label">
                     Password
