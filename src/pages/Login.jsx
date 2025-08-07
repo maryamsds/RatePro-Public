@@ -240,12 +240,10 @@ const Login = () => {
     setPasswordError("");
     setGeneralError("");
 
-    // Empty check
     if (!email) setEmailError("Email is required.");
     if (!password) setPasswordError("Password is required.");
     if (!email || !password) return;
 
-    // Email format check
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setEmailError("Please enter a valid email address.");
@@ -257,8 +255,6 @@ const Login = () => {
     try {
       const res = await loginUser({ email, password });
       const { accessToken, user } = res.data;
-      console.log("Full login response:", res);
-      console.log("user:", res.data.user);
 
       if (!user.isVerified) {
         Swal.fire({
@@ -272,17 +268,30 @@ const Login = () => {
         return;
       }
 
-      console.log("User from response:", user);
-      login(user);
-
+      // ✅ Admin or CompanyAdmin trying to log in on public site
       if (user.role === "admin" || user.role === "companyAdmin") {
-        const token = accessToken;
-        const encodedUser = encodeURIComponent(JSON.stringify(user));
-
-        window.location.href = `https://rate-pro-admin.vercel.app/app?token=${token}&user=${encodedUser}`;
-      } else {
-        navigate("/");
+        Swal.fire({
+          icon: "info",
+          title: "Restricted Access",
+          text: "This platform is intended for regular users only. As an administrator, please use the Admin Dashboard to access your tools and features.",
+          showCancelButton: true,
+          confirmButtonText: "Go to Admin Dashboard",
+          cancelButtonText: "Stay Here",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const token = accessToken;
+            const encodedUser = encodeURIComponent(JSON.stringify(user));
+            window.location.href = `https://rate-pro-admin.vercel.app/app?token=${token}&user=${encodedUser}`;
+          }
+          // No action if cancelled
+        });
+        return;
       }
+
+
+      // ✅ Normal user login success
+      login(user);
+      navigate("/");
 
     } catch (err) {
       const message = err?.response?.data?.message || "Login failed. Please try again.";
@@ -304,6 +313,7 @@ const Login = () => {
       setLoading(false);
     }
   };
+
 
   return (
     <section className="login-section">
