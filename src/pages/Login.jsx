@@ -257,8 +257,10 @@ const Login = () => {
     try {
       const res = await loginUser({ email, password });
       const { accessToken, user } = res.data;
+      console.log("Full login response:", res);
+      console.log("user:", res.data.user);
 
-      if (!user.isEmailVerified) {
+      if (!user.isVerified) {
         Swal.fire({
           icon: "warning",
           title: "Email Not Verified",
@@ -270,10 +272,10 @@ const Login = () => {
         return;
       }
 
+      console.log("User from response:", user);
       login(user);
-      localStorage.setItem("accessToken", accessToken);
 
-      if (user.role === "admin" || user.role === "company") {
+      if (user.role === "admin" || user.role === "companyAdmin") {
         const token = accessToken;
         const encodedUser = encodeURIComponent(JSON.stringify(user));
 
