@@ -184,55 +184,6 @@ const Login = () => {
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword)
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
-  //   setError("")
-  //   setLoading(true)
-
-  //   try {
-  //     const res = await loginUser({ email, password })
-  //     const { accessToken, user } = res.data
-
-  //     if (!user.isEmailVerified) {
-  //       Swal.fire({
-  //         icon: "warning",
-  //         title: "Email Not Verified",
-  //         text: "Please verify your email before logging in.",
-  //         confirmButtonText: "Verify Now",
-  //       }).then(() => {
-  //         navigate(`/verify-email?email=${email}`)
-  //       })
-  //       return
-  //     }
-
-  //     // ✅ Save user in context and localStorage
-  //     login(user)
-  //     localStorage.setItem("accessToken", accessToken)
-
-  //     if (user.role === "admin" || user.role === "company") {
-  //       const token = accessToken;
-  //       const encodedUser = encodeURIComponent(JSON.stringify(user));
-
-  //       // 🧹 Clear public localStorage
-  //       localStorage.removeItem("authUser");
-  //       localStorage.removeItem("token");
-
-  //       // ⏩ Redirect with token & user
-  //       window.location.href = `https://rate-pro-admin.vercel.app/app?token=${token}&user=${encodedUser}`;
-  //     } else {
-  //       navigate("/");
-  //     }
-  //   } catch (err) {
-  //     if (err.response?.status === 401 && err.response.data.message?.includes("Email not verified")) {
-  //       navigate(`/verify-email?email=${email}`)
-  //     } else {
-  //       setError(err.response?.data?.message || "Login failed")
-  //     }
-  //   } finally {
-  //     setLoading(false)
-  //   }
-  // }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -253,7 +204,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await loginUser({ email, password });
+      const res = await loginUser({ email, password, source: "public", });
       const { accessToken, user } = res.data;
 
       if (!user.isVerified) {

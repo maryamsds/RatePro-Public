@@ -14,10 +14,10 @@ const Signup = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [fullName, setFullName] = useState("")
   const [email, setEmail] = useState("")
-  // const [role, setRole] = useState("user")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const navigate = useNavigate()
+  const [loading, setLoading] = useState("")
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
@@ -39,15 +39,15 @@ const Signup = () => {
       return;
     }
 
+    setLoading(true);
+
     try {
       const res = await registerUser({
         name: fullName,
         email,
         password,
-        // role,
         source: "public"
       });
-
 
       Swal.fire({
         icon: 'success',
@@ -70,6 +70,9 @@ const Signup = () => {
         text: error.response?.data?.error || 'Something went wrong. Please try again.',
       });
       console.error("Register Error:", error.response?.data || error.message);
+    }
+    finally {
+      setLoading(false);
     }
   };
 
@@ -126,7 +129,7 @@ const Signup = () => {
                     />
                   </div>
                 </div>
-               
+
                 <div className="mb-3">
                   <label htmlFor="password" className="form-label">
                     Password
@@ -175,8 +178,12 @@ const Signup = () => {
                     </button>
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary w-100 mb-3">
-                  Sign Up
+                <button
+                  type="submit"
+                  className="btn btn-primary w-100 mb-3"
+                  disabled={loading} // disable when loading
+                >
+                  {loading ? "Signing Up..." : "Sign Up"}
                 </button>
                 <button
                   type="button"
