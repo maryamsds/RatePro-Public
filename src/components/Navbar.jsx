@@ -320,7 +320,7 @@ const Navbar = () => {
                       className="rounded-circle bg-light d-flex align-items-center justify-content-center me-2"
                       style={{ width: "36px", height: "36px" }}
                     >
-                      {user.avatar && user.avatar.url ? (
+                      {user?.avatar?.url ? (
                         <img
                           src={user.avatar.url}
                           alt="avatar"

@@ -55,8 +55,18 @@ export const updateUserProfile = (formData) =>
 API.put("/auth/update-profile", formData, {
   withCredentials: true,
   headers: {
-    // "Content-Type": "multipart/form-data", // Required if avatar is included
     "Content-Type": "application/json",
   },
 });
+
+export const uploadAvatar = (file) => {
+  const formData = new FormData();
+  formData.append("avatar", file);
+
+  return API.put("/auth/update-profile", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
 
