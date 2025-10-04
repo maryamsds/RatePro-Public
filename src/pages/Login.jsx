@@ -265,6 +265,11 @@ const Login = () => {
     }
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/google`;
+  };
+  
+
 
   return (
     <section className="login-section">
@@ -338,6 +343,7 @@ const Login = () => {
                 <button
                   type="button"
                   className="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center"
+                  onClick={handleGoogleLogin}
                 >
                   <img src={googleLogo} alt="Google" height="20" className="me-2" />
                   Sign in with Google

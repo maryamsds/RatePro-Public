@@ -177,7 +177,6 @@ import {
 } from "react-icons/md"
 import { useAuth } from "../context/AuthContext"
 import SurveyModal from "./SurveyModal"
-import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { user, logout } = useAuth()
@@ -208,20 +207,7 @@ const Navbar = () => {
     navigate("/login")
   }
 
-  const handleTakeSurvey = () => {
-    const alreadySubmitted = localStorage.getItem("surveyHandled");
 
-    if (alreadySubmitted) {
-      Swal.fire({
-        icon: "info",
-        title: "Survey Already Submitted",
-        text: "You have already submitted the survey. Thank you!",
-      });
-    } else {
-      setCurrentStep(1); // 👈 Make sure your survey starts at step 1
-      setShowSurvey(true);
-    }
-  };
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -237,7 +223,7 @@ const Navbar = () => {
       localStorage.removeItem("pendingSurvey");
       localStorage.setItem("surveyHandled", "true"); // So it doesn’t repeat
     }
-  }, [window.location.pathname]);
+  }, []);
 
 
   return (
@@ -290,15 +276,13 @@ const Navbar = () => {
             </ul>
 
             <div className="d-flex align-items-center">
-              <button
+              <Link 
+                to="/surveys" 
                 className="btn btn-outline-primary ms-auto me-3"
-                onClick={handleTakeSurvey}
+                onClick={() => setIsOpen(false)}
               >
                 Take Survey
-              </button>
-              {/* <Link to="/take-survey" className="btn btn-outline-primary me-2">
-              Take Survey
-            </Link> */}
+              </Link>
 
               {!user ? (
                 <Link

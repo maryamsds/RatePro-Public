@@ -13,6 +13,8 @@ import Signup from "./pages/Signup"
 import ForgotPasswordFlow from "./pages/ForgotPasswordFlow"
 import Profile from "./pages/Profile"
 import EnterOTP from "./pages/EnterOTP"
+import SurveysList from "./pages/SurveysList"
+import SurveyTaking from "./pages/SurveyTaking"
 // import TakeSurvey from "./pages/TakeSurvey"
 
 function App() {
@@ -37,6 +39,8 @@ function App() {
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/verify-code" element={<EnterOTP />} />
+        <Route path="/surveys" element={<SurveysList />} />
+        <Route path="/survey/:surveyId" element={<SurveyTaking />} />
         {/* <Route path="/take-survey" element={<TakeSurvey />} /> */}
         <Route path="/forgot-password" element={<ForgotPasswordFlow />} />
 

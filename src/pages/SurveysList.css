@@ -1,0 +1,256 @@
+/* SurveysList.css */
+
+.surveys-page {
+  min-height: 100vh;
+}
+
+.surveys-hero {
+  background: linear-gradient(135deg, #13c5d0 0%, #b6ebe0 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.surveys-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>');
+  opacity: 0.1;
+}
+
+.hero-illustration {
+  position: relative;
+  z-index: 2;
+}
+
+.survey-card-preview {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.survey-card {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.survey-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+.survey-card-list {
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.survey-card-list:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+}
+
+.hover-lift {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.survey-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.survey-meta {
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding-top: 1rem;
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #13c5d0 0%, #b6ebe0 100%);
+}
+
+.btn-outline-light:hover {
+  background-color: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.5);
+}
+
+.form-select:focus,
+.form-control:focus {
+  border-color: #13c5d0;
+  box-shadow: 0 0 0 0.2rem rgba(19, 197, 208, 0.25);
+}
+
+.btn-group .btn.active {
+  background-color: #13c5d0;
+  border-color: #13c5d0;
+  color: white;
+}
+
+.badge {
+  font-weight: 500;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .surveys-hero {
+    text-align: center;
+    padding: 3rem 0;
+  }
+  
+  .surveys-hero .display-4 {
+    font-size: 2.5rem;
+  }
+  
+  .survey-card {
+    margin-bottom: 1.5rem;
+  }
+  
+  .btn-group {
+    width: 100%;
+  }
+  
+  .btn-group .btn {
+    flex: 1;
+  }
+}
+
+@media (max-width: 576px) {
+  .surveys-hero .lead {
+    font-size: 1rem;
+  }
+  
+  .surveys-hero .d-flex {
+    flex-direction: column;
+    gap: 0.5rem !important;
+  }
+  
+  .surveys-hero .d-flex > div {
+    justify-content: center;
+  }
+}
+
+/* Animation for loading */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Card hover effects */
+.card-header {
+  border-bottom: none !important;
+}
+
+.survey-card .card-body {
+  padding: 1.5rem;
+}
+
+.survey-card-list .card-body {
+  padding: 1.25rem;
+}
+
+/* Button styles */
+.btn-primary {
+  background-color: #13c5d0;
+  border-color: #13c5d0;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0fa9b3;
+  border-color: #0fa9b3;
+  transform: translateY(-1px);
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--rater-pro-gray);
+  border-color: var(--rater-pro-gray);
+}
+
+/* Filter section */
+.bg-light {
+  background-color: var(--rater-pro-light-gray) !important;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+/* No results state */
+.text-center svg {
+  opacity: 0.5;
+}
+
+/* Progress bar in hero */
+.progress {
+  background-color: rgba(255,255,255,0.2);
+}
+
+.progress-bar {
+  background-color: rgba(255,255,255,0.8);
+}
+
+/* Success and warning badges */
+.bg-success-subtle {
+  background-color: rgba(25, 135, 84, 0.1) !important;
+}
+
+.text-success {
+  color: #198754 !important;
+}
+
+.bg-primary-subtle {
+  background-color: rgba(13, 110, 253, 0.1) !important;
+}
+
+.text-primary {
+  color: #0d6efd !important;
+}
+
+/* Star ratings */
+.text-warning {
+  color: #ffc107 !important;
+}
+
+/* Category icons animation */
+.survey-icon svg {
+  transition: transform 0.3s ease;
+}
+
+.survey-card:hover .survey-icon svg {
+  transform: scale(1.1);
+}
+
+/* Mobile optimizations */
+@media (max-width: 992px) {
+  .col-md-1 {
+    margin-top: 1rem;
+  }
+  
+  .btn-group {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .row.align-items-center > .col-md-3,
+  .row.align-items-center > .col-md-2,
+  .row.align-items-center > .col-md-1 {
+    margin-top: 0.75rem;
+  }
+}

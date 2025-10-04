@@ -1,0 +1,192 @@
+/* Additional RatePro color overrides */
+
+:root {
+    --rater-pro-purple: #13c5d0;
+    --rater-pro-light-purple: #b6ebe0;
+    --rater-pro-dark: #2d2d2d;
+    --rater-pro-gray: #6c757d;
+    --rater-pro-light-gray: #f8f9fa;
+    
+    /* Bootstrap color overrides */
+    --bs-primary: #13c5d0;
+    --bs-primary-rgb: 19, 197, 208;
+    --bs-secondary: #6c757d;
+    --bs-light: #f8f9fa;
+    --bs-dark: #2d2d2d;
+}
+
+/* Primary color overrides */
+.btn-primary {
+    background-color: var(--rater-pro-purple) !important;
+    border-color: var(--rater-pro-purple) !important;
+}
+
+.btn-primary:hover {
+    background-color: #0fa9b3 !important;
+    border-color: #0fa9b3 !important;
+}
+
+/* .btn-outline-primary {
+    color: var(--rater-pro-purple) !important;
+    border-color: var(--rater-pro-purple) !important;
+} */
+
+.btn-outline-primary:hover {
+    /* background-color: var(--rater-pro-purple) !important; */
+    border-color: var(--rater-pro-purple) !important;
+}
+
+.text-primary {
+    color: var(--rater-pro-purple) !important;
+}
+
+.bg-primary {
+    background-color: var(--rater-pro-purple) !important;
+}
+
+.border-primary {
+    border-color: var(--rater-pro-purple) !important;
+}
+
+/* Progress bar colors */
+.progress-bar {
+    background-color: var(--rater-pro-purple) !important;
+}
+
+/* Form control focus states */
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--rater-pro-purple) !important;
+    box-shadow: 0 0 0 0.2rem rgba(19, 197, 208, 0.25) !important;
+}
+
+.form-check-input:focus {
+    border-color: var(--rater-pro-purple) !important;
+    box-shadow: 0 0 0 0.2rem rgba(19, 197, 208, 0.25) !important;
+}
+
+.form-check-input:checked {
+    background-color: var(--rater-pro-purple) !important;
+    border-color: var(--rater-pro-purple) !important;
+}
+
+/* Badge colors */
+.badge.bg-primary {
+    background-color: var(--rater-pro-purple) !important;
+}
+
+.bg-primary-subtle {
+    background-color: rgba(19, 197, 208, 0.1) !important;
+}
+
+.text-primary {
+    color: var(--rater-pro-purple) !important;
+}
+
+/* Alert colors */
+.alert-primary {
+    color: #0c5460;
+    background-color: rgba(19, 197, 208, 0.1);
+    border-color: rgba(19, 197, 208, 0.2);
+}
+
+/* Dropdown and navigation */
+.dropdown-item:active {
+    background-color: var(--rater-pro-purple) !important;
+}
+
+.nav-pills .nav-link.active {
+    background-color: var(--rater-pro-purple) !important;
+}
+
+/* Card and border accents */
+.border-start {
+    border-left-color: var(--rater-pro-purple) !important;
+}
+
+.border-top {
+    border-top-color: var(--rater-pro-purple) !important;
+}
+
+/* Spinner colors */
+.spinner-border.text-primary {
+    color: var(--rater-pro-purple) !important;
+}
+
+/* Custom gradient backgrounds */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, var(--rater-pro-purple) 0%, var(--rater-pro-light-purple) 100%) !important;
+}
+
+/* Hover effects for cards and buttons */
+.hover-primary:hover {
+    color: var(--rater-pro-purple) !important;
+}
+
+/* Table colors */
+.table-primary {
+    --bs-table-color: #000;
+    --bs-table-bg: rgba(19, 197, 208, 0.1);
+    --bs-table-border-color: rgba(19, 197, 208, 0.2);
+}
+
+/* List group colors */
+.list-group-item.active {
+    background-color: var(--rater-pro-purple) !important;
+    border-color: var(--rater-pro-purple) !important;
+}
+
+/* Pagination colors */
+.page-link {
+    color: var(--rater-pro-purple) !important;
+}
+
+.page-item.active .page-link {
+    background-color: var(--rater-pro-purple) !important;
+    border-color: var(--rater-pro-purple) !important;
+}
+
+/* Success and warning colors remain unchanged */
+.btn-success {
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+}
+
+.btn-warning {
+    background-color: #ffc107 !important;
+    border-color: #ffc107 !important;
+    color: #212529 !important;
+}
+
+.btn-danger {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
+/* Gray colors using variables */
+.btn-secondary {
+    background-color: var(--rater-pro-gray) !important;
+    border-color: var(--rater-pro-gray) !important;
+}
+
+.btn-outline-secondary {
+    color: var(--rater-pro-gray) !important;
+    border-color: var(--rater-pro-gray) !important;
+}
+
+.text-muted {
+    color: var(--rater-pro-gray) !important;
+}
+
+.bg-light {
+    background-color: var(--rater-pro-light-gray) !important;
+}
+
+/* Dark theme support */
+.bg-dark {
+    background-color: var(--rater-pro-dark) !important;
+}
+
+.text-dark {
+    color: var(--rater-pro-dark) !important;
+}
