@@ -1,3 +1,4 @@
+// RateproPublic/React_Survanta_Frontend/src/api/auth.js
 import axios from "axios"
 
 const API = axios.create({
