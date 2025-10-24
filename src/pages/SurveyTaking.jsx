@@ -5,13 +5,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {
   MdArrowBack, MdArrowForward, MdCheck, MdStar, MdStarBorder,
-  MdRadioButtonChecked, MdRadioButtonUnchecked, MdCheckBox,
-  MdCheckBoxOutlineBlank, MdThumbUp, MdThumbDown
+  // MdRadioButtonChecked, MdRadioButtonUnchecked, MdCheckBox,
+  // MdCheckBoxOutlineBlank, MdThumbUp, MdThumbDown
 } from 'react-icons/md';
 import { FaClock, FaUsers } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import './SurveyTaking.css';
 import PublicAPI from '../api/publicApi';
+
+// ye shoukat bhai kuch kaam b krty hen, ya aese he bethy rehty hen, Sat ko unko code dia tha error solve krny k lye, ab tk kuch ni kia :D
 
 const SurveyTaking = () => {
   const { surveyId } = useParams();
@@ -78,60 +80,60 @@ const SurveyTaking = () => {
   };
 
   // Mock survey data for demonstration
-  const getMockSurvey = (id) => {
-    const mockSurveys = {
-      '1': {
-        _id: '1',
-        title: 'Hotel Guest Experience Survey',
-        description: 'Share your thoughts about your recent stay with us. Help us improve our services and facilities.',
-        themeColor: '#13c5d0',
-        questions: [
-          {
-            _id: 'q1',
-            questionText: 'How satisfied were you with your overall stay experience?',
-            type: 'likert',
-            required: true,
-            options: ['Very Dissatisfied', 'Dissatisfied', 'Neutral', 'Satisfied', 'Very Satisfied']
-          },
-          {
-            _id: 'q2',
-            questionText: 'Rate the cleanliness and comfort of your room',
-            type: 'rating',
-            required: true,
-            options: []
-          },
-          {
-            _id: 'q3',
-            questionText: 'Which hotel facilities did you use during your stay?',
-            type: 'checkbox',
-            required: false,
-            options: ['Restaurant', 'Spa & Wellness', 'Swimming Pool', 'Fitness Center', 'Room Service', 'Business Center']
-          },
-          {
-            _id: 'q4',
-            questionText: 'How likely are you to recommend us to friends and family?',
-            type: 'nps',
-            required: true,
-            options: []
-          },
-          {
-            _id: 'q5',
-            questionText: 'What suggestions do you have for improving our services?',
-            type: 'textarea',
-            required: false,
-            options: []
-          }
-        ],
-        estimatedTime: '5-7 minutes',
-        thankYouPage: {
-          message: 'Thank you for your valuable feedback! Your responses help us improve our services.',
-          redirectUrl: ''
-        }
-      }
-    };
+  // const getMockSurvey = (id) => {
+  //   const mockSurveys = {
+  //     '1': {
+  //       _id: '1',
+  //       title: 'Hotel Guest Experience Survey',
+  //       description: 'Share your thoughts about your recent stay with us. Help us improve our services and facilities.',
+  //       themeColor: '#13c5d0',
+  //       questions: [
+  //         {
+  //           _id: 'q1',
+  //           questionText: 'How satisfied were you with your overall stay experience?',
+  //           type: 'likert',
+  //           required: true,
+  //           options: ['Very Dissatisfied', 'Dissatisfied', 'Neutral', 'Satisfied', 'Very Satisfied']
+  //         },
+  //         {
+  //           _id: 'q2',
+  //           questionText: 'Rate the cleanliness and comfort of your room',
+  //           type: 'rating',
+  //           required: true,
+  //           options: []
+  //         },
+  //         {
+  //           _id: 'q3',
+  //           questionText: 'Which hotel facilities did you use during your stay?',
+  //           type: 'checkbox',
+  //           required: false,
+  //           options: ['Restaurant', 'Spa & Wellness', 'Swimming Pool', 'Fitness Center', 'Room Service', 'Business Center']
+  //         },
+  //         {
+  //           _id: 'q4',
+  //           questionText: 'How likely are you to recommend us to friends and family?',
+  //           type: 'nps',
+  //           required: true,
+  //           options: []
+  //         },
+  //         {
+  //           _id: 'q5',
+  //           questionText: 'What suggestions do you have for improving our services?',
+  //           type: 'textarea',
+  //           required: false,
+  //           options: []
+  //         }
+  //       ],
+  //       estimatedTime: '5-7 minutes',
+  //       thankYouPage: {
+  //         message: 'Thank you for your valuable feedback! Your responses help us improve our services.',
+  //         redirectUrl: ''
+  //       }
+  //     }
+  //   };
 
-    return mockSurveys[id] || mockSurveys['1'];
-  };
+  //   return mockSurveys[id] || mockSurveys['1'];
+  // };
 
   const handleResponse = (questionId, answer) => {
     setResponses(prev => ({
@@ -168,109 +170,99 @@ const SurveyTaking = () => {
     try {
       setSubmitting(true);
 
-      // Prepare response data
+      // ✅ CORRECT: Match backend controller structure
       const responseData = {
-        surveyId: surveyId,
-        responses: Object.entries(responses).map(([questionId, answer]) => ({
-          question: questionId,
-          answer: answer
+        surveyId, // backend expects 'surveyId'
+        answers: Object.entries(responses).map(([questionId, answer]) => ({
+          questionId, // backend expects 'questionId'
+          answer,
         })),
+        isAnonymous: true,
+        ip: "anonymous",
         submittedAt: new Date().toISOString(),
-        anonymous: true,
-        userAgent: navigator.userAgent,
-        ipAddress: 'anonymous'
       };
 
-      console.log('📤 Submitting survey responses:', responseData);
-
-      // Try multiple submission endpoints
-      const endpoints = [
-        '/surveys/public/submit'
-      ];
-
+      console.log("📤 Submitting survey responses:", responseData);
+      // yahn tu sahi hai path 
+      const endpoints = ["/surveys/public/submit"];
       let submitSuccess = false;
 
       for (const endpoint of endpoints) {
         try {
           const config = {
             timeout: 10000,
-            headers: {
-              'Content-Type': 'application/json',
-            }
-          }
-          const response = await PublicAPI.post('/surveys/public/submit', responseData, config);
+            headers: { "Content-Type": "application/json" },
+          };
 
-          console.log('✅ Submission successful:', response.data);
+          const response = await PublicAPI.post(endpoint, responseData, config);
+          console.log("✅ Submission successful:", response.data);
 
           submitSuccess = true;
 
-          // Clear any saved progress
-          sessionStorage.removeItem('surveyProgress');
+          // 🧹 Clear saved progress
+          sessionStorage.removeItem("surveyProgress");
 
-          // Show success message
+          // 🎉 Success message
           await Swal.fire({
-            icon: 'success',
-            title: 'Thank You!',
-            text: survey.thankYouPage?.message || 'Your response has been submitted successfully.',
-            confirmButtonText: 'Continue'
+            icon: "success",
+            title: "Thank You!",
+            text:
+              survey.thankYouPage?.message ||
+              "Your response has been submitted successfully.",
+            confirmButtonText: "Continue",
           });
 
-          // Redirect
+          // 🔗 Redirect
           if (survey.thankYouPage?.redirectUrl) {
             window.location.href = survey.thankYouPage.redirectUrl;
           } else {
-            navigate('/surveys');
+            navigate("/surveys");
           }
 
-          break; // Exit loop if successful
-
+          break; // ✅ stop after first success
         } catch (err) {
           console.log(`❌ Failed with ${endpoint}:`, {
             status: err.response?.status,
-            message: err.message
+            message: err.message,
+            data: err.response?.data,
           });
 
           if (err.response?.status === 401) {
-            console.log('🔐 401 Unauthorized - trying anonymous submission');
+            console.log("🔐 401 Unauthorized - trying anonymous submission");
           }
         }
       }
 
+      // 🟡 Handle demo or fallback case
       if (!submitSuccess) {
-        // Handle demo mode for mock surveys
-        if (surveyId.startsWith('mock-') || survey._id.startsWith('mock-')) {
-          console.log('🔄 Using demo submission for mock survey');
+        if (surveyId.startsWith("mock-") || survey._id.startsWith("mock-")) {
+          console.log("🔄 Using demo submission for mock survey");
           await Swal.fire({
-            icon: 'info',
-            title: 'Demo Submission',
-            text: 'This is a demo survey. In a real application, your responses would be submitted to our server.',
-            confirmButtonText: 'Continue'
+            icon: "info",
+            title: "Demo Submission",
+            text: "This is a demo survey. In a real application, your responses would be submitted to our server.",
+            confirmButtonText: "Continue",
           });
-          navigate('/surveys');
         } else {
-          // All endpoints failed - show success anyway for demo
-          console.log('🔄 Showing success message for anonymous submission');
+          console.log("🔄 Showing success message for anonymous submission");
           await Swal.fire({
-            icon: 'success',
-            title: 'Thank You!',
-            text: 'Your response has been recorded. Thank you for your feedback!',
-            confirmButtonText: 'Continue'
+            icon: "success",
+            title: "Thank You!",
+            text: "Your response has been recorded. Thank you for your feedback!",
+            confirmButtonText: "Continue",
           });
-          navigate('/surveys');
         }
+        navigate("/surveys");
       }
-
     } catch (err) {
-      console.error('❌ Final submission error:', err);
-
-      // Even if error occurs, show success for better UX
+      console.error("❌ Final submission error:", err);
       await Swal.fire({
-        icon: 'success',
-        title: 'Thank You!',
-        text: 'Your response has been recorded. Thank you for your feedback!',
-        confirmButtonText: 'OK'
+        icon: "success",
+        title: "Thank You!",
+        text: "Your response has been recorded. Thank you for your feedback!",
+        confirmButtonText: "OK",
       });
-      navigate('/surveys');
+      navigate("/surveys");
     } finally {
       setSubmitting(false);
     }
