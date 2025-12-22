@@ -26,6 +26,13 @@ const SurveyTaking = () => {
   const [submitting, setSubmitting] = useState(false);
   const [started, setStarted] = useState(false);
 
+  // ADD THESE STATES (top me – existing states ke neeche)
+  const [visibleQuestions, setVisibleQuestions] = useState([]); // Real-time visible questions
+  const [hiddenQuestions, setHiddenQuestions] = useState([]);   // Hidden by logic
+  const [redirectTo, setRedirectTo] = useState(null);           // For redirect action
+  // const [prefillValues, setPrefillValues] = useState({});       // Prefill from logic
+  const [surveyEnded, setSurveyEnded] = useState(false);        // End survey early
+
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
@@ -68,72 +75,13 @@ const SurveyTaking = () => {
       } else {
         // Fallback to mock survey
         console.log('🔄 Using mock survey data');
-        setSurvey(getMockSurvey(surveyId));
       }
     } catch (err) {
       console.error('❌ Error fetching survey:', err);
-      // Fallback to mock survey
-      setSurvey(getMockSurvey(surveyId));
     } finally {
       setLoading(false);
     }
   };
-
-  // Mock survey data for demonstration
-  // const getMockSurvey = (id) => {
-  //   const mockSurveys = {
-  //     '1': {
-  //       _id: '1',
-  //       title: 'Hotel Guest Experience Survey',
-  //       description: 'Share your thoughts about your recent stay with us. Help us improve our services and facilities.',
-  //       themeColor: '#13c5d0',
-  //       questions: [
-  //         {
-  //           _id: 'q1',
-  //           questionText: 'How satisfied were you with your overall stay experience?',
-  //           type: 'likert',
-  //           required: true,
-  //           options: ['Very Dissatisfied', 'Dissatisfied', 'Neutral', 'Satisfied', 'Very Satisfied']
-  //         },
-  //         {
-  //           _id: 'q2',
-  //           questionText: 'Rate the cleanliness and comfort of your room',
-  //           type: 'rating',
-  //           required: true,
-  //           options: []
-  //         },
-  //         {
-  //           _id: 'q3',
-  //           questionText: 'Which hotel facilities did you use during your stay?',
-  //           type: 'checkbox',
-  //           required: false,
-  //           options: ['Restaurant', 'Spa & Wellness', 'Swimming Pool', 'Fitness Center', 'Room Service', 'Business Center']
-  //         },
-  //         {
-  //           _id: 'q4',
-  //           questionText: 'How likely are you to recommend us to friends and family?',
-  //           type: 'nps',
-  //           required: true,
-  //           options: []
-  //         },
-  //         {
-  //           _id: 'q5',
-  //           questionText: 'What suggestions do you have for improving our services?',
-  //           type: 'textarea',
-  //           required: false,
-  //           options: []
-  //         }
-  //       ],
-  //       estimatedTime: '5-7 minutes',
-  //       thankYouPage: {
-  //         message: 'Thank you for your valuable feedback! Your responses help us improve our services.',
-  //         redirectUrl: ''
-  //       }
-  //     }
-  //   };
-
-  //   return mockSurveys[id] || mockSurveys['1'];
-  // };
 
   const handleResponse = (questionId, answer) => {
     setResponses(prev => ({
@@ -142,18 +90,66 @@ const SurveyTaking = () => {
     }));
   };
 
-  const handleNext = () => {
-    const question = survey.questions[currentQuestion];
-    if (question.required && !responses[question._id]) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Required Question',
-        text: 'Please answer this question before continuing.'
-      });
+  // ADD AFTER handleResponse function
+  useEffect(() => {
+    if (!survey || !survey.logicRules || survey.logicRules.length === 0) {
+      // No logic rules → show all questions
+      setVisibleQuestions(survey?.questions || []);
       return;
     }
 
-    if (currentQuestion < survey.questions.length - 1) {
+    const evaluateLogic = async () => {
+      try {
+        const response = await axios.post(`/api/surveys/${surveyId}/evaluate`, {
+          answers: responses
+        });
+
+        const { show, hide, redirect, disableNext, prefill, endSurvey } = response.data;
+
+        // Apply show/hide
+        setHiddenQuestions(new Set(hide || []));
+
+        // Apply prefill
+        if (prefill) {
+          Object.entries(prefill).forEach(([qId, value]) => {
+            if (!responses[qId]) {
+              handleResponse(qId, value);
+            }
+          });
+        }
+
+        // Handle redirect
+        if (redirect) {
+          const questionIndex = survey.questions.findIndex(q => q.id === redirect || q._id === redirect);
+          if (questionIndex !== -1) {
+            setCurrentQuestion(questionIndex);
+          }
+        }
+
+        // Handle end survey
+        if (endSurvey) {
+          setSurveyEnded(true);
+          handleSubmit();
+        }
+
+      } catch (err) {
+        console.log("Logic evaluation skipped (optional)", err.message);
+      }
+    };
+
+    evaluateLogic();
+  }, [responses, currentQuestion]);
+
+
+  const handleNext = () => {
+    const currentQId = question._id || question.id;
+
+    if (question.required && !responses[currentQId]) {
+      Swal.fire('Required', 'Please answer this question', 'warning');
+      return;
+    }
+
+    if (currentQuestion < visibleQuestionsList.length - 1) {
       setCurrentQuestion(prev => prev + 1);
     } else {
       handleSubmit();
@@ -271,6 +267,13 @@ const SurveyTaking = () => {
   // ✅ ADD: renderQuestion function - this was missing!
   const renderQuestion = (question) => {
     const currentAnswer = responses[question._id];
+
+    const questionId = question._id || question.id;
+
+    // HIDE QUESTION IF IN hiddenQuestions SET
+    if (hiddenQuestions.has(questionId)) {
+      return null;
+    }
 
     switch (question.type) {
       case 'likert':
@@ -507,8 +510,24 @@ const SurveyTaking = () => {
     );
   }
 
-  const question = survey.questions[currentQuestion];
-  const progress = ((currentQuestion + 1) / survey.questions.length) * 100;
+  const visibleQuestionsList = survey.questions.filter(q => {
+    const qId = q._id || q.id;
+    return !hiddenQuestions.has(qId);
+  });
+
+  const question = visibleQuestionsList[currentQuestion];
+  const totalVisible = visibleQuestionsList.length;
+  const progress = totalVisible > 0 ? ((currentQuestion + 1) / totalVisible) * 100 : 0;
+
+  if (surveyEnded) {
+    return (
+      <div className="text-center py-5">
+        <MdCheck size={64} className="text-success mb-3" />
+        <h2>Thank You!</h2>
+        <p>Your survey has been completed based on your responses.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="survey-taking-page">
