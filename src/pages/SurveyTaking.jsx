@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -28,10 +26,12 @@ const SurveyTaking = () => {
 
   // ADD THESE STATES (top me – existing states ke neeche)
   const [visibleQuestions, setVisibleQuestions] = useState([]); // Real-time visible questions
-  const [hiddenQuestions, setHiddenQuestions] = useState([]);   // Hidden by logic
+  const [hiddenQuestions, setHiddenQuestions] = useState(new Set());   // ✅ Initialize as Set, not array
   const [redirectTo, setRedirectTo] = useState(null);           // For redirect action
   // const [prefillValues, setPrefillValues] = useState({});       // Prefill from logic
   const [surveyEnded, setSurveyEnded] = useState(false);        // End survey early
+  
+
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
