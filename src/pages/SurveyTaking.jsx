@@ -313,8 +313,8 @@ const SurveyTaking = () => {
 
       // Determine endpoint
       const endpoint = token
-        ? `/responses/invited/${token}`
-        : `/responses/anonymous/${surveyId}`;
+        ? `/surveys/responses/invited/${token}`
+        : `/surveys/responses/anonymous/${surveyId}`;
 
       const response = await PublicAPI.post(endpoint, responseData, {
         headers: { "Content-Type": "application/json" },
