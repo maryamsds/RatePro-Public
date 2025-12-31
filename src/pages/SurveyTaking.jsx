@@ -176,7 +176,7 @@ const SurveyTaking = () => {
     if (currentQuestion < visibleQuestionsList.length - 1) {
       setCurrentQuestion(prev => prev + 1);
     } else {
-      handleSubmit();
+      handleSubmit(token);
     }
   };
 
