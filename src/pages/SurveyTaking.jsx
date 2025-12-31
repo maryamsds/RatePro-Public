@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import {
   MdArrowBack, MdArrowForward, MdCheck, MdStar, MdStarBorder,
@@ -15,6 +15,10 @@ import PublicAPI from '../api/publicApi';
 
 const SurveyTaking = () => {
   const { surveyId } = useParams();
+  const [searchParams] = useSearchParams();
+
+  const token = searchParams.get("token"); // 🔥 THIS WAS MISSING
+  const isInvitedFlow = Boolean(token);
   const navigate = useNavigate();
 
   const [survey, setSurvey] = useState(null);
@@ -30,71 +34,64 @@ const SurveyTaking = () => {
   const [redirectTo, setRedirectTo] = useState(null);           // For redirect action
   // const [prefillValues, setPrefillValues] = useState({});       // Prefill from logic
   const [surveyEnded, setSurveyEnded] = useState(false);        // End survey early
-  
+
 
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
-    fetchSurvey();
-  }, [surveyId]);
+    fetchSurvey(token);
+  }, [surveyId, token]);
 
-  // const fetchSurvey = async () => {
+  // const fetchSurvey = async (token = null) => {
   //   try {
   //     setLoading(true);
 
-  //     // Try multiple endpoint variations
-  //     const endpoints = [
-  //       `/surveys/public/${surveyId}`,
-  //       `/surveys/${surveyId}`,
-  //       `/surveys/public/${surveyId}`,
-  //       `/surveys/${surveyId}`
-  //     ];
+  //     // Decide endpoint dynamically
+  //     const endpoint = token
+  //       ? `/surveys/responses/invited/${token}`      // invited survey (READ)
+  //       : `/surveys/public/${surveyId}`; // Public/anonymous survey
 
-  //     let surveyData = null;
+  //     const response = await PublicAPI.get(endpoint);
 
-  //     for (const endpoint of endpoints) {
-  //       try {
-  //         const response = await axios.get(`${API_BASE_URL}${endpoint}`, {
-  //           timeout: 10000,
-  //           headers: {
-  //             'Content-Type': 'application/json'
-  //           }
-  //         });
-  //         surveyData = response.data;
-  //         break;
-  //       } catch (err) {
-  //         console.log(`❌ Failed with ${endpoint}:`, err.message);
-  //         continue;
-  //       }
-  //     }
+  //     // Normalize response data
+  //     const surveyInfo =
+  //       response.data?.survey ||
+  //       response.data?.data ||
+  //       response.data;
 
-  //     if (surveyData) {
-  //       const surveyInfo = surveyData.survey || surveyData.data || surveyData;
-  //       setSurvey(surveyInfo);
-  //     } else {
-  //       // Fallback to mock survey
-  //       console.log('🔄 Using mock survey data');
-  //     }
-  //   } catch (err) {
-  //     console.error('❌ Error fetching survey:', err);
+  //     setSurvey(surveyInfo);
+
+  //     console.log(`✅ Fetched ${token ? "invited" : "public"} survey:`, surveyInfo);
+
+  //   } catch (error) {
+  //     console.error("❌ Failed to fetch survey:", error.message);
+  //     console.log("🔄 Using mock survey data");
+
+  //     // Optionally set mock survey here
+  //     // setSurvey(mockSurveyData);
   //   } finally {
   //     setLoading(false);
   //   }
   // };
 
   const fetchSurvey = async (token = null) => {
+    console.log("🧪 DEBUG fetchSurvey");
+    console.log("surveyId:", surveyId);
+    console.log("token:", token);
+    console.log("isInvitedFlow:", Boolean(token));
+
     try {
       setLoading(true);
 
-      // Decide endpoint dynamically
       const endpoint = token
-        ? `/surveys/responses/invited/${token}`      // invited survey (READ)
-        : `/surveys/public/${surveyId}`; // Public/anonymous survey
+        ? `/surveys/responses/invited/${token}`
+        : `/surveys/public/${surveyId}`;
+
+      console.log("➡️ API Endpoint:", endpoint);
 
       const response = await PublicAPI.get(endpoint);
 
-      // Normalize response data
       const surveyInfo =
         response.data?.survey ||
         response.data?.data ||
@@ -102,14 +99,9 @@ const SurveyTaking = () => {
 
       setSurvey(surveyInfo);
 
-      console.log(`✅ Fetched ${token ? "invited" : "public"} survey:`, surveyInfo);
-
+      console.log("✅ Survey loaded:", surveyInfo);
     } catch (error) {
-      console.error("❌ Failed to fetch survey:", error.message);
-      console.log("🔄 Using mock survey data");
-
-      // Optionally set mock survey here
-      // setSurvey(mockSurveyData);
+      console.error("❌ Failed to fetch survey:", error);
     } finally {
       setLoading(false);
     }
@@ -161,7 +153,7 @@ const SurveyTaking = () => {
         // Handle end survey
         if (endSurvey) {
           setSurveyEnded(true);
-          handleSubmit();
+          handleSubmit(token);
         }
 
       } catch (err) {
@@ -193,108 +185,6 @@ const SurveyTaking = () => {
       setCurrentQuestion(prev => prev - 1);
     }
   };
-
-  // const handleSubmit = async () => {
-  //   try {
-  //     setSubmitting(true);
-
-  //     // ✅ CORRECT: Match backend controller structure
-  //     const responseData = {
-  //       surveyId, // backend expects 'surveyId'
-  //       answers: Object.entries(responses).map(([questionId, answer]) => ({
-  //         questionId, // backend expects 'questionId'
-  //         answer,
-  //       })),
-  //       isAnonymous: true,
-  //       ip: "anonymous",
-  //       submittedAt: new Date().toISOString(),
-  //     };
-
-  //     console.log("📤 Submitting survey responses:", responseData);
-  //     // yahn tu sahi hai path 
-  //     const endpoints = ["/surveys/public/submit"];
-  //     let submitSuccess = false;
-
-  //     for (const endpoint of endpoints) {
-  //       try {
-  //         const config = {
-  //           timeout: 10000,
-  //           headers: { "Content-Type": "application/json" },
-  //         };
-
-  //         const response = await PublicAPI.post(endpoint, responseData, config);
-  //         console.log("✅ Submission successful:", response.data);
-
-  //         submitSuccess = true;
-
-  //         // 🧹 Clear saved progress
-  //         sessionStorage.removeItem("surveyProgress");
-
-  //         // 🎉 Success message
-  //         await Swal.fire({
-  //           icon: "success",
-  //           title: "Thank You!",
-  //           text:
-  //             survey.thankYouPage?.message ||
-  //             "Your response has been submitted successfully.",
-  //           confirmButtonText: "Continue",
-  //         });
-
-  //         // 🔗 Redirect
-  //         if (survey.thankYouPage?.redirectUrl) {
-  //           window.location.href = survey.thankYouPage.redirectUrl;
-  //         } else {
-  //           navigate("/surveys");
-  //         }
-
-  //         break; // ✅ stop after first success
-  //       } catch (err) {
-  //         console.log(`❌ Failed with ${endpoint}:`, {
-  //           status: err.response?.status,
-  //           message: err.message,
-  //           data: err.response?.data,
-  //         });
-
-  //         if (err.response?.status === 401) {
-  //           console.log("🔐 401 Unauthorized - trying anonymous submission");
-  //         }
-  //       }
-  //     }
-
-  //     // 🟡 Handle demo or fallback case
-  //     if (!submitSuccess) {
-  //       if (surveyId.startsWith("mock-") || survey._id.startsWith("mock-")) {
-  //         console.log("🔄 Using demo submission for mock survey");
-  //         await Swal.fire({
-  //           icon: "info",
-  //           title: "Demo Submission",
-  //           text: "This is a demo survey. In a real application, your responses would be submitted to our server.",
-  //           confirmButtonText: "Continue",
-  //         });
-  //       } else {
-  //         console.log("🔄 Showing success message for anonymous submission");
-  //         await Swal.fire({
-  //           icon: "success",
-  //           title: "Thank You!",
-  //           text: "Your response has been recorded. Thank you for your feedback!",
-  //           confirmButtonText: "Continue",
-  //         });
-  //       }
-  //       navigate("/surveys");
-  //     }
-  //   } catch (err) {
-  //     console.error("❌ Final submission error:", err);
-  //     await Swal.fire({
-  //       icon: "success",
-  //       title: "Thank You!",
-  //       text: "Your response has been recorded. Thank you for your feedback!",
-  //       confirmButtonText: "OK",
-  //     });
-  //     navigate("/surveys");
-  //   } finally {
-  //     setSubmitting(false);
-  //   }
-  // };
 
   const handleSubmit = async (token = null) => {
     try {
