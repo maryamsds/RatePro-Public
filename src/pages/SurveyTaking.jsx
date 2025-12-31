@@ -89,7 +89,7 @@ const SurveyTaking = () => {
 
       // Decide endpoint dynamically
       const endpoint = token
-        ? `/surveys/invited/${token}`      // invited survey (READ)
+        ? `/surveys/responses/invited/${token}`      // invited survey (READ)
         : `/surveys/public/${surveyId}`; // Public/anonymous survey
 
       const response = await PublicAPI.get(endpoint);
