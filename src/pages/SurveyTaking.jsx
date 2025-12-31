@@ -43,38 +43,6 @@ const SurveyTaking = () => {
     fetchSurvey(token);
   }, [surveyId, token]);
 
-  // const fetchSurvey = async (token = null) => {
-  //   try {
-  //     setLoading(true);
-
-  //     // Decide endpoint dynamically
-  //     const endpoint = token
-  //       ? `/surveys/responses/invited/${token}`      // invited survey (READ)
-  //       : `/surveys/public/${surveyId}`; // Public/anonymous survey
-
-  //     const response = await PublicAPI.get(endpoint);
-
-  //     // Normalize response data
-  //     const surveyInfo =
-  //       response.data?.survey ||
-  //       response.data?.data ||
-  //       response.data;
-
-  //     setSurvey(surveyInfo);
-
-  //     console.log(`✅ Fetched ${token ? "invited" : "public"} survey:`, surveyInfo);
-
-  //   } catch (error) {
-  //     console.error("❌ Failed to fetch survey:", error.message);
-  //     console.log("🔄 Using mock survey data");
-
-  //     // Optionally set mock survey here
-  //     // setSurvey(mockSurveyData);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const fetchSurvey = async (token = null) => {
     console.log("🧪 DEBUG fetchSurvey");
     console.log("surveyId:", surveyId);
@@ -187,6 +155,10 @@ const SurveyTaking = () => {
   };
 
   const handleSubmit = async (token = null) => {
+    console.log("🧪 SUBMIT DEBUG");
+    console.log("surveyId:", surveyId);
+    console.log("token:", token);
+    console.log("isInvitedFlow:", Boolean(token));
     try {
       setSubmitting(true);
 
@@ -205,6 +177,8 @@ const SurveyTaking = () => {
       const endpoint = token
         ? `/surveys/responses/invited/${token}`
         : `/surveys/responses/anonymous/${surveyId}`;
+
+      console.log("➡️ SUBMIT ENDPOINT:", endpoint);
 
       const response = await PublicAPI.post(endpoint, responseData, {
         headers: { "Content-Type": "application/json" },
