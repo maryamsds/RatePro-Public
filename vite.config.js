@@ -34,4 +34,10 @@ export default defineConfig({
       },
     },
   },
+  server: {
+    historyApiFallback: true,
+    host: true,
+    port: 5174,
+    strictPort: true,
+  },
 })
