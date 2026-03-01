@@ -221,34 +221,34 @@ const Profile = () => {
 
     const handleAvatarChange = async (e) => {
         const file = e.target.files?.[0];
-    
+
         if (!file) {
             Swal.fire("Error", "Please select a file first!", "error");
             return;
         }
-    
+
         // File type check
         const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
         if (!allowedTypes.includes(file.type)) {
             Swal.fire("Error", "Only JPG, PNG, or WEBP images are allowed.", "error");
             return;
         }
-    
+
         // File size check (max 2MB)
         const maxSizeMB = 2;
         if (file.size > maxSizeMB * 1024 * 1024) {
             Swal.fire("Error", `File size must be under ${maxSizeMB}MB.`, "error");
             return;
         }
-    
+
         setIsUploading(true);
-    
+
         try {
             // Directly send file to your axios helper
             const res = await uploadAvatar(file);
-    
+
             Swal.fire("Success", "Avatar updated successfully!", "success");
-    
+
             if (res?.data?.user) {
                 setUserData(res.data.user);
             }
@@ -258,21 +258,21 @@ const Profile = () => {
         } finally {
             setIsUploading(false);
         }
-    };        
+    };
 
     const tabClass = (tab) => `nav-link ${activeTab === tab ? "active" : ""}`
     const inputClass = "form-control"
 
     return (
         <div className="container py-5">
-            <div className="d-flex justify-content-between align-items-center mb-4">
+            <div className="flex justify-content-between align-items-center mb-4">
                 <div>
                     <h2 className="fw-bold text-dark">Profile Settings</h2>
                     <p className="text-muted small">
                         Manage your account settings and preferences
                     </p>
                 </div>
-                <div className="d-flex gap-2">
+                <div className="flex gap-2">
                     {activeTab === "profile" && (
                         isEditing ? (
                             <>
@@ -293,7 +293,7 @@ const Profile = () => {
             </div>
 
             {showAlert && (
-                <div className="alert alert-success d-flex align-items-center" role="alert">
+                <div className="alert alert-success flex align-items-center" role="alert">
                     <MdSave className="me-2" /> Profile updated successfully!
                 </div>
             )}
@@ -303,7 +303,7 @@ const Profile = () => {
                     <div className="card text-center">
                         <div className="card-body">
                             <div
-                                className="profile-avatar mx-auto mb-3 rounded-circle d-flex align-items-center justify-content-center position-relative"
+                                className="profile-avatar mx-auto mb-3 rounded-circle flex align-items-center justify-content-center position-relative"
                                 style={{
                                     width: "120px",
                                     height: "120px",
@@ -512,7 +512,7 @@ const Profile = () => {
                                     {Object.entries(notifications).map(([key, value]) => (
                                         <div
                                             key={key}
-                                            className="col-12 d-flex justify-content-between align-items-center"
+                                            className="col-12 flex justify-content-between align-items-center"
                                         >
                                             <label className="form-check-label">
                                                 {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}

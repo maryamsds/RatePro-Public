@@ -44,7 +44,7 @@ const VerifyEmail = () => {
         <div className="row justify-content-center">
           <div className="col-md-6 col-lg-5">
             <div className="login-card text-center">
-              <div className="d-flex justify-content-center align-items-center mb-3">
+              <div className="flex justify-content-center align-items-center mb-3">
                 <img src={logo || "/placeholder.svg"} alt="Rater Pro" height="50" className="me-2" />
                 <div className="survanta">Rate Pro</div>
               </div>

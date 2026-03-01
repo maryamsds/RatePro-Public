@@ -19,7 +19,7 @@ const SurveyForm = ({ onClose, currentStep = 1, setCurrentStep }) => {
 
   useEffect(() => {
     setStep(currentStep);
-  }, [currentStep]);  
+  }, [currentStep]);
 
   const handleNext = (data) => {
     setFormData({ ...formData, ...data });
@@ -47,12 +47,12 @@ const SurveyForm = ({ onClose, currentStep = 1, setCurrentStep }) => {
       default:
         return null;
     }
-  }; 
+  };
 
   return (
-    <div className="d-flex flex-column">
+    <div className="flex flex-column">
       {/* Centered Form Box */}
-      <div className="flex-grow-1 h-100 d-flex justify-content-center align-items-center">
+      <div className="flex-grow-1 h-100 flex justify-content-center align-items-center">
         <div className="card shadow p-3 w-100" style={{ maxWidth: 700 }}>
           {renderStep()}
         </div>

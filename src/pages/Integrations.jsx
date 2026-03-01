@@ -22,7 +22,7 @@ const Integrations = () => {
         title="Connect Your Experience Ecosystem"
         description="Integrate Rate Pro with your favorite platforms to streamline workflows and maximize the value of your experience data."
       >
-        <div className="d-flex justify-content-center gap-3">
+        <div className="flex justify-content-center gap-3">
           <a href="#" className="btn btn-primary btn-lg">
             Explore Integrations
           </a>
@@ -82,118 +82,118 @@ const Integrations = () => {
       </section>
 
       {/* E-commerce Integrations Section */}
-<section id="ecommerce" className="featured-integrations py-5 bg-light">
-  <div className="container">
-    <h2 className="text-center mb-5">E-commerce Integrations</h2>
-    <div className="row g-4"> {/* Added g-4 for consistent gap between cards */}
-      {[shopifyLogo, woocommerceLogo, magentoLogo, bigcommerceLogo].map((logo, index) => (
-        <div className="col-6 col-md-4 col-lg-3" key={index}> {/* Adjusted column classes */}
-          <div className="integration-card h-100 text-center p-3 bg-white shadow-sm rounded"> {/* Added h-100 and adjusted padding */}
-            <div className="d-flex align-items-center justify-content-center" style={{ height: "60px" }}>
-              <img
-                src={logo || "/placeholder.svg"}
-                alt="Integration Logo"
-                className="img-fluid mw-100 mh-100 object-fit-contain" 
-              />
-            </div>
-            <h4 className="mt-3 mb-2 fs-5"> {/* Adjusted typography */}
-              {["Shopify", "WooCommerce", "Magento", "BigCommerce"][index]}
-            </h4>
-            <p className="small mb-3 text-muted"> {/* Added text-muted */}
-              {[
-                "Automatically collect reviews from Shopify orders",
-                "Seamless integration with WordPress stores",
-                "Enterprise-grade review collection for Magento",
-                "One-click installation for BigCommerce stores"
-              ][index]}
-            </p>
-            <a href="#" className="btn btn-sm btn-outline-primary w-100"> {/* Made button full width */}
-              Learn More
-            </a>
+      <section id="ecommerce" className="featured-integrations py-5 bg-light">
+        <div className="container">
+          <h2 className="text-center mb-5">E-commerce Integrations</h2>
+          <div className="row g-4"> {/* Added g-4 for consistent gap between cards */}
+            {[shopifyLogo, woocommerceLogo, magentoLogo, bigcommerceLogo].map((logo, index) => (
+              <div className="col-6 col-md-4 col-lg-3" key={index}> {/* Adjusted column classes */}
+                <div className="integration-card h-100 text-center p-3 bg-white shadow-sm rounded"> {/* Added h-100 and adjusted padding */}
+                  <div className="flex align-items-center justify-content-center" style={{ height: "60px" }}>
+                    <img
+                      src={logo || "/placeholder.svg"}
+                      alt="Integration Logo"
+                      className="img-fluid mw-100 mh-100 object-fit-contain"
+                    />
+                  </div>
+                  <h4 className="mt-3 mb-2 fs-5"> {/* Adjusted typography */}
+                    {["Shopify", "WooCommerce", "Magento", "BigCommerce"][index]}
+                  </h4>
+                  <p className="small mb-3 text-muted"> {/* Added text-muted */}
+                    {[
+                      "Automatically collect reviews from Shopify orders",
+                      "Seamless integration with WordPress stores",
+                      "Enterprise-grade review collection for Magento",
+                      "One-click installation for BigCommerce stores"
+                    ][index]}
+                  </p>
+                  <a href="#" className="btn btn-sm btn-outline-primary w-100"> {/* Made button full width */}
+                    Learn More
+                  </a>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
       {/* Email Marketing Integrations Section */}
-<section id="email" className="featured-integrations py-5">
-  <div className="container">
-    <h2 className="text-center mb-5">Email Marketing Integrations</h2>
-    <div className="row g-4">
-      {[mailchimpLogo, klaviyoLogo, hubspotLogo, activecampaignLogo].map((logo, index) => (
-        <div className="col-6 col-md-4 col-lg-3" key={index}>
-          <div className="integration-card h-100 text-center p-3 bg-white shadow-sm rounded">
-            <div className="d-flex align-items-center justify-content-center" style={{ height: "60px" }}>
-              <img
-                src={logo || "/placeholder.svg"}
-                alt="Integration Logo"
-                className="img-fluid mw-100 mh-100 object-fit-contain"
-              />
-            </div>
-            <h4 className="mt-3 mb-2 fs-5">
-              {["Mailchimp", "Klaviyo", "HubSpot", "ActiveCampin"][index]}
-            </h4>
-            <p className="small mb-3 text-muted">
-              {[
-                "Automate review requests through Mailchimp campaigns",
-                "Personalized review request flows in Klaviyo",
-                "Sync review data with your HubSpot CRM",
-                "Trigger review requests based on customer actions"
-              ][index]}
-            </p>
-            <a href="#" className="btn btn-sm btn-outline-primary w-100">
-              Learn More
-            </a>
+      <section id="email" className="featured-integrations py-5">
+        <div className="container">
+          <h2 className="text-center mb-5">Email Marketing Integrations</h2>
+          <div className="row g-4">
+            {[mailchimpLogo, klaviyoLogo, hubspotLogo, activecampaignLogo].map((logo, index) => (
+              <div className="col-6 col-md-4 col-lg-3" key={index}>
+                <div className="integration-card h-100 text-center p-3 bg-white shadow-sm rounded">
+                  <div className="flex align-items-center justify-content-center" style={{ height: "60px" }}>
+                    <img
+                      src={logo || "/placeholder.svg"}
+                      alt="Integration Logo"
+                      className="img-fluid mw-100 mh-100 object-fit-contain"
+                    />
+                  </div>
+                  <h4 className="mt-3 mb-2 fs-5">
+                    {["Mailchimp", "Klaviyo", "HubSpot", "ActiveCampin"][index]}
+                  </h4>
+                  <p className="small mb-3 text-muted">
+                    {[
+                      "Automate review requests through Mailchimp campaigns",
+                      "Personalized review request flows in Klaviyo",
+                      "Sync review data with your HubSpot CRM",
+                      "Trigger review requests based on customer actions"
+                    ][index]}
+                  </p>
+                  <a href="#" className="btn btn-sm btn-outline-primary w-100">
+                    Learn More
+                  </a>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
 
-{/* Analytics & CRM Integrations Section */}
-<section id="analytics" className="featured-integrations py-5 bg-light">
-  <div className="container">
-    <h2 className="text-center mb-5">Analytics & CRM Integrations</h2>
-    <div className="row g-4">
-      {[salesforceLogo, googleAnalyticsLogo, zendeskLogo, segmentLogo].map((logo, index) => (
-        <div className="col-6 col-md-4 col-lg-3" key={index}>
-          <div className="integration-card h-100 text-center p-3 bg-white shadow-sm rounded">
-            <div className="d-flex align-items-center justify-content-center" style={{ height: "60px" }}>
-              <img
-                src={logo || "/placeholder.svg"}
-                alt="Integration Logo"
-                className="img-fluid mw-100 mh-100 object-fit-contain"
-              />
-            </div>
-            <h4 className="mt-3 mb-2 fs-5">
-              {["Salesforce", "Google Analytics", "Zendesk", "Segment"][index]}
-            </h4>
-            <p className="small mb-3 text-muted">
-              {[
-                "Connect customer reviews with Salesforce records",
-                "Track review impact on conversion rates",
-                "Create support tickets from negative reviews",
-                "Unify customer data across your tech stack"
-              ][index]}
-            </p>
-            <a href="#" className="btn btn-sm btn-outline-primary w-100">
-              Learn More
-            </a>
+      {/* Analytics & CRM Integrations Section */}
+      <section id="analytics" className="featured-integrations py-5 bg-light">
+        <div className="container">
+          <h2 className="text-center mb-5">Analytics & CRM Integrations</h2>
+          <div className="row g-4">
+            {[salesforceLogo, googleAnalyticsLogo, zendeskLogo, segmentLogo].map((logo, index) => (
+              <div className="col-6 col-md-4 col-lg-3" key={index}>
+                <div className="integration-card h-100 text-center p-3 bg-white shadow-sm rounded">
+                  <div className="flex align-items-center justify-content-center" style={{ height: "60px" }}>
+                    <img
+                      src={logo || "/placeholder.svg"}
+                      alt="Integration Logo"
+                      className="img-fluid mw-100 mh-100 object-fit-contain"
+                    />
+                  </div>
+                  <h4 className="mt-3 mb-2 fs-5">
+                    {["Salesforce", "Google Analytics", "Zendesk", "Segment"][index]}
+                  </h4>
+                  <p className="small mb-3 text-muted">
+                    {[
+                      "Connect customer reviews with Salesforce records",
+                      "Track review impact on conversion rates",
+                      "Create support tickets from negative reviews",
+                      "Unify customer data across your tech stack"
+                    ][index]}
+                  </p>
+                  <a href="#" className="btn btn-sm btn-outline-primary w-100">
+                    Learn More
+                  </a>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
 
       <section className="integration-benefits py-5">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6">
               <h2 className="mb-4 text-primary">Why Integrate with Rate Pro?</h2>
-              <div className="benefit-item d-flex mb-4">
+              <div className="benefit-item flex mb-4">
                 <div className="benefit-icon me-3">
                   <i className="fas fa-bolt text-primary fa-2x"></i>
                 </div>
@@ -202,7 +202,7 @@ const Integrations = () => {
                   <p>Eliminate manual tasks and automate the review collection process from purchase to display.</p>
                 </div>
               </div>
-              <div className="benefit-item d-flex mb-4">
+              <div className="benefit-item flex mb-4">
                 <div className="benefit-icon me-3">
                   <i className="fas fa-chart-pie text-primary fa-2x"></i>
                 </div>
@@ -211,7 +211,7 @@ const Integrations = () => {
                   <p>Connect customer experience data across platforms for a complete view of your customer journey.</p>
                 </div>
               </div>
-              <div className="benefit-item d-flex mb-4">
+              <div className="benefit-item flex mb-4">
                 <div className="benefit-icon me-3">
                   <i className="fas fa-cogs text-primary fa-2x"></i>
                 </div>

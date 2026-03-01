@@ -40,7 +40,7 @@
   border-color: #007bff;
 }
 
-.question-options .form-check-input:checked ~ .form-check-label {
+.question-options .form-check-input:checked~.form-check-label {
   color: #007bff;
   font-weight: 500;
 }
@@ -96,28 +96,28 @@
   .survey-taking-page {
     padding: 1rem 0;
   }
-  
-  .nps-scale .d-flex {
+
+  .nps-scale .flex {
     flex-wrap: wrap;
     gap: 0.5rem !important;
   }
-  
+
   .nps-scale button {
     width: 35px;
     height: 35px;
     font-size: 0.875rem;
   }
-  
+
   .rating-options {
     gap: 1rem !important;
   }
-  
-  .d-flex.justify-content-between {
+
+  .flex.justify-content-between {
     flex-direction: column;
     gap: 1rem;
   }
-  
-  .d-flex.justify-content-between .btn {
+
+  .flex.justify-content-between .btn {
     width: 100%;
   }
 }
@@ -132,6 +132,7 @@
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

@@ -83,7 +83,7 @@ const Signup = () => {
           <div className="col-md-6 col-lg-5">
             <div className="login-card">
               <div className="text-center mb-4">
-                <div className="d-flex justify-content-center align-items-center mb-3">
+                <div className="flex justify-content-center align-items-center mb-3">
                   <img src={logo || "/placeholder.svg"} alt="Rater Pro" height="50" className="me-2" />
                   <div className="survanta">Rate Pro</div>
                 </div>
@@ -96,7 +96,7 @@ const Signup = () => {
                     Full Name
                   </label>
                   <div className="input-group">
-                    <span className="input-group-text">
+                    <span className="input-group-text flex align-items-center text-center">
                       <FaUser />
                     </span>
                     <input
@@ -115,7 +115,7 @@ const Signup = () => {
                     Email address
                   </label>
                   <div className="input-group">
-                    <span className="input-group-text">
+                    <span className="input-group-text flex align-items-center text-center ">
                       <FaEnvelope />
                     </span>
                     <input
@@ -136,7 +136,7 @@ const Signup = () => {
                   </label>
                   <div className="password-field">
                     <div className="input-group">
-                      <span className="input-group-text">
+                      <span className="input-group-text flex align-items-center text-center">
                         <FaLock />
                       </span>
                       <input
@@ -160,7 +160,7 @@ const Signup = () => {
                   </label>
                   <div className="password-field">
                     <div className="input-group">
-                      <span className="input-group-text">
+                      <span className="input-group-text flex align-items-center text-center">
                         <FaLock />
                       </span>
                       <input
@@ -187,7 +187,7 @@ const Signup = () => {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center"
+                  className="btn btn-outline-secondary w-100 flex align-items-center justify-content-center"
                 >
                   <img src={googleLogo} alt="Google" height="20" className="me-2" />
                   Sign up with Google

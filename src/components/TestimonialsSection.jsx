@@ -46,7 +46,7 @@ const TestimonialsSection = ({ testimonials }) => {
               ))}
             </div>
 
-            <div className="d-flex justify-content-center mt-4 gap-2">
+            <div className="flex justify-content-center mt-4 gap-2">
               {testimonials.map((_, index) => (
                 <button
                   key={index}

@@ -32,7 +32,7 @@ const EnterEmail = ({ onOTPSent }) => {
                   <div className="mb-3 text-start">
                     <label className="form-label">Email</label>
                     <div className="input-group">
-                      <span className="input-group-text"><FaEnvelope /></span>
+                      <span className="input-group-text flex align-items-center text-center"><FaEnvelope /></span>
                       <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
                     </div>
                   </div>

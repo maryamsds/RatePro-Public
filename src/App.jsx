@@ -15,6 +15,7 @@ import Profile from "./pages/Profile"
 import EnterOTP from "./pages/EnterOTP"
 import SurveysList from "./pages/SurveysList"
 import SurveyTaking from "./pages/SurveyTaking"
+import AuthGateway from "./pages/AuthGateway"
 // import TakeSurvey from "./pages/TakeSurvey"
 
 function App() {
@@ -43,10 +44,11 @@ function App() {
         <Route path="/survey/:surveyId" element={<SurveyTaking />} />
         {/* <Route path="/take-survey" element={<TakeSurvey />} /> */}
         <Route path="/forgot-password" element={<ForgotPasswordFlow />} />
-
+        <Route path="/auth-gateway" element={<AuthGateway />} />
       </Route>
     </Routes>
   )
 }
 
 export default App
+

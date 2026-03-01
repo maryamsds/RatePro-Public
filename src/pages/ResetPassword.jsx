@@ -40,14 +40,14 @@ const ResetPassword = ({ email, otp }) => {
                 <div className="mb-3 text-start">
                   <label className="form-label">New Password</label>
                   <div className="input-group">
-                    <span className="input-group-text"><FaLock /></span>
+                    <span className="input-group-text flex align-items-center text-center"><FaLock /></span>
                     <input type={showPassword ? "text" : "password"} className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required />
                   </div>
                 </div>
                 <div className="mb-3 text-start">
                   <label className="form-label">Confirm Password</label>
                   <div className="input-group">
-                    <span className="input-group-text"><FaLock /></span>
+                    <span className="input-group-text flex align-items-center text-center"><FaLock /></span>
                     <input type={showPassword ? "text" : "password"} className="form-control" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
                   </div>
                 </div>

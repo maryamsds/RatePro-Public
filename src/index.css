@@ -15,7 +15,8 @@
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: var(--rater-pro-dark);
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+  overflow-x: hidden;
+  /* Prevent horizontal scrolling */
 }
 
 /* Logo Styles */
@@ -133,10 +134,12 @@ body {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(calc(-250px * 5));
   }
 }
+
 /* Override Bootstrap's text-primary with your theme color */
 .text-primary {
   color: var(--rater-pro-purple) !important;
@@ -173,7 +176,7 @@ body {
 .integration-card,
 .category-card {
   border-radius: 8px;
-  overflow: hidden;
+  /* overflow: hidden; */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   margin-bottom: 30px;
   transition: transform 0.3s;
@@ -628,7 +631,7 @@ footer {
   }
 
   /* Fix navbar buttons on mobile */
-  .navbar .d-flex {
+  .navbar .flex {
     flex-direction: column;
     width: 100%;
     margin-top: 15px;
@@ -641,7 +644,7 @@ footer {
   }
 
   /* Adjust hero buttons on mobile */
-  .hero .d-flex {
+  .hero .flex {
     flex-direction: column;
     align-items: center;
   }
@@ -657,7 +660,7 @@ footer {
   }
 
   /* CTA section buttons */
-  .cta-section .d-flex {
+  .cta-section .flex {
     flex-direction: column;
     align-items: center;
   }

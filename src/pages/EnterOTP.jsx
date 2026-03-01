@@ -39,7 +39,7 @@
 //                 <img src={logo} alt="Logo" height="50" className="mb-4" />
 //                 <h2>Forgot Password</h2>
 //                 <p>Enter your OTP to reset password</p>
-  
+
 //                 <form onSubmit={handleSubmit}>
 //                   <div className="mb-3 text-start">
 //                     <label className="form-label">OTP Code</label>
@@ -57,7 +57,7 @@
 //                       />
 //                     </div>
 //                   </div>
-  
+
 //                   <button
 //                     type="submit"
 //                     className="btn btn-primary w-100"
@@ -216,7 +216,7 @@ const EnterOTP = ({ email: propEmail, onVerified }) => {
                 <div className="mb-3 text-start">
                   <label className="form-label">OTP Code</label>
                   <div className="input-group">
-                    <span className="input-group-text">
+                    <span className="input-group-text flex align-items-center text-center">
                       <MdVpnKey />
                     </span>
                     <input

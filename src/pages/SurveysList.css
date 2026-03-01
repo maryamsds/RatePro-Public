@@ -31,20 +31,27 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .survey-card {
   transition: all 0.3s ease;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   overflow: hidden;
 }
 
 .survey-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
 }
 
 .survey-card-list {
@@ -54,7 +61,7 @@
 
 .survey-card-list:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
 }
 
 .hover-lift {
@@ -76,7 +83,7 @@
 }
 
 .survey-meta {
-  border-top: 1px solid rgba(0,0,0,0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding-top: 1rem;
 }
 
@@ -85,8 +92,8 @@
 }
 
 .btn-outline-light:hover {
-  background-color: rgba(255,255,255,0.1);
-  border-color: rgba(255,255,255,0.5);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .form-select:focus,
@@ -115,19 +122,19 @@
     text-align: center;
     padding: 3rem 0;
   }
-  
+
   .surveys-hero .display-4 {
     font-size: 2.5rem;
   }
-  
+
   .survey-card {
     margin-bottom: 1.5rem;
   }
-  
+
   .btn-group {
     width: 100%;
   }
-  
+
   .btn-group .btn {
     flex: 1;
   }
@@ -137,13 +144,13 @@
   .surveys-hero .lead {
     font-size: 1rem;
   }
-  
-  .surveys-hero .d-flex {
+
+  .surveys-hero .flex {
     flex-direction: column;
     gap: 0.5rem !important;
   }
-  
-  .surveys-hero .d-flex > div {
+
+  .surveys-hero .flex>div {
     justify-content: center;
   }
 }
@@ -188,7 +195,7 @@
 /* Filter section */
 .bg-light {
   background-color: var(--rater-pro-light-gray) !important;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* No results state */
@@ -198,11 +205,11 @@
 
 /* Progress bar in hero */
 .progress {
-  background-color: rgba(255,255,255,0.2);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .progress-bar {
-  background-color: rgba(255,255,255,0.8);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 /* Success and warning badges */
@@ -241,16 +248,17 @@
   .col-md-1 {
     margin-top: 1rem;
   }
-  
+
   .btn-group {
     width: 100%;
   }
 }
 
 @media (max-width: 768px) {
-  .row.align-items-center > .col-md-3,
-  .row.align-items-center > .col-md-2,
-  .row.align-items-center > .col-md-1 {
+
+  .row.align-items-center>.col-md-3,
+  .row.align-items-center>.col-md-2,
+  .row.align-items-center>.col-md-1 {
     margin-top: 0.75rem;
   }
 }

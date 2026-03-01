@@ -95,7 +95,7 @@
 //             ))}
 //           </ul>
 
-//           <div className="d-flex align-items-center">
+//           <div className="flex align-items-center">
 //             <a href="#" className="btn btn-outline-primary me-2">
 //               Contact Sales
 //             </a>
@@ -111,11 +111,11 @@
 //             ) : (
 //               <div className="dropdown" ref={dropdownRef}>
 //                 <button
-//                   className="btn d-flex align-items-center dropdown-toggle"
+//                   className="btn flex align-items-center dropdown-toggle"
 //                   onClick={() => setDropdownOpen(!dropdownOpen)}
 //                   type="button"
 //                 >
-//                   <div className="rounded-circle bg-light d-flex align-items-center justify-content-center me-2" style={{ width: "36px", height: "36px" }}>
+//                   <div className="rounded-circle bg-light flex align-items-center justify-content-center me-2" style={{ width: "36px", height: "36px" }}>
 //                     <MdPerson className="text-secondary" size={20} />
 //                   </div>
 //                   <span className="d-none d-lg-inline">
@@ -132,13 +132,13 @@
 //                   </li>
 
 //                   <li>
-//                     <Link to="/profile" className="dropdown-item d-flex align-items-center">
+//                     <Link to="/profile" className="dropdown-item flex align-items-center">
 //                       <MdAccountCircle className="me-2" /> Profile
 //                     </Link>
 //                   </li>
 
 //                   <li>
-//                     <Link to="/settings" className="dropdown-item d-flex align-items-center">
+//                     <Link to="/settings" className="dropdown-item flex align-items-center">
 //                       <MdSettings className="me-2" /> Settings
 //                     </Link>
 //                   </li>
@@ -148,7 +148,7 @@
 //                   <li>
 //                     <button
 //                       onClick={handleLogout}
-//                       className="dropdown-item text-danger d-flex align-items-center"
+//                       className="dropdown-item text-danger flex align-items-center"
 //                     >
 //                       <MdExitToApp className="me-2" /> Logout
 //                     </button>
@@ -275,9 +275,9 @@ const Navbar = () => {
               ))}
             </ul>
 
-            <div className="d-flex align-items-center">
-              <Link 
-                to="/surveys" 
+            <div className="flex align-items-center">
+              <Link
+                to="/surveys"
                 className="btn btn-outline-primary ms-auto me-3"
                 onClick={() => setIsOpen(false)}
               >
@@ -295,13 +295,13 @@ const Navbar = () => {
               ) : (
                 <div className="dropdown" ref={dropdownRef}>
                   <button
-                    className="btn d-flex align-items-center dropdown-toggle"
+                    className="btn flex align-items-center dropdown-toggle"
                     onClick={() => setDropdownOpen(!dropdownOpen)}
                     type="button"
                     aria-expanded={dropdownOpen}
                   >
                     <div
-                      className="rounded-circle bg-light d-flex align-items-center justify-content-center me-2"
+                      className="rounded-circle bg-light flex align-items-center justify-content-center me-2"
                       style={{ width: "36px", height: "36px" }}
                     >
                       {user?.avatar?.url ? (
@@ -336,7 +336,7 @@ const Navbar = () => {
                     <li>
                       <Link
                         to="/profile"
-                        className="dropdown-item d-flex align-items-center"
+                        className="dropdown-item flex align-items-center"
                       >
                         <MdAccountCircle className="me-2" /> Profile
                       </Link>
@@ -345,7 +345,7 @@ const Navbar = () => {
                     <li>
                       <Link
                         to="/settings"
-                        className="dropdown-item d-flex align-items-center"
+                        className="dropdown-item flex align-items-center"
                       >
                         <MdSettings className="me-2" /> Settings
                       </Link>
@@ -358,7 +358,7 @@ const Navbar = () => {
                     <li>
                       <button
                         onClick={handleLogout}
-                        className="dropdown-item text-danger d-flex align-items-center"
+                        className="dropdown-item text-danger flex align-items-center"
                       >
                         <MdExitToApp className="me-2" /> Logout
                       </button>
