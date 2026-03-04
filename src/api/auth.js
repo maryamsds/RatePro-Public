@@ -18,13 +18,14 @@ export const updateProfile = (data) =>
   API.put("/users/me", data, { withCredentials: true });
 
 
-export const registerUser = ({ name, email, password, role }) =>
+export const registerUser = ({ name, email, password, role, planCode, billingCycle }) =>
   API.post("/auth/register", {
     name,
     email,
     password,
     role,
-    source: "public",
+    planCode,
+    billingCycle,
   })
 
 export const loginUser = ({ email, password }) =>
@@ -34,7 +35,7 @@ export const loginUser = ({ email, password }) =>
     source: "public",
   })
 
-  export const logoutUser = () => 
+export const logoutUser = () =>
   API.post("/auth/logout", {}, { withCredentials: true });
 
 
@@ -50,14 +51,14 @@ export const resetPassword = ({ email, code, newPassword }) =>
 export const verifyEmail = ({ email, code }) =>
   API.post("/auth/verify-email", { email, code });
 
-  // ✅ NEW: Update profile (with optional avatar upload)
+// ✅ NEW: Update profile (with optional avatar upload)
 export const updateUserProfile = (formData) =>
-API.put("/auth/update-profile", formData, {
-  withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+  API.put("/auth/update-profile", formData, {
+    withCredentials: true,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
 export const uploadAvatar = (file) => {
   const formData = new FormData();

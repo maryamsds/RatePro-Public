@@ -17,9 +17,12 @@ const AuthGateway = () => {
     const navigate = useNavigate()
     const { user, login } = useAuth()
 
-    const [activeTab, setActiveTab] = useState("signup")
+    const [activeTab, setActiveTab] = useState(
+        searchParams.get("verified") === "true" ? "login" : "signup"
+    )
     const [loading, setLoading] = useState(false)
     const [planInfo, setPlanInfo] = useState(null)
+    const [featureDefs, setFeatureDefs] = useState({})
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
@@ -29,8 +32,8 @@ const AuthGateway = () => {
     const [signupPassword, setSignupPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
 
-    // Login fields
-    const [loginEmail, setLoginEmail] = useState("")
+    // Login fields — pre-fill email if returning from verification
+    const [loginEmail, setLoginEmail] = useState(searchParams.get("email") || "")
     const [loginPassword, setLoginPassword] = useState("")
 
     // Fetch plan info for sidebar
@@ -41,42 +44,85 @@ const AuthGateway = () => {
                     if (res.data.success) {
                         const found = (res.data.data.plans || []).find((p) => p.code === planCode)
                         setPlanInfo(found || null)
+                        setFeatureDefs(res.data.data.featureDefinitions || {})
                     }
                 })
                 .catch(() => { })
         }
     }, [planCode])
 
+    // Helper: build cross-app redirect URL via Admin's TokenRedirector
+    const buildAdminRedirectUrl = (targetPath) => {
+        const adminUrl = import.meta.env.VITE_ADMIN_URL || "http://localhost:5174"
+        const token = localStorage.getItem("accessToken")
+        const userData = user || {}
+        const encodedUser = encodeURIComponent(JSON.stringify(userData))
+        return `${adminUrl}/auth-redirect?accessToken=${token}&user=${encodedUser}&redirect=${encodeURIComponent(targetPath)}`
+    }
+
     // If already logged in, proceed to onboard
     useEffect(() => {
+        console.log("[AuthGateway] useEffect[user] fired — user:", user ? { id: user._id, email: user.email, role: user.role, tenant: user.tenant } : null, "planCode:", planCode)
         if (user && planCode) {
+            console.log("[AuthGateway] User is logged in AND planCode exists → calling handleOnboard()")
             handleOnboard()
+        } else if (user && !planCode) {
+            console.warn("[AuthGateway] User is logged in but NO planCode in URL — redirecting to admin dashboard.")
+            window.location.href = buildAdminRedirectUrl("/app/dashboard")
         }
     }, [user])
 
     const handleOnboard = async () => {
-        if (!planCode) return
+        if (!planCode) {
+            console.warn("[AuthGateway] handleOnboard called but planCode is missing, aborting")
+            setLoading(false)
+            return
+        }
         setLoading(true)
+        console.log("[AuthGateway] handleOnboard() starting — planCode:", planCode, "billingCycle:", billingCycle)
 
         try {
             const token = localStorage.getItem("accessToken")
+            console.log("[AuthGateway] Token from localStorage:", token ? `${token.substring(0, 20)}...` : "NULL/MISSING")
+
+            if (!token) {
+                console.error("[AuthGateway] No accessToken found in localStorage! Cannot call /subscriptions/onboard")
+                Swal.fire({ icon: "error", title: "Auth Error", text: "No access token found. Please log in again." })
+                setLoading(false)
+                return
+            }
+
+            console.log("[AuthGateway] Calling POST /subscriptions/onboard with:", { planCode, billingCycle })
             const res = await API.post(
                 "/subscriptions/onboard",
                 { planCode, billingCycle },
                 { headers: { Authorization: `Bearer ${token}` } }
             )
+            console.log("[AuthGateway] Onboard response:", res.data)
 
             if (res.data.success) {
                 if (res.data.action === "checkout" && res.data.url) {
+                    console.log("[AuthGateway] Redirecting to Stripe checkout:", res.data.url)
                     window.location.href = res.data.url
                 } else if (res.data.action === "subscribed") {
-                    const adminUrl = import.meta.env.VITE_ADMIN_URL || "http://localhost:5174"
-                    window.location.href = `${adminUrl}/app/onboarding`
+                    const redirectUrl = buildAdminRedirectUrl("/app/onboarding")
+                    console.log("[AuthGateway] Free plan subscribed, redirecting via auth-redirect:", redirectUrl)
+                    window.location.href = redirectUrl
                 } else if (res.data.action === "billing_portal" && res.data.url) {
+                    console.log("[AuthGateway] Redirecting to billing portal:", res.data.url)
                     window.location.href = res.data.url
+                } else {
+                    console.warn("[AuthGateway] Onboard success but UNKNOWN action:", res.data.action, "Full response:", res.data)
+                    Swal.fire({ icon: "warning", title: "Unexpected Response", text: `Server returned action: "${res.data.action}". Please contact support.` })
+                    setLoading(false)
                 }
+            } else {
+                console.error("[AuthGateway] Onboard returned success=false:", res.data)
+                Swal.fire({ icon: "error", title: "Onboarding Failed", text: res.data.message || "Unexpected error during onboarding." })
+                setLoading(false)
             }
         } catch (error) {
+            console.error("[AuthGateway] handleOnboard ERROR:", error.response?.status, error.response?.data || error.message)
             Swal.fire({
                 icon: "error",
                 title: "Checkout Failed",
@@ -96,15 +142,20 @@ const AuthGateway = () => {
 
         setLoading(true)
         try {
+            console.log("[AuthGateway] Submitting signup:", { name: fullName, email: signupEmail, planCode })
             const res = await registerUser({
                 name: fullName,
                 email: signupEmail,
                 password: signupPassword,
-                source: "public",
+                planCode: planCode || undefined,
+                billingCycle: planCode ? billingCycle : undefined,
             })
+            console.log("[AuthGateway] Register response:", res.data)
 
-            // If email verification required
-            if (res.data?.message?.includes("verify") || res.data?.message?.includes("verification")) {
+            // If email verification required (case-insensitive check)
+            const msg = (res.data?.message || "").toLowerCase()
+            if (msg.includes("verify") || msg.includes("verification")) {
+                console.log("[AuthGateway] Email verification required, switching to login tab")
                 Swal.fire({
                     icon: "info",
                     title: "Verify Your Email",
@@ -121,11 +172,16 @@ const AuthGateway = () => {
             if (res.data?.data?.token || res.data?.token) {
                 const token = res.data?.data?.token || res.data?.token
                 const userData = res.data?.data?.user || res.data?.user
+                console.log("[AuthGateway] Auto-login with token, user:", userData)
                 localStorage.setItem("accessToken", token)
                 login(userData)
                 // handleOnboard will be triggered by the useEffect watching `user`
+            } else {
+                console.warn("[AuthGateway] No token in response and no verify message. Response:", res.data)
+                setLoading(false)
             }
         } catch (error) {
+            console.error("[AuthGateway] Registration error:", error.response?.data || error.message)
             Swal.fire({
                 icon: "error",
                 title: "Registration Failed",
@@ -138,18 +194,31 @@ const AuthGateway = () => {
     const handleLogin = async (e) => {
         e.preventDefault()
         setLoading(true)
+        console.log("[AuthGateway] handleLogin() starting — email:", loginEmail, "planCode:", planCode)
 
         try {
+            console.log("[AuthGateway] Calling loginUser API...")
             const res = await loginUser({ email: loginEmail, password: loginPassword })
-            const token = res.data?.data?.token || res.data?.token
+            console.log("[AuthGateway] Login API response:", res.data)
+
+            const token = res.data?.data?.token || res.data?.token || res.data?.accessToken
             const userData = res.data?.data?.user || res.data?.user
+            console.log("[AuthGateway] Extracted token:", token ? `${token.substring(0, 20)}...` : "NULL/MISSING")
+            console.log("[AuthGateway] Extracted userData:", userData)
 
             if (token) {
                 localStorage.setItem("accessToken", token)
+                console.log("[AuthGateway] Token saved to localStorage. Calling login(userData)...")
                 login(userData)
                 // handleOnboard will be triggered by the useEffect watching `user`
+                console.log("[AuthGateway] login() called — useEffect should fire next and trigger handleOnboard if planCode exists")
+            } else {
+                console.error("[AuthGateway] Login succeeded but NO TOKEN in response! Full response:", res.data)
+                Swal.fire({ icon: "error", title: "Login Error", text: "Login succeeded but no authentication token was received." })
+                setLoading(false)
             }
         } catch (error) {
+            console.error("[AuthGateway] Login ERROR:", error.response?.status, error.response?.data || error.message)
             Swal.fire({
                 icon: "error",
                 title: "Login Failed",
@@ -190,14 +259,27 @@ const AuthGateway = () => {
                                 <hr />
                                 <ul className="list-unstyled">
                                     {planInfo.features
-                                        ?.filter((f) => f.enabled)
-                                        .slice(0, 5)
-                                        .map((f, idx) => (
-                                            <li key={idx} className="mb-2">
-                                                <i className="fas fa-check text-success me-2"></i>
-                                                <small>{f.featureCode}</small>
-                                            </li>
-                                        ))}
+                                        ?.filter((f) => f.enabled && (featureDefs[f.featureCode]?.isPublic !== false))
+                                        .slice(0, 6)
+                                        .map((f, idx) => {
+                                            const def = featureDefs[f.featureCode] || {}
+                                            const label = def.name || f.featureCode.replace(/_/g, " ")
+                                            let text = label
+                                            if (f.limitValue !== null && f.limitValue !== undefined && f.limitValue !== 0) {
+                                                if (f.limitValue === -1) text = `Unlimited ${label}`
+                                                else {
+                                                    const unit = def.unit || ""
+                                                    const num = f.limitValue % 1 !== 0 ? f.limitValue : f.limitValue.toLocaleString()
+                                                    text = unit ? `${num} ${unit} ${label}` : `${num} ${label}`
+                                                }
+                                            }
+                                            return (
+                                                <li key={idx} className="mb-2">
+                                                    <i className="fas fa-check text-success me-2"></i>
+                                                    <small>{text}</small>
+                                                </li>
+                                            )
+                                        })}
                                 </ul>
                                 <div className="mt-3 text-center">
                                     <Link to="/pricing" className="text-muted small">
