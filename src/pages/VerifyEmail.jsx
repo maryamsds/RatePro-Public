@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom"
 import Swal from "sweetalert2"
 import logo from "../assets/images/RATEPRO.png"
@@ -11,22 +11,46 @@ const VerifyEmail = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [verifying, setVerifying] = useState(true)
+  const hasCalledRef = useRef(false)
 
   useEffect(() => {
+    // Guard against React strict mode double-invocation
+    if (hasCalledRef.current) return
+    hasCalledRef.current = true
+
     const verify = async () => {
       try {
+        console.log("[VerifyEmail] Verifying email:", email, "code:", code)
         const res = await verifyEmail({ email, code });
+        console.log("[VerifyEmail] Verification response:", res.data)
 
-        Swal.fire({
-          icon: "success",
-          title: "✅ Verified!",
-          text: res.data.message || "Your email has been verified.",
-          confirmButtonText: "Continue"
-        }).then(() => {
-          navigate("/login");
-        });
+        const planCode = res.data?.pendingPlanCode
+        const billingCycle = res.data?.pendingBillingCycle || "monthly"
+
+        if (planCode) {
+          console.log("[VerifyEmail] Plan intent found! Redirecting to auth-gateway with plan:", planCode, "billing:", billingCycle)
+          Swal.fire({
+            icon: "success",
+            title: "✅ Email Verified!",
+            text: "Your email has been verified. Please log in to continue with your subscription.",
+            confirmButtonText: "Continue to Login"
+          }).then(() => {
+            navigate(`/auth-gateway?plan=${planCode}&billing=${billingCycle}&verified=true`);
+          });
+        } else {
+          console.log("[VerifyEmail] No plan intent, redirecting to login")
+          Swal.fire({
+            icon: "success",
+            title: "✅ Verified!",
+            text: res.data.message || "Your email has been verified.",
+            confirmButtonText: "Continue"
+          }).then(() => {
+            navigate("/login");
+          });
+        }
 
       } catch (error) {
+        console.error("[VerifyEmail] Verification failed:", error.response?.data || error.message)
         Swal.fire({
           icon: "error",
           title: "❌ Verification Failed",

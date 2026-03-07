@@ -143,6 +143,13 @@ const Pricing = () => {
       return
     }
 
+    // Existing subscriber (companyAdmin) → redirect to admin billing
+    if (user.role === 'companyAdmin' && user.tenant) {
+      const adminUrl = import.meta.env.VITE_ADMIN_URL || 'http://localhost:5174'
+      window.location.href = `${adminUrl}/app/subscription/my-plan`
+      return
+    }
+
     setCheckoutLoading(plan.code)
     try {
       const token = localStorage.getItem("accessToken")

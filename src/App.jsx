@@ -16,6 +16,7 @@ import EnterOTP from "./pages/EnterOTP"
 import SurveysList from "./pages/SurveysList"
 import SurveyTaking from "./pages/SurveyTaking"
 import AuthGateway from "./pages/AuthGateway"
+import CheckoutSuccess from "./pages/CheckoutSuccess"
 // import TakeSurvey from "./pages/TakeSurvey"
 
 function App() {
@@ -46,6 +47,8 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPasswordFlow />} />
         <Route path="/auth-gateway" element={<AuthGateway />} />
       </Route>
+      {/* Checkout success — outside Layout (has its own styled layout) */}
+      <Route path="/checkout-success" element={<CheckoutSuccess />} />
     </Routes>
   )
 }

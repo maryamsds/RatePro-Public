@@ -96,6 +96,16 @@ const Login = () => {
         }).then(() => {
           navigate(`/verify-email?email=${email}`);
         });
+      } else if (err.response?.data?.code === 'COMPANY_ADMIN_REDIRECT') {
+        const redirectUrl = err.response.data.redirectUrl;
+        Swal.fire({
+          icon: "info",
+          title: "Admin Account Detected",
+          text: "Your workspace account must be accessed from the admin portal.",
+          confirmButtonText: "Go to Admin Portal",
+        }).then(() => {
+          if (redirectUrl) window.location.href = redirectUrl;
+        });
       } else {
         setGeneralError(message);
       }

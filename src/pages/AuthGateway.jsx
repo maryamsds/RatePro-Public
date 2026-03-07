@@ -219,11 +219,25 @@ const AuthGateway = () => {
             }
         } catch (error) {
             console.error("[AuthGateway] Login ERROR:", error.response?.status, error.response?.data || error.message)
-            Swal.fire({
-                icon: "error",
-                title: "Login Failed",
-                text: error.response?.data?.message || "Invalid email or password.",
-            })
+
+            // Handle companyAdmin redirect
+            if (error.response?.data?.code === 'COMPANY_ADMIN_REDIRECT') {
+                const redirectUrl = error.response.data.redirectUrl
+                Swal.fire({
+                    icon: "info",
+                    title: "Admin Account Detected",
+                    text: "Your workspace account must be accessed from the admin portal.",
+                    confirmButtonText: "Go to Admin Portal",
+                }).then(() => {
+                    if (redirectUrl) window.location.href = redirectUrl
+                })
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Login Failed",
+                    text: error.response?.data?.message || "Invalid email or password.",
+                })
+            }
             setLoading(false)
         }
     }
