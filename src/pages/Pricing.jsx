@@ -153,10 +153,13 @@ const Pricing = () => {
     setCheckoutLoading(plan.code)
     try {
       const token = localStorage.getItem("accessToken")
+      const requestConfig = token
+        ? { headers: { Authorization: `Bearer ${token}` } }
+        : {}
       const res = await API.post(
         "/subscriptions/onboard",
         { planCode: plan.code, billingCycle },
-        { headers: { Authorization: `Bearer ${token}` } }
+        requestConfig
       )
 
       if (res.data.success) {

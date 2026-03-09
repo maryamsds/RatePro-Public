@@ -60,6 +60,34 @@ const AuthGateway = () => {
         return `${adminUrl}/auth-redirect?accessToken=${token}&user=${encodedUser}&redirect=${encodeURIComponent(targetPath)}`
     }
 
+    // ─── Auto-login via cookie when arriving from email verification ───
+    // After verifyEmailLink sets httpOnly cookies and redirects here with ?verified=true,
+    // we call GET /auth/me (which uses cookies via withCredentials) to detect the session
+    // and auto-login without requiring the user to re-enter credentials.
+    useEffect(() => {
+        const isVerified = searchParams.get("verified") === "true"
+        if (isVerified && !user && !loading) {
+            console.log("[AuthGateway] Arrived with verified=true, attempting cookie-based auto-login via /auth/me")
+            setLoading(true)
+            API.get("/auth/me")
+                .then((res) => {
+                    if (res.data?.success && res.data?.user) {
+                        const userData = res.data.user
+                        console.log("[AuthGateway] Cookie auto-login successful:", userData.email)
+                        // Store user in AuthContext (will trigger handleOnboard via useEffect[user])
+                        login(userData)
+                    } else {
+                        console.warn("[AuthGateway] /auth/me returned no user, showing login form")
+                        setLoading(false)
+                    }
+                })
+                .catch((err) => {
+                    console.warn("[AuthGateway] Cookie auto-login failed (token may be expired), showing login form:", err.response?.status)
+                    setLoading(false)
+                })
+        }
+    }, [])
+
     // If already logged in, proceed to onboard
     useEffect(() => {
         console.log("[AuthGateway] useEffect[user] fired — user:", user ? { id: user._id, email: user.email, role: user.role, tenant: user.tenant } : null, "planCode:", planCode)
@@ -83,20 +111,19 @@ const AuthGateway = () => {
 
         try {
             const token = localStorage.getItem("accessToken")
-            console.log("[AuthGateway] Token from localStorage:", token ? `${token.substring(0, 20)}...` : "NULL/MISSING")
+            console.log("[AuthGateway] Token from localStorage:", token ? `${token.substring(0, 20)}...` : "NULL (will use cookies)")
 
-            if (!token) {
-                console.error("[AuthGateway] No accessToken found in localStorage! Cannot call /subscriptions/onboard")
-                Swal.fire({ icon: "error", title: "Auth Error", text: "No access token found. Please log in again." })
-                setLoading(false)
-                return
-            }
+            // Build request config — use Bearer token if available, otherwise
+            // rely on httpOnly cookies (sent automatically via withCredentials: true)
+            const requestConfig = token
+                ? { headers: { Authorization: `Bearer ${token}` } }
+                : {}
 
             console.log("[AuthGateway] Calling POST /subscriptions/onboard with:", { planCode, billingCycle })
             const res = await API.post(
                 "/subscriptions/onboard",
                 { planCode, billingCycle },
-                { headers: { Authorization: `Bearer ${token}` } }
+                requestConfig
             )
             console.log("[AuthGateway] Onboard response:", res.data)
 
