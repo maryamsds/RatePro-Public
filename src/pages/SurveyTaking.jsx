@@ -34,6 +34,13 @@ const SurveyTaking = () => {
   const [started, setStarted] = useState(false);
   const [alreadySubmitted, setAlreadySubmitted] = useState(false);
 
+  // ── Password Protection State ──────────────────────────────────
+  const [requiresPassword, setRequiresPassword] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordLoading, setPasswordLoading] = useState(false);
+  const [protectedSurveyInfo, setProtectedSurveyInfo] = useState(null);
+
   // ── Time Tracking (analytics) ─────────────────────────────
   const [startedAt, setStartedAt] = useState(null);
 
@@ -82,7 +89,17 @@ const SurveyTaking = () => {
         setSurvey(surveyInfo);
       } catch (error) {
         console.error("Failed to fetch survey:", error);
-        setSurvey(null);
+
+        // Handle password-protected survey
+        if (error.response?.status === 403 && error.response?.data?.requiresPassword) {
+          setRequiresPassword(true);
+          setProtectedSurveyInfo({
+            surveyId: error.response.data.surveyId,
+            title: error.response.data.title,
+          });
+        } else {
+          setSurvey(null);
+        }
       } finally {
         setLoading(false);
       }
@@ -676,6 +693,73 @@ const SurveyTaking = () => {
               <span className="visually-hidden">Loading...</span>
             </div>
             <p className="mt-3 text-muted">Loading survey...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Password-protected survey gate
+  if (requiresPassword && !survey) {
+    const handlePasswordSubmit = async (e) => {
+      e.preventDefault();
+      setPasswordError('');
+      setPasswordLoading(true);
+      try {
+        const pwSurveyId = protectedSurveyInfo?.surveyId || surveyId;
+        const response = await PublicAPI.post(
+          `/surveys/public/${pwSurveyId}/verify-password`,
+          { password: passwordInput }
+        );
+        if (response.data?.survey) {
+          setSurvey(response.data.survey);
+          setRequiresPassword(false);
+        } else {
+          // Cookie was set, re-fetch survey
+          const retryRes = await PublicAPI.get(`/surveys/public/${pwSurveyId}`);
+          const surveyInfo = retryRes.data?.survey || retryRes.data?.data || retryRes.data;
+          if (surveyInfo?.questions?.length) {
+            setSurvey(surveyInfo);
+            setRequiresPassword(false);
+          }
+        }
+      } catch (err) {
+        setPasswordError(err.response?.data?.message || 'Incorrect password. Please try again.');
+      } finally {
+        setPasswordLoading(false);
+      }
+    };
+
+    return (
+      <div className="survey-taking-page">
+        <div className="container py-5">
+          <div className="mx-auto" style={{ maxWidth: '400px' }}>
+            <div className="text-center mb-4">
+              <MdStar size={48} className="text-warning mb-2" />
+              <h3>{protectedSurveyInfo?.title || 'Protected Survey'}</h3>
+              <p className="text-muted">This survey is password-protected. Please enter the password to continue.</p>
+            </div>
+            <form onSubmit={handlePasswordSubmit}>
+              <div className="mb-3">
+                <input
+                  type="password"
+                  className={`form-control form-control-lg ${passwordError ? 'is-invalid' : ''}`}
+                  placeholder="Enter survey password"
+                  value={passwordInput}
+                  onChange={(e) => { setPasswordInput(e.target.value); setPasswordError(''); }}
+                  autoFocus
+                  disabled={passwordLoading}
+                />
+                {passwordError && <div className="invalid-feedback">{passwordError}</div>}
+              </div>
+              <button
+                type="submit"
+                className="btn btn-primary w-100 btn-lg"
+                disabled={!passwordInput.trim() || passwordLoading}
+              >
+                {passwordLoading ? 'Verifying...' : 'Access Survey'}
+              </button>
+            </form>
           </div>
         </div>
       </div>
