@@ -285,8 +285,10 @@ const SurveyTaking = () => {
       await PublicAPI.post(endpoint, responseData);
 
       // Clear saved progress and mark as completed
+      // Use token for invited flows (surveyId is 'respond' for all token URLs)
+      const completionKey = token || surveyId;
       sessionStorage.removeItem(`survey-${surveyId}`);
-      sessionStorage.setItem(`survey-${surveyId}-completed`, 'true');
+      sessionStorage.setItem(`survey-${completionKey}-completed`, 'true');
 
       await Swal.fire({
         icon: 'success',
@@ -358,10 +360,12 @@ const SurveyTaking = () => {
 
   // ── Check completion flag on mount ───────────────────────────
   useEffect(() => {
-    if (sessionStorage.getItem(`survey-${surveyId}-completed`)) {
+    // Use token for invited flows (surveyId is 'respond' for all token URLs)
+    const completionKey = token || surveyId;
+    if (sessionStorage.getItem(`survey-${completionKey}-completed`)) {
       setAlreadySubmitted(true);
     }
-  }, [surveyId]);
+  }, [surveyId, token]);
 
   // ── Render: Question Input ─────────────────────────────────────
   const renderQuestion = (q) => {
@@ -715,6 +719,9 @@ const SurveyTaking = () => {
 
   // Start Screen (before starting survey)
   if (!started) {
+    const themeColor = survey.resolvedTheme?.primaryColor || survey.themeColor || '#007bff';
+    const logoUrl = survey.resolvedTheme?.logoUrl || '';
+
     return (
       <div className="survey-taking-page">
         <div className="container py-5">
@@ -723,8 +730,15 @@ const SurveyTaking = () => {
               <div className="card shadow-sm">
                 <div
                   className="card-header text-white text-center"
-                  style={{ backgroundColor: survey.themeColor || '#007bff' }}
+                  style={{ backgroundColor: themeColor }}
                 >
+                  {logoUrl && (
+                    <img
+                      src={logoUrl}
+                      alt="Company Logo"
+                      style={{ maxHeight: '60px', marginBottom: '12px', borderRadius: '4px' }}
+                    />
+                  )}
                   <h3 className="mb-0">{survey.title}</h3>
                 </div>
                 <div className="card-body text-center">
@@ -748,7 +762,7 @@ const SurveyTaking = () => {
                   <div className="flex gap-3 justify-content-center">
                     <button
                       className="btn btn-primary btn-lg"
-                      style={{ backgroundColor: survey.themeColor || '#007bff', borderColor: survey.themeColor || '#007bff' }}
+                      style={{ backgroundColor: themeColor, borderColor: themeColor }}
                       onClick={() => { setStarted(true); setStartedAt(new Date().toISOString()); }}
                     >
                       Start Survey
@@ -800,7 +814,7 @@ const SurveyTaking = () => {
                 className="progress-bar"
                 style={{
                   width: `${Math.min(progress, 100)}%`,
-                  backgroundColor: survey.themeColor || '#007bff'
+                  backgroundColor: survey.resolvedTheme?.primaryColor || survey.themeColor || '#007bff'
                 }}
               />
             </div>
@@ -862,7 +876,7 @@ const SurveyTaking = () => {
                   className="btn btn-primary"
                   onClick={handleNext}
                   disabled={submitting}
-                  style={{ backgroundColor: survey.themeColor || '#007bff', borderColor: survey.themeColor || '#007bff' }}
+                  style={{ backgroundColor: survey.resolvedTheme?.primaryColor || survey.themeColor || '#007bff', borderColor: survey.resolvedTheme?.primaryColor || survey.themeColor || '#007bff' }}
                 >
                   Next
                   <MdArrowForward className="ms-2" />
