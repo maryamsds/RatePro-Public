@@ -20,15 +20,12 @@ const VerifyEmail = () => {
 
     const verify = async () => {
       try {
-        console.log("[VerifyEmail] Verifying email:", email, "code:", code)
         const res = await verifyEmail({ email, code });
-        console.log("[VerifyEmail] Verification response:", res.data)
 
         const planCode = res.data?.pendingPlanCode
         const billingCycle = res.data?.pendingBillingCycle || "monthly"
 
         if (planCode) {
-          console.log("[VerifyEmail] Plan intent found! Redirecting to auth-gateway with plan:", planCode, "billing:", billingCycle)
           Swal.fire({
             icon: "success",
             title: "✅ Email Verified!",
@@ -38,7 +35,6 @@ const VerifyEmail = () => {
             navigate(`/auth-gateway?plan=${planCode}&billing=${billingCycle}&verified=true`);
           });
         } else {
-          console.log("[VerifyEmail] No plan intent, redirecting to login")
           Swal.fire({
             icon: "success",
             title: "✅ Verified!",

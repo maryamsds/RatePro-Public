@@ -67,17 +67,14 @@ const AuthGateway = () => {
     useEffect(() => {
         const isVerified = searchParams.get("verified") === "true"
         if (isVerified && !user && !loading) {
-            console.log("[AuthGateway] Arrived with verified=true, attempting cookie-based auto-login via /auth/me")
             setLoading(true)
             API.get("/auth/me")
                 .then((res) => {
                     if (res.data?.success && res.data?.user) {
                         const userData = res.data.user
-                        console.log("[AuthGateway] Cookie auto-login successful:", userData.email)
                         // Store user in AuthContext (will trigger handleOnboard via useEffect[user])
                         login(userData)
                     } else {
-                        console.warn("[AuthGateway] /auth/me returned no user, showing login form")
                         setLoading(false)
                     }
                 })
@@ -90,28 +87,22 @@ const AuthGateway = () => {
 
     // If already logged in, proceed to onboard
     useEffect(() => {
-        console.log("[AuthGateway] useEffect[user] fired — user:", user ? { id: user._id, email: user.email, role: user.role, tenant: user.tenant } : null, "planCode:", planCode)
         if (user && planCode) {
-            console.log("[AuthGateway] User is logged in AND planCode exists → calling handleOnboard()")
             handleOnboard()
         } else if (user && !planCode) {
-            console.warn("[AuthGateway] User is logged in but NO planCode in URL — redirecting to admin dashboard.")
             window.location.href = buildAdminRedirectUrl("/app/dashboard")
         }
     }, [user])
 
     const handleOnboard = async () => {
         if (!planCode) {
-            console.warn("[AuthGateway] handleOnboard called but planCode is missing, aborting")
             setLoading(false)
             return
         }
         setLoading(true)
-        console.log("[AuthGateway] handleOnboard() starting — planCode:", planCode, "billingCycle:", billingCycle)
 
         try {
             const token = localStorage.getItem("accessToken")
-            console.log("[AuthGateway] Token from localStorage:", token ? `${token.substring(0, 20)}...` : "NULL (will use cookies)")
 
             // Build request config — use Bearer token if available, otherwise
             // rely on httpOnly cookies (sent automatically via withCredentials: true)
@@ -119,27 +110,21 @@ const AuthGateway = () => {
                 ? { headers: { Authorization: `Bearer ${token}` } }
                 : {}
 
-            console.log("[AuthGateway] Calling POST /subscriptions/onboard with:", { planCode, billingCycle })
             const res = await API.post(
                 "/subscriptions/onboard",
                 { planCode, billingCycle },
                 requestConfig
             )
-            console.log("[AuthGateway] Onboard response:", res.data)
 
             if (res.data.success) {
                 if (res.data.action === "checkout" && res.data.url) {
-                    console.log("[AuthGateway] Redirecting to Stripe checkout:", res.data.url)
                     window.location.href = res.data.url
                 } else if (res.data.action === "subscribed") {
                     const redirectUrl = buildAdminRedirectUrl("/app/onboarding")
-                    console.log("[AuthGateway] Free plan subscribed, redirecting via auth-redirect:", redirectUrl)
                     window.location.href = redirectUrl
                 } else if (res.data.action === "billing_portal" && res.data.url) {
-                    console.log("[AuthGateway] Redirecting to billing portal:", res.data.url)
                     window.location.href = res.data.url
                 } else {
-                    console.warn("[AuthGateway] Onboard success but UNKNOWN action:", res.data.action, "Full response:", res.data)
                     Swal.fire({ icon: "warning", title: "Unexpected Response", text: `Server returned action: "${res.data.action}". Please contact support.` })
                     setLoading(false)
                 }
@@ -169,7 +154,6 @@ const AuthGateway = () => {
 
         setLoading(true)
         try {
-            console.log("[AuthGateway] Submitting signup:", { name: fullName, email: signupEmail, planCode })
             const res = await registerUser({
                 name: fullName,
                 email: signupEmail,
@@ -177,12 +161,10 @@ const AuthGateway = () => {
                 planCode: planCode || undefined,
                 billingCycle: planCode ? billingCycle : undefined,
             })
-            console.log("[AuthGateway] Register response:", res.data)
 
             // If email verification required (case-insensitive check)
             const msg = (res.data?.message || "").toLowerCase()
             if (msg.includes("verify") || msg.includes("verification")) {
-                console.log("[AuthGateway] Email verification required, switching to login tab")
                 Swal.fire({
                     icon: "info",
                     title: "Verify Your Email",
@@ -199,12 +181,10 @@ const AuthGateway = () => {
             if (res.data?.data?.token || res.data?.token) {
                 const token = res.data?.data?.token || res.data?.token
                 const userData = res.data?.data?.user || res.data?.user
-                console.log("[AuthGateway] Auto-login with token, user:", userData)
                 localStorage.setItem("accessToken", token)
                 login(userData)
                 // handleOnboard will be triggered by the useEffect watching `user`
             } else {
-                console.warn("[AuthGateway] No token in response and no verify message. Response:", res.data)
                 setLoading(false)
             }
         } catch (error) {
@@ -221,26 +201,18 @@ const AuthGateway = () => {
     const handleLogin = async (e) => {
         e.preventDefault()
         setLoading(true)
-        console.log("[AuthGateway] handleLogin() starting — email:", loginEmail, "planCode:", planCode)
 
         try {
-            console.log("[AuthGateway] Calling loginUser API...")
             const res = await loginUser({ email: loginEmail, password: loginPassword })
-            console.log("[AuthGateway] Login API response:", res.data)
 
             const token = res.data?.data?.token || res.data?.token || res.data?.accessToken
             const userData = res.data?.data?.user || res.data?.user
-            console.log("[AuthGateway] Extracted token:", token ? `${token.substring(0, 20)}...` : "NULL/MISSING")
-            console.log("[AuthGateway] Extracted userData:", userData)
 
             if (token) {
                 localStorage.setItem("accessToken", token)
-                console.log("[AuthGateway] Token saved to localStorage. Calling login(userData)...")
                 login(userData)
                 // handleOnboard will be triggered by the useEffect watching `user`
-                console.log("[AuthGateway] login() called — useEffect should fire next and trigger handleOnboard if planCode exists")
             } else {
-                console.error("[AuthGateway] Login succeeded but NO TOKEN in response! Full response:", res.data)
                 Swal.fire({ icon: "error", title: "Login Error", text: "Login succeeded but no authentication token was received." })
                 setLoading(false)
             }

@@ -18,7 +18,6 @@ const ResetPassword = ({ email, otp }) => {
       Swal.fire("❌ Error", "Passwords do not match", "error")
       return
     }
-    console.log("🚀 Sending Reset Request", { email, otp, newPassword: password })
 
     try {
       const res = await resetPassword({ email, code: otp, newPassword: password });

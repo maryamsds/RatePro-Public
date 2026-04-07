@@ -12,9 +12,7 @@
 
 //     const handleSubmit = async (e) => {
 //         e.preventDefault();
-//         setLoading(true);
-//         console.log("Sending OTP verification request:", { email, code: otp });
-
+  //         setLoading(true);
 //         try {
 //             const res = await axios.post("http://localhost:5000/api/auth/verify-reset-code", {
 //                 email,
@@ -184,8 +182,6 @@ const EnterOTP = ({ email: propEmail, onVerified }) => {
     setLoading(true);
 
     try {
-      console.log("Verifying with:", { email, code: otp });
-
       const res = await verifyResetCode({ email, code: otp });
 
       Swal.fire("✅ Verified", res.data.message, "success");
