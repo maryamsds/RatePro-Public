@@ -6,7 +6,7 @@ const Step1Country = ({ onNext }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-column" style={{ minHeight: 300 }}>
+    <form onSubmit={handleSubmit} className="d-flex flex-column" style={{ minHeight: 300 }}>
       <h4>Select the Country where you had the experience</h4>
       <select name="country" className="form-select my-3" required>
         <option value="">-- Select Country --</option>

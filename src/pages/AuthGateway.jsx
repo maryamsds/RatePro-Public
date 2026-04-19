@@ -9,6 +9,8 @@ import API from "../api/auth"
 import PublicAPI from "../api/publicApi"
 import logo from "../assets/images/RATEPRO.png"
 import Swal from "sweetalert2"
+import { areAllPasswordRulesMet } from "../utilities/passwordValidator"
+import PasswordRequirements from "../components/PasswordRequirements"
 
 const AuthGateway = () => {
     const [searchParams] = useSearchParams()
@@ -149,6 +151,11 @@ const AuthGateway = () => {
 
         if (signupPassword !== confirmPassword) {
             Swal.fire({ icon: "error", title: "Password Mismatch", text: "Passwords do not match." })
+            return
+        }
+
+        if (!areAllPasswordRulesMet(signupPassword, signupEmail)) {
+            Swal.fire({ icon: "error", title: "Weak Password", text: "Password does not meet all requirements." })
             return
         }
 
@@ -384,6 +391,7 @@ const AuthGateway = () => {
                                                 {showPassword ? <FaEyeSlash /> : <FaEye />}
                                             </button>
                                         </div>
+                                        <PasswordRequirements password={signupPassword} email={signupEmail} />
                                     </div>
                                     <div className="mb-4">
                                         <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>

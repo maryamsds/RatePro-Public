@@ -320,16 +320,16 @@ const SurveysList = () => {
                 Share your feedback and help organizations improve their services.
                 Your opinion matters and makes a difference!
               </p>
-              <div className="flex flex-wrap gap-4 text-white-50">
-                <span className="flex align-items-center gap-2">
+              <div className="d-flex flex-wrap gap-4 text-white-50">
+                <span className="d-flex align-items-center gap-2">
                   <FaUsers size={18} />
                   <span>{surveys.length} Available Surveys</span>
                 </span>
-                <span className="flex align-items-center gap-2">
+                <span className="d-flex align-items-center gap-2">
                   <MdBusiness size={18} />
                   <span>Multiple Companies</span>
                 </span>
-                <span className="flex align-items-center gap-2">
+                <span className="d-flex align-items-center gap-2">
                   <MdLanguage size={18} />
                   <span>Multiple Languages</span>
                 </span>
@@ -356,7 +356,7 @@ const SurveysList = () => {
           <div className="row align-items-center g-3">
             <div className="col-md-5">
               <div className="input-group">
-                <span className="input-group-text bg-white border-end-0 flex align-items-center text-center">
+                <span className="input-group-text bg-white border-end-0 d-flex align-items-center text-center">
                   <MdSearch className="text-muted" />
                 </span>
                 <input
@@ -370,7 +370,7 @@ const SurveysList = () => {
             </div>
 
             <div className="col-md-3">
-              <div className="flex align-items-center gap-2">
+              <div className="d-flex align-items-center gap-2">
                 <MdCategory className="text-muted" size={18} />
                 <select
                   className="form-select"
@@ -387,7 +387,7 @@ const SurveysList = () => {
             </div>
 
             <div className="col-md-2">
-              <div className="flex align-items-center gap-2">
+              <div className="d-flex align-items-center gap-2">
                 <FaChartBar className="text-muted" size={14} />
                 <select
                   className="form-select"
@@ -432,7 +432,7 @@ const SurveysList = () => {
               </small>
             </div>
             <div className="col-md-6 text-end">
-              <div className="flex gap-2 justify-content-end">
+              <div className="d-flex gap-2 justify-content-end">
                 {(searchTerm || selectedCategory !== "all") && (
                   <button
                     className="btn btn-sm btn-outline-secondary hover-lift"
@@ -464,7 +464,7 @@ const SurveysList = () => {
           {/* Error Message */}
           {error && (
             <div className={`alert alert-${getAlertType()} alert-dismissible fade show`} role="alert">
-              <div className="flex align-items-center">
+              <div className="d-flex align-items-center">
                 <MdError className="me-2 flex-shrink-0" size={20} />
                 <div className="flex-grow-1">{getAlertMessage()}</div>
                 <button
@@ -487,7 +487,7 @@ const SurveysList = () => {
                   : 'No surveys available for the selected criteria. Please try different filters.'
                 }
               </p>
-              <div className="flex gap-2 justify-content-center">
+              <div className="d-flex gap-2 justify-content-center">
                 <button
                   className="btn btn-primary hover-lift"
                   onClick={() => {
@@ -521,7 +521,7 @@ const SurveysList = () => {
                       {/* Card Header with Theme Color */}
                       <div
                         className={viewMode === "list" ?
-                          "card-header border-0 text-white p-4 flex flex-column justify-content-between" :
+                          "card-header border-0 text-white p-4 d-flex flex-column justify-content-between" :
                           "card-header border-0 text-white p-4"
                         }
                         style={{
@@ -531,18 +531,18 @@ const SurveysList = () => {
                         }}
                       >
                         <div>
-                          <div className="flex justify-content-between align-items-start mb-3">
+                          <div className="d-flex justify-content-between align-items-start mb-3">
                             <span className="badge bg-white text-dark px-3 py-2">
                               {getCategoryLabel(survey.category)}
                             </span>
-                            <div className="flex align-items-center gap-1">
+                            <div className="d-flex align-items-center gap-1">
                               {renderStars(survey.averageRating)}
                               <small className="ms-1">({survey.averageRating})</small>
                             </div>
                           </div>
 
                           {/* Company Info */}
-                          <div className="flex align-items-center gap-2 mt-3">
+                          <div className="d-flex align-items-center gap-2 mt-3">
                             <div className="survey-icon bg-white bg-opacity-20">
                               <MdBusiness size={20} />
                             </div>
@@ -555,8 +555,8 @@ const SurveysList = () => {
 
                       {/* Card Body */}
                       <div className={viewMode === "list" ?
-                        "card-body flex-grow-1 p-4 flex flex-column justify-content-between" :
-                        "card-body flex flex-column"
+                        "card-body flex-grow-1 p-4 d-flex flex-column justify-content-between" :
+                        "card-body d-flex flex-column"
                       }>
                         <div>
                           <h5 className="card-title fw-bold mb-3">{survey.title}</h5>
@@ -568,15 +568,15 @@ const SurveysList = () => {
                         {/* Survey Stats */}
                         <div className="survey-meta">
                           <div className="row g-2 text-muted small mb-3">
-                            <div className="col-4 flex align-items-center gap-1">
+                            <div className="col-4 d-flex align-items-center gap-1">
                               <MdAccessTime size={14} />
                               <span>{survey.estimatedTime}</span>
                             </div>
-                            <div className="col-4 flex align-items-center gap-1">
+                            <div className="col-4 d-flex align-items-center gap-1">
                               <MdDescription size={14} />
                               <span>{survey.questions?.length || 0} Qs</span>
                             </div>
-                            <div className="col-4 flex align-items-center gap-1">
+                            <div className="col-4 d-flex align-items-center gap-1">
                               <FaUsers size={12} />
                               <span>{survey.totalResponses}</span>
                             </div>

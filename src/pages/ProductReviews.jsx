@@ -31,7 +31,7 @@ const ProductReviews = () => {
         description="Build better products by understanding customer needs, testing concepts, and optimizing experiences at every stage of development."
         backgroundClass="min-height-500"
       >
-        <div className="flex justify-content-center gap-3">
+        <div className="d-flex justify-content-center gap-3">
           <a href="#" className="btn btn-primary btn-lg px-4 py-2">
             Get Started
           </a>
@@ -260,9 +260,9 @@ const ProductReviews = () => {
                 ];
 
                 return (
-                  <div key={index} className="flex mb-4">
+                  <div key={index} className="d-flex mb-4">
                     <div
-                      className="flex-shrink-0 bg-primary text-white rounded-circle flex align-items-center justify-content-center me-4"
+                      className="flex-shrink-0 bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-4"
                       style={{ width: "40px", height: "40px" }}
                     >
                       {step}

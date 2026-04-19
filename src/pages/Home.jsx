@@ -35,7 +35,7 @@ const Home = () => {
         title="Experience Management Starts Here"
         description="Rate Pro helps organizations design and improve the experiences that define their brands, products, and culture."
       >
-        <div className="flex justify-content-center gap-3">
+        <div className="d-flex justify-content-center gap-3">
           <a href="#" className="btn btn-primary btn-lg px-4 py-2">
             Get Started
           </a>
@@ -252,7 +252,7 @@ const Home = () => {
 
             {/* Features Column */}
             <div className="col-lg-6">
-              <div className="flex align-items-start mb-4">
+              <div className="d-flex align-items-start mb-4">
                 <div className="fs-3 text-primary me-3">
                   <i className="fas fa-comment-alt"></i>
                 </div>
@@ -264,7 +264,7 @@ const Home = () => {
                 </div>
               </div>
 
-              <div className="flex align-items-start mb-4">
+              <div className="d-flex align-items-start mb-4">
                 <div className="fs-3 text-primary me-3">
                   <i className="fas fa-chart-pie"></i>
                 </div>
@@ -276,7 +276,7 @@ const Home = () => {
                 </div>
               </div>
 
-              <div className="flex align-items-start">
+              <div className="d-flex align-items-start">
                 <div className="fs-3 text-primary me-3">
                   <i className="fas fa-bolt"></i>
                 </div>

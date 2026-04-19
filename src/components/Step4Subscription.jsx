@@ -6,7 +6,7 @@ const Step4Subscription = ({ onNext, onPrev }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-column" style={{ minHeight: 300 }}>
+    <form onSubmit={handleSubmit} className="d-flex flex-column" style={{ minHeight: 300 }}>
       <h4>Have you subscribed to any of our offers?</h4>
       <div className="form-check my-2">
         <input type="radio" className="form-check-input" name="subscribed" value="Yes" id="subYes" required />
@@ -17,7 +17,7 @@ const Step4Subscription = ({ onNext, onPrev }) => {
         <label className="form-check-label" htmlFor="subNo">No</label>
       </div>
 
-      <div className="flex justify-content-between mt-auto">
+      <div className="d-flex justify-content-between mt-auto">
         <button type="button" className="btn btn-secondary" onClick={onPrev}>Prev</button>
         <button type="submit" className="btn btn-primary">Next</button>
       </div>

@@ -32,7 +32,7 @@ const Features = () => {
         title="Powerful Features for Your Review Platform"
         description="Rate Pro provides all the tools you need to collect, manage, and display customer reviews effectively."
       >
-        <div className="flex justify-content-center gap-3">
+        <div className="d-flex justify-content-center gap-3">
           <a href="#" className="btn btn-primary btn-lg px-4 py-2">
             Get Started
           </a>
@@ -148,7 +148,7 @@ const Features = () => {
             <div className="col-lg-6 order-lg-1 order-2"> {/* Changed order for mobile */}
               <h2 className="mb-4 text-center text-lg-start text-primary">Why Choose Rate Pro for Reviews?</h2>
 
-              <div className="benefit-item mb-4 flex align-items-start">
+              <div className="benefit-item mb-4 d-flex align-items-start">
                 <div className="me-3">
                   <i className="fas fa-check-circle text-primary mt-1"></i>
                 </div>
@@ -158,7 +158,7 @@ const Features = () => {
                 </div>
               </div>
 
-              <div className="benefit-item mb-4 flex align-items-start">
+              <div className="benefit-item mb-4 d-flex align-items-start">
                 <div className="me-3">
                   <i className="fas fa-check-circle text-primary mt-1"></i>
                 </div>
@@ -168,7 +168,7 @@ const Features = () => {
                 </div>
               </div>
 
-              <div className="benefit-item mb-4 flex align-items-start">
+              <div className="benefit-item mb-4 d-flex align-items-start">
                 <div className="me-3">
                   <i className="fas fa-check-circle text-primary mt-1"></i>
                 </div>
@@ -178,7 +178,7 @@ const Features = () => {
                 </div>
               </div>
 
-              <div className="benefit-item flex align-items-start">
+              <div className="benefit-item d-flex align-items-start">
                 <div className="me-3">
                   <i className="fas fa-check-circle text-primary mt-1"></i>
                 </div>

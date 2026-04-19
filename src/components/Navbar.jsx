@@ -183,7 +183,7 @@ const Navbar = () => {
                     <li>
                       <button
                         onClick={handleLogout}
-                        className="dropdown-item text-danger flex align-items-center"
+                        className="dropdown-item text-danger d-flex align-items-center"
                       >
                         <MdExitToApp className="me-2" /> Logout
                       </button>

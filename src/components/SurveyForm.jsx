@@ -50,9 +50,9 @@ const SurveyForm = ({ onClose, currentStep = 1, setCurrentStep }) => {
   };
 
   return (
-    <div className="flex flex-column">
+    <div className="d-flex flex-column">
       {/* Centered Form Box */}
-      <div className="flex-grow-1 h-100 flex justify-content-center align-items-center">
+      <div className="flex-grow-1 h-100 d-flex justify-content-center align-items-center">
         <div className="card shadow p-3 w-100" style={{ maxWidth: 700 }}>
           {renderStep()}
         </div>

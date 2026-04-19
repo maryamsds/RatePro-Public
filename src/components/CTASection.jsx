@@ -11,7 +11,7 @@ const CTASection = ({
       <div className="container">
         <h2 className="mb-3 fw-bold">{title}</h2>
         <p className="mb-4 fs-5">{description}</p>
-        <div className="flex flex-wrap justify-content-center gap-3">
+        <div className="d-flex flex-wrap justify-content-center gap-3">
           <a href={primaryButtonLink} className="btn btn-light btn-lg px-4">
             {primaryButtonText}
           </a>

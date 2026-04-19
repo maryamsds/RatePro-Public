@@ -6,7 +6,7 @@ const Step3Operator = ({ onNext, onPrev }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-column" style={{ minHeight: 300 }}>
+    <form onSubmit={handleSubmit} className="d-flex flex-column" style={{ minHeight: 300 }}>
       <h4>What is the name of your operator?</h4>
       <input
         type="text"
@@ -20,7 +20,7 @@ const Step3Operator = ({ onNext, onPrev }) => {
         <img src="https://via.placeholder.com/200x100?text=Operator+Logo" alt="Operator" className="img-fluid rounded" />
       </div>
 
-      <div className="flex justify-content-between mt-auto">
+      <div className="d-flex justify-content-between mt-auto">
         <button type="button" className="btn btn-secondary" onClick={onPrev}>Prev</button>
         <button type="submit" className="btn btn-primary">Next</button>
       </div>

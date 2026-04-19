@@ -19,7 +19,7 @@ const Widgets = () => {
         title="Display Reviews Where They Matter Most"
         description="Showcase authentic customer feedback with customizable widgets designed to boost trust and conversion rates."
       >
-        <div className="flex justify-content-center gap-3">
+        <div className="d-flex justify-content-center gap-3">
           <a href="#" className="btn btn-primary btn-lg">
             Explore Widgets
           </a>
@@ -141,7 +141,7 @@ const Widgets = () => {
               <p className="lead mb-4">
                 Make your review widgets an extension of your brand with our powerful customization options.
               </p>
-              <div className="customization-feature flex mb-3">
+              <div className="customization-feature d-flex mb-3">
                 <div className="feature-icon me-3">
                   <i className="fas fa-palette "></i>
                 </div>
@@ -152,7 +152,7 @@ const Widgets = () => {
                   </p>
                 </div>
               </div>
-              <div className="customization-feature flex mb-3">
+              <div className="customization-feature d-flex mb-3">
                 <div className="feature-icon me-3">
                   <i className="fas fa-th-large"></i>
                 </div>
@@ -161,7 +161,7 @@ const Widgets = () => {
                   <p>Choose from grid, carousel, or list layouts to best showcase your customer reviews.</p>
                 </div>
               </div>
-              <div className="customization-feature flex mb-3">
+              <div className="customization-feature d-flex mb-3">
                 <div className="feature-icon me-3">
                   <i className="fas fa-mobile-alt"></i>
                 </div>
@@ -263,7 +263,7 @@ const Widgets = () => {
           <div className="row align-items-center">
             <div className="col-lg-6 order-lg-2">
               <h3 className="mb-4">Add Reviews to Your Site in Minutes</h3>
-              <div className="implementation-step flex mb-4">
+              <div className="implementation-step d-flex mb-4">
                 <div className="step-number me-3">
                   <span className="badge bg rounded-circle p-3">1</span>
                 </div>
@@ -272,7 +272,7 @@ const Widgets = () => {
                   <p>Select from our library of pre-designed widgets or create a custom design.</p>
                 </div>
               </div>
-              <div className="implementation-step flex mb-4">
+              <div className="implementation-step d-flex mb-4">
                 <div className="step-number me-3">
                   <span className="badge bg rounded-circle p-3">2</span>
                 </div>
@@ -281,7 +281,7 @@ const Widgets = () => {
                   <p>Adjust colors, fonts, and layout to match your brand's look and feel.</p>
                 </div>
               </div>
-              <div className="implementation-step flex mb-4">
+              <div className="implementation-step d-flex mb-4">
                 <div className="step-number me-3">
                   <span className="badge bg rounded-circle p-3">3</span>
                 </div>

@@ -3,6 +3,8 @@ import Swal from "sweetalert2"
 import { FaLock, FaEye, FaEyeSlash } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
 import { resetPassword } from "../api/auth"
+import { areAllPasswordRulesMet } from "../utilities/passwordValidator"
+import PasswordRequirements from "../components/PasswordRequirements"
 
 const ResetPassword = ({ email, otp }) => {
   const [password, setPassword] = useState("")
@@ -16,6 +18,11 @@ const ResetPassword = ({ email, otp }) => {
     e.preventDefault()
     if (password !== confirmPassword) {
       Swal.fire("❌ Error", "Passwords do not match", "error")
+      return
+    }
+
+    if (!areAllPasswordRulesMet(password, email || "")) {
+      Swal.fire("❌ Error", "Password does not meet all requirements", "error")
       return
     }
 
@@ -39,14 +46,15 @@ const ResetPassword = ({ email, otp }) => {
                 <div className="mb-3 text-start">
                   <label className="form-label">New Password</label>
                   <div className="input-group">
-                    <span className="input-group-text flex align-items-center text-center"><FaLock /></span>
+                    <span className="input-group-text d-flex align-items-center text-center"><FaLock /></span>
                     <input type={showPassword ? "text" : "password"} className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required />
                   </div>
+                  <PasswordRequirements password={password} email={email || ""} />
                 </div>
                 <div className="mb-3 text-start">
                   <label className="form-label">Confirm Password</label>
                   <div className="input-group">
-                    <span className="input-group-text flex align-items-center text-center"><FaLock /></span>
+                    <span className="input-group-text d-flex align-items-center text-center"><FaLock /></span>
                     <input type={showPassword ? "text" : "password"} className="form-control" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
                   </div>
                 </div>

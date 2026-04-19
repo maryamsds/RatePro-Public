@@ -10,6 +10,8 @@ import {
 import { getCurrentUser, updateProfile, updateUserProfile, uploadAvatar } from "../api/auth"
 import { useNavigate } from "react-router-dom"
 import Swal from "sweetalert2";
+import { areAllPasswordRulesMet } from "../utilities/passwordValidator";
+import PasswordRequirements from "../components/PasswordRequirements";
 
 const Profile = () => {
     const navigate = useNavigate()
@@ -172,6 +174,11 @@ const Profile = () => {
         if (newPassword !== confirmPassword)
             errors.confirmPassword = "Passwords do not match";
 
+        // Check frontend validation rules
+        if (newPassword && !areAllPasswordRulesMet(newPassword, formData.email)) {
+            errors.newPassword = "Password does not meet all requirements";
+        }
+
         setPasswordErrors(errors);
 
         if (Object.values(errors).some((e) => e)) return;
@@ -265,14 +272,14 @@ const Profile = () => {
 
     return (
         <div className="container py-5">
-            <div className="flex justify-content-between align-items-center mb-4">
+            <div className="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <h2 className="fw-bold text-dark">Profile Settings</h2>
                     <p className="text-muted small">
                         Manage your account settings and preferences
                     </p>
                 </div>
-                <div className="flex gap-2">
+                <div className="d-flex gap-2">
                     {activeTab === "profile" && (
                         isEditing ? (
                             <>
@@ -479,6 +486,7 @@ const Profile = () => {
                                         {passwordErrors.newPassword && (
                                             <small className="text-danger">{passwordErrors.newPassword}</small>
                                         )}
+                                        <PasswordRequirements password={passwordData.newPassword} email={formData.email} />
                                     </div>
                                     <div className="col-md-12">
                                         <label className="form-label">Confirm Password</label>
@@ -500,6 +508,7 @@ const Profile = () => {
                                             type="button"
                                             className="btn btn-primary"
                                             onClick={handlePasswordRequest}
+                                            disabled={!areAllPasswordRulesMet(passwordData.newPassword, formData.email) || !passwordData.currentPassword || passwordData.newPassword !== passwordData.confirmPassword}
                                         >
                                             Update Password
                                         </button>

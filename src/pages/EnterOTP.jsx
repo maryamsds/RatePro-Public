@@ -212,7 +212,7 @@ const EnterOTP = ({ email: propEmail, onVerified }) => {
                 <div className="mb-3 text-start">
                   <label className="form-label">OTP Code</label>
                   <div className="input-group">
-                    <span className="input-group-text flex align-items-center text-center">
+                    <span className="input-group-text d-flex align-items-center text-center">
                       <MdVpnKey />
                     </span>
                     <input

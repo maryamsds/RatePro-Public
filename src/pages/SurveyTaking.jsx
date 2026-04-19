@@ -394,7 +394,7 @@ const SurveyTaking = () => {
       // ── Rating (star-based) ──
       case 'rating':
         return (
-          <div className="rating-options flex gap-2 justify-content-center my-4">
+          <div className="rating-options d-flex gap-2 justify-content-center my-4">
             {(q.options?.length > 0 ? q.options : [1, 2, 3, 4, 5]).map((rating) => (
               <button
                 key={rating}
@@ -416,11 +416,11 @@ const SurveyTaking = () => {
       case 'nps':
         return (
           <div className="nps-scale">
-            <div className="flex justify-content-between align-items-center mb-3">
+            <div className="d-flex justify-content-between align-items-center mb-3">
               <small className="text-muted">Not likely</small>
               <small className="text-muted">Extremely likely</small>
             </div>
-            <div className="flex justify-content-center gap-2 flex-wrap">
+            <div className="d-flex justify-content-center gap-2 flex-wrap">
               {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((score) => (
                 <button
                   key={score}
@@ -461,7 +461,7 @@ const SurveyTaking = () => {
       // ── Scale ──
       case 'scale':
         return (
-          <div className="flex justify-content-center gap-2 flex-wrap my-4">
+          <div className="d-flex justify-content-center gap-2 flex-wrap my-4">
             {(q.options?.length > 0 ? q.options : [1, 2, 3, 4, 5]).map((val) => (
               <button
                 key={val}
@@ -531,7 +531,7 @@ const SurveyTaking = () => {
       // ── Yes/No ──
       case 'yesno':
         return (
-          <div className="flex justify-content-center gap-3 my-4">
+          <div className="d-flex justify-content-center gap-3 my-4">
             {['Yes', 'No'].map((option) => (
               <button
                 key={option}
@@ -829,21 +829,21 @@ const SurveyTaking = () => {
                   <p className="card-text mb-4">{survey.description}</p>
 
                   <div className="survey-info mb-4">
-                    <div className="flex justify-content-center gap-4 text-muted">
+                    <div className="d-flex justify-content-center gap-4 text-muted">
                       {survey.estimatedTime && (
-                        <div className="flex align-items-center">
+                        <div className="d-flex align-items-center">
                           <FaClock className="me-2" />
                           <span>{survey.estimatedTime}</span>
                         </div>
                       )}
-                      <div className="flex align-items-center">
+                      <div className="d-flex align-items-center">
                         <FaUsers className="me-2" />
                         <span>{survey.questions.length} questions</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex gap-3 justify-content-center">
+                  <div className="d-flex gap-3 justify-content-center">
                     <button
                       className="btn btn-primary btn-lg"
                       style={{ backgroundColor: themeColor, borderColor: themeColor }}
@@ -927,7 +927,7 @@ const SurveyTaking = () => {
             </div>
 
             {/* Navigation Buttons */}
-            <div className="flex justify-content-between">
+            <div className="d-flex justify-content-between">
               <button
                 className="btn btn-outline-secondary"
                 onClick={handlePrevious}

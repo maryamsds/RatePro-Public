@@ -22,7 +22,7 @@ const Integrations = () => {
         title="Connect Your Experience Ecosystem"
         description="Integrate Rate Pro with your favorite platforms to streamline workflows and maximize the value of your experience data."
       >
-        <div className="flex justify-content-center gap-3">
+        <div className="d-flex justify-content-center gap-3">
           <a href="#" className="btn btn-primary btn-lg">
             Explore Integrations
           </a>
@@ -89,7 +89,7 @@ const Integrations = () => {
             {[shopifyLogo, woocommerceLogo, magentoLogo, bigcommerceLogo].map((logo, index) => (
               <div className="col-6 col-md-4 col-lg-3" key={index}> {/* Adjusted column classes */}
                 <div className="integration-card h-100 text-center p-3 bg-white shadow-sm rounded"> {/* Added h-100 and adjusted padding */}
-                  <div className="flex align-items-center justify-content-center" style={{ height: "60px" }}>
+                  <div className="d-flex align-items-center justify-content-center" style={{ height: "60px" }}>
                     <img
                       src={logo || "/placeholder.svg"}
                       alt="Integration Logo"
@@ -124,7 +124,7 @@ const Integrations = () => {
             {[mailchimpLogo, klaviyoLogo, hubspotLogo, activecampaignLogo].map((logo, index) => (
               <div className="col-6 col-md-4 col-lg-3" key={index}>
                 <div className="integration-card h-100 text-center p-3 bg-white shadow-sm rounded">
-                  <div className="flex align-items-center justify-content-center" style={{ height: "60px" }}>
+                  <div className="d-flex align-items-center justify-content-center" style={{ height: "60px" }}>
                     <img
                       src={logo || "/placeholder.svg"}
                       alt="Integration Logo"
@@ -160,7 +160,7 @@ const Integrations = () => {
             {[salesforceLogo, googleAnalyticsLogo, zendeskLogo, segmentLogo].map((logo, index) => (
               <div className="col-6 col-md-4 col-lg-3" key={index}>
                 <div className="integration-card h-100 text-center p-3 bg-white shadow-sm rounded">
-                  <div className="flex align-items-center justify-content-center" style={{ height: "60px" }}>
+                  <div className="d-flex align-items-center justify-content-center" style={{ height: "60px" }}>
                     <img
                       src={logo || "/placeholder.svg"}
                       alt="Integration Logo"
@@ -193,7 +193,7 @@ const Integrations = () => {
           <div className="row align-items-center">
             <div className="col-lg-6">
               <h2 className="mb-4 text-primary">Why Integrate with Rate Pro?</h2>
-              <div className="benefit-item flex mb-4">
+              <div className="benefit-item d-flex mb-4">
                 <div className="benefit-icon me-3">
                   <i className="fas fa-bolt text-primary fa-2x"></i>
                 </div>
@@ -202,7 +202,7 @@ const Integrations = () => {
                   <p>Eliminate manual tasks and automate the review collection process from purchase to display.</p>
                 </div>
               </div>
-              <div className="benefit-item flex mb-4">
+              <div className="benefit-item d-flex mb-4">
                 <div className="benefit-icon me-3">
                   <i className="fas fa-chart-pie text-primary fa-2x"></i>
                 </div>
@@ -211,7 +211,7 @@ const Integrations = () => {
                   <p>Connect customer experience data across platforms for a complete view of your customer journey.</p>
                 </div>
               </div>
-              <div className="benefit-item flex mb-4">
+              <div className="benefit-item d-flex mb-4">
                 <div className="benefit-icon me-3">
                   <i className="fas fa-cogs text-primary fa-2x"></i>
                 </div>

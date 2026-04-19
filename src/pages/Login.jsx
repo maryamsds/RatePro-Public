@@ -128,7 +128,7 @@ const Login = () => {
           <div className="col-md-6 col-lg-5">
             <div className="login-card">
               <div className="text-center mb-4">
-                <div className="flex justify-content-center align-items-center mb-3">
+                <div className="d-flex justify-content-center align-items-center mb-3">
                   <img src={logo || "/placeholder.svg"} alt="Rater Pro" height="50" className="me-2" />
                   <div className="survanta">Rate Pro</div>
                 </div>
@@ -140,7 +140,7 @@ const Login = () => {
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">Email address</label>
                   <div className="input-group">
-                    <span className="input-group-text flex align-items-center text-center"><FaEnvelope /></span>
+                    <span className="input-group-text d-flex align-items-center text-center"><FaEnvelope /></span>
                     <input
                       type="email"
                       className="form-control"
@@ -156,7 +156,7 @@ const Login = () => {
                   <label htmlFor="password" className="form-label">Password</label>
                   <div className="password-field">
                     <div className="input-group">
-                      <span className="input-group-text flex align-items-center text-center"><FaLock /></span>
+                      <span className="input-group-text d-flex align-items-center text-center"><FaLock /></span>
                       <input
                         type={showPassword ? "text" : "password"}
                         className="form-control password-input"
@@ -172,7 +172,7 @@ const Login = () => {
                     {passwordError && <div className="text-danger mt-2">{passwordError}</div>}
                   </div>
                 </div>
-                <div className="flex justify-content-between mb-4">
+                <div className="d-flex justify-content-between mb-4">
                   <div className="form-check">
                     <input
                       className="form-check-input"
@@ -192,7 +192,7 @@ const Login = () => {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-outline-secondary w-100 flex align-items-center justify-content-center"
+                  className="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center"
                   onClick={handleGoogleLogin}
                 >
                   <img src={googleLogo} alt="Google" height="20" className="me-2" />

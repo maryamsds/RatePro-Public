@@ -1,6 +1,6 @@
 const Hero = ({ title, description, children, backgroundClass = "" }) => {
   return (
-    <section className={`hero flex align-items-center ${backgroundClass}`}>
+    <section className={`hero d-flex align-items-center ${backgroundClass}`}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-10 col-xl-8 text-center">
